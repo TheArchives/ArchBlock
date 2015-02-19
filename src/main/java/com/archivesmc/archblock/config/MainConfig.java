@@ -3,6 +3,8 @@ package com.archivesmc.archblock.config;
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.List;
+
 public class MainConfig {
     private Plugin plugin;
     private FileConfiguration configuration;
@@ -39,5 +41,9 @@ public class MainConfig {
 
     public String getDatabaseName() {
         return this.configuration.getString("db_config.name");
+    }
+
+    public List<String> getDisabledWorlds() {
+        return this.configuration.getStringList("disabled_worlds");
     }
 }
