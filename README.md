@@ -31,13 +31,14 @@ in.
 Compiling
 ---------
 
-We use Gradle to compile, which should make life easier for everyone involved.
+We use Gradle to compile, which should make life easier for everyone involved. Please
+be aware that you will need at least Java 7 to both build and use this plugin.
 
 #### Compiling on Windows
 
 1. Clone this repository
 2. `cd` into the directory you cloned to and `gradlew.bat shadowjar`
-3. Find your jar in `build/libs
+3. Find your jar in `build/libs`
 
 #### Compiling on Linux
 
