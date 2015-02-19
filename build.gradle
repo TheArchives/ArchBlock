@@ -11,6 +11,13 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.0'
 }
 
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+ }
+
 sourceCompatibility = 1.7
 version = '1.0'
 
