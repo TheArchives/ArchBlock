@@ -1,0 +1,16 @@
+# ArchBlock main configuration file.
+
+# Database configuration. We only support MySQL right now.
+db_config:
+    username: "archblock"
+    password: "SomeKindOfSecurePasswordButNotThisOne"
+    host: "localhost"
+    port: "3306"  # Default MySQL port
+    database: "archblock"
+
+# Worlds to disable this plugin for.
+disabled_worlds:
+- world_the_end  # For example.
+
+# Don't edit this - you'll break your configuration.
+version: "0.0.1"

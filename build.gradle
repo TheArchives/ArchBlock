@@ -42,6 +42,7 @@ dependencies {
     compile "org.bukkit:bukkit:1.7.9-R0.2"
     compile "net.milkbowl.vault:VaultAPI:1.5"
     compile "com.sk89q.worldedit:worldedit-bukkit:6.0.1"
+    compile "mysql:mysql-connector-java:5.1.34"
 }
 
 jar {
