@@ -1,0 +1,22 @@
+name: Inter
+main: com.archivesmc.archblock.Plugin
+version: 0.0.1
+author: Gareth Coles
+website: https://github.com/TheArchives/ArchBlock
+
+depend: [WorldEdit]
+
+commands:
+    command:
+        description: Command description.
+        usage: /<command> [argument]
+        aliases: [alias]
+
+permissions:
+    archblock.*:
+        description: Gives access to everything
+        children:
+            archblock.somechild = true
+    archblock.somechild:
+        description: Some child permission
+        default: op
