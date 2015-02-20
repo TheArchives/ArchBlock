@@ -1,6 +1,6 @@
 package com.archivesmc.archblock.storage;
 
-import com.sk89q.worldedit.entity.Player;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
