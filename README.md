@@ -1,6 +1,10 @@
 ArchBlock
 =========
 
+Builds are available! You can get them at [my Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
+
+---
+
 ArchBlocks provides a fairly revolutionary block protection system. We're tired
 of the plot plugins, of the buyable regions and precious-stones-style area claims.
 

@@ -17,6 +17,18 @@ public class MainConfig {
     public void reload() {
         this.plugin.reloadConfig();
         this.configuration = this.plugin.getConfig();
+
+        switch(this.getVersion()) {
+            case "0.0.1":
+                break;
+            default:
+                this.plugin.getLogger().warning(
+                        String.format(
+                                "Unknown version \"%s\", please make sure your config.yml is correct.", this.getVersion()
+                        )
+                );
+                break;
+        }
     }
 
     public String getVersion() {
