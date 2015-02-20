@@ -2,11 +2,13 @@ package com.archivesmc.archblock.storage.database;
 
 import com.archivesmc.archblock.Plugin;
 import com.archivesmc.archblock.storage.StorageHandler;
+import com.sk89q.worldedit.entity.Player;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.bukkit.World;
 
 import java.sql.*;
 import java.util.List;
+import java.util.UUID;
 
 public class MySQL implements StorageHandler {
     private Plugin plugin;
@@ -160,6 +162,38 @@ public class MySQL implements StorageHandler {
                 this.connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+    
+    @Override
+    public void upsertPlayer(Player player) {
+        this.upsertPlayer(player.getUniqueId(), player.getName());
+    }
+
+    @Override
+    public void upsertPlayer(UUID uuid, String username) {
+        PreparedStatement statement = null;
+        
+        try {
+            statement = this.connection.prepareStatement(
+                    "INSERT INTO players (UUID, username) VALUES (?, ?) ON DUPLICATE KEY UPDATE username=?"
+            );
+            statement.setString(1, uuid.toString());
+            statement.setString(2, username);
+            statement.setString(3, username);
+            
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            this.plugin.getLogger().severe(String.format("Unable to add user: %s", username));
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
