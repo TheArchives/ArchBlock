@@ -2,7 +2,7 @@ package com.archivesmc.archblock.storage.database;
 
 import com.archivesmc.archblock.Plugin;
 import com.archivesmc.archblock.storage.StorageHandler;
-import com.sk89q.worldedit.entity.Player;
+import org.bukkit.entity.Player;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.bukkit.World;
 
