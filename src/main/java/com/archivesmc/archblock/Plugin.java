@@ -14,6 +14,11 @@ public class Plugin extends JavaPlugin {
     private MainConfig mainConfig;
 
     @Override
+    public void onLoad() {
+        this.api = new ArchBlock(this);
+    }
+
+    @Override
     public void onEnable() {
         this.saveDefaultConfig();
         this.mainConfig = new MainConfig(this);
@@ -35,8 +40,6 @@ public class Plugin extends JavaPlugin {
             this.getPluginLoader().disablePlugin(this);
             return;
         }
-
-        this.api = new ArchBlock(this);
     }
 
     @Override

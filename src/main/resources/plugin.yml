@@ -1,4 +1,4 @@
-name: Inter
+name: ArchBlock
 main: com.archivesmc.archblock.Plugin
 version: 0.0.1
 author: Gareth Coles
@@ -16,7 +16,7 @@ permissions:
     archblock.*:
         description: Gives access to everything
         children:
-            archblock.somechild = true
+            archblock.somechild: true
     archblock.somechild:
         description: Some child permission
         default: op

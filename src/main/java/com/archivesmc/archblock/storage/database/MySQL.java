@@ -49,14 +49,17 @@ public class MySQL implements StorageHandler {
             );
 
             // First, make sure the database exists.
-            statement = this.connection.prepareStatement("CREATE DATABASE IF NOT EXISTS ?");
-            statement.setString(1, this.database);
+            // Unfortunately we can't use a prepared statement for this.
+            statement = this.connection.prepareStatement(
+                    String.format("CREATE DATABASE IF NOT EXISTS %s", this.database)
+            );
             statement.execute();
             statement.close();
 
             // Next, use it..
-            statement = this.connection.prepareStatement("USE ?");
-            statement.setString(1, this.database);
+            statement = this.connection.prepareStatement(
+                    String.format("USE %s", this.database)
+            );
             statement.execute();
             statement.close();
 
@@ -66,7 +69,7 @@ public class MySQL implements StorageHandler {
                 statement = this.connection.prepareStatement(
                         "CREATE TABLE players(" +
                             "UUID VARCHAR(255) PRIMARY KEY," +
-                            "username VARCHAR(255) KEY" +
+                            "username VARCHAR(255)" +
                         ")"
                 );
                 statement.execute();
@@ -98,16 +101,16 @@ public class MySQL implements StorageHandler {
                 }
 
                 if (!this.hasTable(String.format("%s_blocks", w.getName()))) {
-                    statement = this.connection.prepareStatement(
-                            "CREATE TABLE ?_blocks(" +
+                    statement = this.connection.prepareStatement(String.format(
+                            "CREATE TABLE %s_blocks(" +
                                 "UUID VARCHAR(255)," +
-                                "x BIGINT KEY," +
-                                "y BIGINT KEY," +
-                                "z BIGINT KEY" +
+                                "x BIGINT," +
+                                "y BIGINT," +
+                                "z BIGINT," +
+                                "PRIMARY KEY(x, y, z)" +
                             ")"
-                    );
+                    , w.getName()));
 
-                    statement.setString(1, w.getName());
                     statement.execute();
                     statement.close();
 

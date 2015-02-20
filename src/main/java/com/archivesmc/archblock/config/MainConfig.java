@@ -52,7 +52,7 @@ public class MainConfig {
     }
 
     public String getDatabaseName() {
-        return this.configuration.getString("db_config.name");
+        return this.configuration.getString("db_config.database");
     }
 
     public List<String> getDisabledWorlds() {
