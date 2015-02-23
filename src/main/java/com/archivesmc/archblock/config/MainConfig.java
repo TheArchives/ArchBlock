@@ -43,16 +43,16 @@ public class MainConfig {
         return this.configuration.getString("db_config.password");
     }
 
-    public String getDatabaseHost() {
-        return this.configuration.getString("db_config.host");
+    public String getDatabaseDriver() {
+        return this.configuration.getString("db_config.jdbc_driver");
     }
 
-    public Integer getDatabasePort() {
-        return this.configuration.getInt("db_config.port", 3306);
+    public String getDatabaseDialect() {
+        return this.configuration.getString("db_config.hibernate_dialect");
     }
 
-    public String getDatabaseName() {
-        return this.configuration.getString("db_config.database");
+    public String getDatabaseURL() {
+        return this.configuration.getString("db_config.connection_url");
     }
 
     public List<String> getDisabledWorlds() {
