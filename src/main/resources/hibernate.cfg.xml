@@ -4,16 +4,36 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.proxool.xml">
-            proxool.cfg.xml
-        </property>
-
-        <property name="hibernate.proxool.pool_alias">
-            archblock-pool
-        </property>
-
         <property name="hibernate.hbm2ddl.auto">
             create
+        </property>
+
+        <property name="connection.autocommit">
+            true
+        </property>
+
+        <property name="hbm2ddl.auto">
+            update
+        </property>
+
+        <property name="hibernate.c3p0.min_size">
+            5
+        </property>
+
+        <property name="hibernate.c3p0.max_size">
+            20
+        </property>
+
+        <property name="hibernate.c3p0.timeout">
+            300
+        </property>
+
+        <property name="hibernate.c3p0.max_statements">
+            50
+        </property>
+
+        <property name="hibernate.c3p0.idle_test_period">
+            3000
         </property>
 
         <!-- List of mapping classes -->

@@ -5,8 +5,8 @@ db_config:
     # JDBC driver to use. Defaults to MySQL, "com.mysql.jdbc.Driver"
     jdbc_driver: "com.mysql.jdbc.Driver"
 
-    # SQL dialect to use. Defaults to MySQL, "org.hibernate.dialect.MySQLDialect"
-    hibernate_dialect: "org.hibernate.dialect.MySQLDialect"
+    # SQL dialect to use. Defaults to MySQL 5, "org.hibernate.dialect.MySQL5InnoDBDialect"
+    hibernate_dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
 
     # JDBC connection URL. You may change "localhost", "3306" and "archblock" as needed
     # to change the database host, port and name respectively.

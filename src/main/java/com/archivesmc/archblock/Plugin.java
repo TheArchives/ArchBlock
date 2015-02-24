@@ -31,15 +31,16 @@ public class Plugin extends JavaPlugin {
         this.mainConfig = new MainConfig(this);
 
         this.hibernateConfiguration = new Configuration().configure()
-                .setProperty("hibernate.dialect", this.mainConfig.getDatabaseDialect())
-                .setProperty("hibernate.connection.driver_class", this.mainConfig.getDatabaseDriver())
-                .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())
-                .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())
-                .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword());
-
-        new SchemaExport(this.hibernateConfiguration).create(false, true);
+                .setProperty("hibernate.dialect", this.mainConfig.getDatabaseDialect())                // org.hibernate.dialect.MySQL5Dialect
+                .setProperty("hibernate.connection.driver_class", this.mainConfig.getDatabaseDriver()) // com.mysql.jdbc.Driver
+                .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())             // jdbc:mysql://localhost:3306/archblock
+                .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())   // correct_username
+                .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword())   // correct_password
+                .setProperty("show_sql", "false");
 
         this.sessionFactory = this.hibernateConfiguration.buildSessionFactory();
+
+//        new SchemaExport(this.hibernateConfiguration).create(true, false);
 
         Session session = this.sessionFactory.openSession();
         session.beginTransaction();
@@ -64,6 +65,7 @@ public class Plugin extends JavaPlugin {
         session.save(player);
 
         session.getTransaction().commit();
+        session.flush();
         session.close();
     }
 
