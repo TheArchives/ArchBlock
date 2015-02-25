@@ -58,4 +58,8 @@ public class MainConfig {
     public List<String> getDisabledWorlds() {
         return this.configuration.getStringList("disabled_worlds");
     }
+
+    public Boolean getDatabseDebug() {
+        return this.configuration.getBoolean("db_config.debug");
+    }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.archivesmc.archblock.storage.entities">
+    <class name="Block" table="BLOCK">
+        <id name="id">
+            <generator class="increment"/>
+        </id>
+
+        <property name="uuid"/>
+
+        <properties name="uniqueBlock" unique="true" update="true">
+            <property name="x"/>
+            <property name="y"/>
+            <property name="z"/>
+            <property name="world"/>
+        </properties>
+    </class>
+</hibernate-mapping>

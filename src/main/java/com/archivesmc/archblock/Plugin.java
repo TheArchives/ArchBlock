@@ -2,14 +2,14 @@ package com.archivesmc.archblock;
 
 import com.archivesmc.archblock.api.ArchBlock;
 import com.archivesmc.archblock.config.MainConfig;
-import com.archivesmc.archblock.storage.entities.Block;
-import com.archivesmc.archblock.storage.entities.Friendship;
-import com.archivesmc.archblock.storage.entities.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
 
 public class Plugin extends JavaPlugin {
@@ -35,36 +35,16 @@ public class Plugin extends JavaPlugin {
                 .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())             // jdbc:mysql://localhost:3306/archblock
                 .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())   // correct_username
                 .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword())   // correct_password
-                .setProperty("show_sql", "false");
+                .setProperty("show_sql", this.mainConfig.getDatabseDebug() ? "true" : "false");        // false
 
         this.sessionFactory = this.hibernateConfiguration.buildSessionFactory();
 
-//        new SchemaExport(this.hibernateConfiguration).create(true, false);
+        Session session = this.getSession();
 
-        Session session = this.sessionFactory.openSession();
-        session.beginTransaction();
+        this.getLogger().info(String.format(
+                "Loaded! Found %s players.", session.createQuery("select count(*) from Player").uniqueResult()
+        ));
 
-        Block block = new Block();
-        block.setUuid("???");
-        block.setX(0L);
-        block.setY(0L);
-        block.setZ(0L);
-        block.setWorld("world");
-
-        Friendship friendship = new Friendship();
-        friendship.setPlayerUuid("???");
-        friendship.setFriendUuid("!!!");
-
-        Player player = new Player();
-        player.setUuid("???");
-        player.setUsername("arbot");
-
-        session.save(block);
-        session.save(friendship);
-        session.save(player);
-
-        session.getTransaction().commit();
-        session.flush();
         session.close();
     }
 
@@ -75,6 +55,10 @@ public class Plugin extends JavaPlugin {
 
     public ArchBlock getApi() {
         return this.api;
+    }
+
+    public Session getSession() {
+        return this.sessionFactory.openSession();
     }
 
     public List<String> getDisabledWorlds() {

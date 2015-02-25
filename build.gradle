@@ -54,7 +54,6 @@ dependencies {
     compile "com.google.code.findbugs:findbugs:3.0.0"
     compile "org.hibernate:hibernate-core:4.2.5.Final"
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
-    compile "org.hsqldb:hsqldb:2.3.2"
 }
 
 jar {

@@ -18,6 +18,9 @@ db_config:
     # Login password for the above user. Can be empty.
     password: "SomeKindOfSecurePasswordButNotThisOne"
 
+    # Debug mode. This will print all the generated SQL to the terminal (which could slow things down quite a bit)
+    debug: false
+
 # Worlds to disable this plugin for.
 disabled_worlds:
 - some_world_name  # For example.

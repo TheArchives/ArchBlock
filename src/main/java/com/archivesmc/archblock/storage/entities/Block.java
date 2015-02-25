@@ -1,13 +1,5 @@
 package com.archivesmc.archblock.storage.entities;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-
-@Entity
-@Table
-@SuppressFBWarnings(value="UWF_UNWRITTEN_FIELD", justification="Framework")
 public class Block {
     private Long id;
     private Long x;
@@ -19,10 +11,6 @@ public class Block {
 
     public Block() {}
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     public Long getId() {
         return this.id;
     }
@@ -31,7 +19,7 @@ public class Block {
         this.id = id;
     }
 
-    @Column(name="x")
+
     public Long getX() {
         return x;
     }
@@ -40,7 +28,7 @@ public class Block {
         this.x = x;
     }
 
-    @Column(name="y")
+
     public Long getY() {
         return y;
     }
@@ -49,7 +37,7 @@ public class Block {
         this.y = y;
     }
 
-    @Column(name="z")
+
     public Long getZ() {
         return z;
     }
@@ -58,7 +46,7 @@ public class Block {
         this.z = z;
     }
 
-    @Column(name="world")
+
     public String getWorld() {
         return world;
     }
@@ -67,7 +55,7 @@ public class Block {
         this.world = world;
     }
 
-    @Column(name="uuid")
+
     public String getUuid() {
         return uuid;
     }

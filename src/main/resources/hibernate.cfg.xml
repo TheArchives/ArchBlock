@@ -36,9 +36,10 @@
             3000
         </property>
 
-        <!-- List of mapping classes -->
-        <mapping class="com.archivesmc.archblock.storage.entities.Block"/>
-        <mapping class="com.archivesmc.archblock.storage.entities.Friendship"/>
-        <mapping class="com.archivesmc.archblock.storage.entities.Player"/>
+        <!-- Mappings -->
+        <mapping resource="com/archivesmc/archblock/storage/entities/Block.hbm.xml"/>
+        <mapping resource="com/archivesmc/archblock/storage/entities/Friendship.hbm.xml"/>
+        <mapping resource="com/archivesmc/archblock/storage/entities/Player.hbm.xml"/>
+
     </session-factory>
 </hibernate-configuration>
