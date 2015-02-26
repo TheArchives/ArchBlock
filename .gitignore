@@ -1,6 +1,9 @@
 # Build files
 build/
 
+# Downloaded libraries
+lib/
+
 # Project/Gradle files
 .gradle
 .idea

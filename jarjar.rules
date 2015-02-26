@@ -1,0 +1,2 @@
+rule org.hibernate.** libs.org.hibernate.@1
+rule javax.persistence.** libs.javax.persistence.@1
