@@ -1,10 +1,31 @@
-zap org.bukkit.**
-zap net.milkbowl.**
 zap com.sk89q.**
+zap net.milkbowl.**
+zap org.bukkit.**
+zap org.yaml.**
+
 
 rule com.archivesmc.** com.archivesmc.@1
-rule *.** libs.@1.@2
 
-keep com.archivesmc.archblock.Plugin
-keep libs.com.mysql.**
-keep libs.org.hibernate.**
+rule antlr.** libs.antlr.@1
+rule com.avaje.** libs.com.avaje.@1
+rule com.google.** libs.com.google.@1
+rule com.mchange.** libs.com.mchange.@1
+rule com.mysql.** libs.com.mysql.@1
+rule de.** libs.de.@1
+rule javassist.** libs.javassist.@1
+rule javax.annotation.** libs.javax.annotation.@1
+rule javax.persistence.** libs.javax.persistence.@1
+rule javax.transaction.** libs.javax.transaction.@1
+rule org.apache.** libs.org.apache.@1
+rule org.dom4j.** libs.org.dom4j.@1
+rule org.hamcrest.** libs.org.hamcrest.@1
+rule org.hibernate.** libs.org.hibernate.@1
+rule org.jboss.** libs.org.jboss.@1
+rule org.mozilla.** libs.org.mozilla.@1
+rule org.yaml.** libs.org.yaml.@1
+
+
+keep com.archivesmc.**
+keep org.hibernate.**
+keep com.mysql.**
+keep javax.**

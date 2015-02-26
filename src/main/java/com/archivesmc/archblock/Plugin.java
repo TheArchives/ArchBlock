@@ -50,7 +50,9 @@ public class Plugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.sessionFactory.close();
+        if (this.sessionFactory != null) {
+            this.sessionFactory.close();
+        }
     }
 
     public ArchBlock getApi() {
