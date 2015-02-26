@@ -2,11 +2,15 @@
 
 # Database configuration.
 db_config:
-    # JDBC driver to use. Defaults to MySQL, "com.mysql.jdbc.Driver"
-    jdbc_driver: "com.mysql.jdbc.Driver"
+    # Remember, when specifying class names for anything bundled with this
+    # plugin, you will need to prefix the package with "libs.".
+    # For example, "com.mysql.jdbc.Driver" becomes "libs.com.mysql.jdbc.Driver".
+    # Please see the BukkitDev or Github page for more information on this.
+
+    # JDBC driver to use. Defaults to MySQL, "libs.com.mysql.jdbc.Driver"
+    jdbc_driver: "libs.com.mysql.jdbc.Driver"
 
     # SQL dialect to use. Defaults to MySQL 5, "libs.org.hibernate.dialect.MySQL5InnoDBDialect"
-    # Bundled Hibernate dialects should start with "libs.".
     hibernate_dialect: "libs.org.hibernate.dialect.MySQL5InnoDBDialect"
 
     # JDBC connection URL. You may change "localhost", "3306" and "archblock" as needed

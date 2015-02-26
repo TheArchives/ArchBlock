@@ -23,18 +23,19 @@ tasks.withType(FindBugs) {
     }
  }
 
+version = "1.0.0"
+sourceCompatibility = 1.7
+
 task runJarJar(type: Exec) {
     workingDir '.'
 
     commandLine 'java', '-jar', 'lib/jarjar-1.4.jar',
             'process', 'jarjar.rules',
-            'build/libs/ArchBlock-1.0-all.jar', 'build/libs/ArchBlock-remapped.jar'
+            "build/libs/ArchBlock-" + version + "-all.jar",
+            "build/libs/ArchBlock-" + version + ".jar"
 }
 
 defaultTasks 'shadowJar', 'runJarJar'
-
-sourceCompatibility = 1.7
-version = '1.0'
 
 download {
     src 'https://jarjar.googlecode.com/files/jarjar-1.4.jar'
@@ -70,7 +71,6 @@ dependencies {
     compile "org.bukkit:bukkit:1.7.9-R0.2"
     compile "net.milkbowl.vault:VaultAPI:1.5"
     compile "com.sk89q.worldedit:worldedit-bukkit:6.0.1"
-    compile "com.google.code.findbugs:findbugs:3.0.0"
     compile "mysql:mysql-connector-java:5.1.34"
     compile "org.hibernate:hibernate-core:4.2.5.Final"
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
@@ -84,8 +84,8 @@ shadowJar {
     from sourceSets.main.java
 
     dependencies {
-        exclude(dependency("net.milkbowl.vault:VaultAPI:1.5"))
         exclude(dependency("org.bukkit:bukkit:1.7.9-R0.2"))
+        exclude(dependency("net.milkbowl.vault:VaultAPI:1.5"))
         exclude(dependency("com.sk89q.worldedit:worldedit-bukkit:6.0.1"))
     }
 }

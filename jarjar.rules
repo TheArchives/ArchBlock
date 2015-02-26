@@ -1,2 +1,10 @@
-rule org.hibernate.** libs.org.hibernate.@1
-rule javax.persistence.** libs.javax.persistence.@1
+zap org.bukkit.**
+zap net.milkbowl.**
+zap com.sk89q.**
+
+rule com.archivesmc.** com.archivesmc.@1
+rule *.** libs.@1.@2
+
+keep com.archivesmc.archblock.Plugin
+keep libs.com.mysql.**
+keep libs.org.hibernate.**
