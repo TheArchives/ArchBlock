@@ -8,8 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.List;
 
 public class Plugin extends JavaPlugin {
