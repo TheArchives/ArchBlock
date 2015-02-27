@@ -14,6 +14,7 @@ public class BlockPlaceEvent implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(org.bukkit.event.block.BlockPlaceEvent event) {
-
+        // TODO: Permissions
+        // TODO: WorldEdit region bypass
     }
 }

@@ -15,6 +15,7 @@ public class PistonMoveEvent implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(BlockPistonEvent event) {
-
+        // TODO: Permissions
+        // TODO: WorldEdit region bypass
     }
 }

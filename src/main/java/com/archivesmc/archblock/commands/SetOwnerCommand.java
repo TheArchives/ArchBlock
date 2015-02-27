@@ -15,6 +15,9 @@ public class SetOwnerCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // TODO: WorldEdit support
+        // TODO: Transfer blocks between users, and also in a WorldEdit selection
+
         sender.sendMessage(String.format(
                 "%s[%sWatchBlock%s]%s This command hasn't been implemented yet.",
                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED

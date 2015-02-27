@@ -15,6 +15,9 @@ public class UnfriendCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // TODO: Friends list removing
+        // TODO: Staff overrides
+
         if (args.length < 1) {
             sender.sendMessage(String.format(
                     "%s[%sWatchBlock%s]%s Usage: %s/%s%s %s<user>",
