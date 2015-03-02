@@ -19,7 +19,7 @@ public class FriendsCommand implements CommandExecutor {
         // TODO: Staff overrides
 
         sender.sendMessage(String.format(
-                "%s[%sWatchBlock%s]%s This command hasn't been implemented yet.",
+                "%s[%sArchBlock%s]%s This command hasn't been implemented yet.",
                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
         ));
 

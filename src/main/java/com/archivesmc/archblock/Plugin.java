@@ -10,6 +10,7 @@ import com.archivesmc.archblock.events.BlockBreakEvent;
 import com.archivesmc.archblock.events.BlockPlaceEvent;
 import com.archivesmc.archblock.events.PistonMoveEvent;
 import com.archivesmc.archblock.events.PlayerConnectEvent;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.hibernate.Session;
@@ -54,7 +55,7 @@ public class Plugin extends JavaPlugin {
         session.close();
 
         this.getCommand("friend").setExecutor(new FriendCommand(this));
-        this.getCommand("friends").setExecutor(new FriendsCommand(this));
+//        this.getCommand("friends").setExecutor(new FriendsCommand(this));
         this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
         this.getCommand("unfriend").setExecutor(new UnfriendCommand(this));
 
@@ -81,5 +82,9 @@ public class Plugin extends JavaPlugin {
 
     public List<String> getDisabledWorlds() {
         return this.mainConfig.getDisabledWorlds();
+    }
+
+    public WorldEditPlugin getWorldEdit() {
+        return (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
     }
 }

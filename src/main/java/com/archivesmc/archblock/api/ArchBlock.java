@@ -23,10 +23,6 @@ public class ArchBlock {
         return plugin;
     }
 
-    public Boolean canEditBlock(Player player, Block block) {
-        return true;
-    }
-
     public UUID getOwnerUUID(Block block) {
         return this.getOwnerUUID(block.getWorld(), block.getX(), block.getY(), block.getZ());
     }
@@ -98,12 +94,13 @@ public class ArchBlock {
 
         q.executeUpdate();
 
+        s.flush();
         s.close();
     }
 
     public Boolean hasFriendship(UUID left, UUID right) {
         Session s = this.plugin.getSession();
-        Query q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=? AND friendUuid = ?");
+        Query q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=? AND friendUuid=?");
 
         q.setString(0, left.toString());
         q.setString(1, right.toString());
@@ -123,6 +120,19 @@ public class ArchBlock {
         f.setFriendUuid(right.toString());
 
         s.saveOrUpdate(f);
+
+        s.flush();
+        s.close();
+    }
+
+    public void destroyFriendship(UUID left, UUID right) {
+        Session s = this.plugin.getSession();
+        Query q = s.createQuery("DELETE Friendship WHERE playerUuid=? AND friendUuid=?");
+
+        q.setString(0, left.toString());
+        q.setString(1, right.toString());
+
+        q.executeUpdate();
 
         s.flush();
         s.close();
