@@ -29,6 +29,6 @@ permissions:
         description: Gives access to all commands and overrides
         children:
             archblock.override: true
-    archblock.override:
+    archblock.bypass:
         description: Allows a player to bypass all block protection
         default: op

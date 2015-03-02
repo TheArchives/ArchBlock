@@ -23,7 +23,7 @@ public class BlockPlaceEvent implements Listener {
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlockAgainst());
         UUID ourUuid = event.getPlayer().getUniqueId();
 
-        if (owner != null) {
+        if (owner != null && !event.getPlayer().hasPermission("archblock.bypass")) {
             if (! owner.equals(ourUuid)) {
                 if (! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
                     event.getPlayer().sendMessage(

@@ -19,11 +19,10 @@ public class BlockBreakEvent implements Listener {
     public void onEvent(org.bukkit.event.block.BlockBreakEvent event) {
         // TODO: Permissions
         // TODO: WorldEdit region bypass
-
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlock());
         UUID ourUuid = event.getPlayer().getUniqueId();
 
-        if (owner != null) {
+        if (owner != null && !event.getPlayer().hasPermission("archblock.bypass")) {
             if (! owner.equals(ourUuid)) {
                 if (! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
                     event.getPlayer().sendMessage(

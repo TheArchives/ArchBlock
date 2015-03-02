@@ -15,9 +15,7 @@ public class PlayerConnectEvent implements Listener{
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(PlayerLoginEvent event) {
-        // TODO: Permissions
-        // TODO: WorldEdit region bypass
-
+        // This is just to be sure that the UUID has been stored
         this.plugin.getApi().storePlayer(event.getPlayer());
     }
 }
