@@ -1,6 +1,10 @@
 package com.archivesmc.archblock;
 
 import com.archivesmc.archblock.api.ArchBlock;
+import com.archivesmc.archblock.commands.FriendCommand;
+import com.archivesmc.archblock.commands.FriendsCommand;
+import com.archivesmc.archblock.commands.SetOwnerCommand;
+import com.archivesmc.archblock.commands.UnfriendCommand;
 import com.archivesmc.archblock.config.MainConfig;
 import com.archivesmc.archblock.events.BlockBreakEvent;
 import com.archivesmc.archblock.events.BlockPlaceEvent;
@@ -49,9 +53,14 @@ public class Plugin extends JavaPlugin {
 
         session.close();
 
+        this.getCommand("friend").setExecutor(new FriendCommand(this));
+        this.getCommand("friends").setExecutor(new FriendsCommand(this));
+        this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
+        this.getCommand("unfriend").setExecutor(new UnfriendCommand(this));
+
         this.getServer().getPluginManager().registerEvents(new BlockBreakEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
-//        this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerConnectEvent(this), this);
     }
 

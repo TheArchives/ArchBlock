@@ -7,16 +7,28 @@ website: https://github.com/TheArchives/ArchBlock
 depend: [WorldEdit]
 
 commands:
-    command:
-        description: Command description.
-        usage: /<command> [argument]
-        aliases: [alias]
+    friend:
+        description: Add another player as a friend, and allow them to edit your blocks
+        usage: /<command> [player]
+        aliases: [fr, f]
+    friends:
+        description: List everyone you've added as a friend
+        usage: /<command>
+        aliases: [fs]
+    setowner:
+        description: Set a player as the owner of a (WorldEdit) selecion of blocks
+        usage: /setowner [player]
+        aliases: [so]
+    unfriend:
+        description: Remove another player from your friends list, preventing them from editing your blocks
+        usage: /<command> [player]
+        aliases: [ufr, uf]
 
 permissions:
     archblock.*:
-        description: Gives access to everything
+        description: Gives access to all commands and overrides
         children:
-            archblock.somechild: true
-    archblock.somechild:
-        description: Some child permission
+            archblock.override: true
+    archblock.override:
+        description: Allows a player to bypass all block protection
         default: op
