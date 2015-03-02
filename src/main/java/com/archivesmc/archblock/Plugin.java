@@ -2,6 +2,10 @@ package com.archivesmc.archblock;
 
 import com.archivesmc.archblock.api.ArchBlock;
 import com.archivesmc.archblock.config.MainConfig;
+import com.archivesmc.archblock.events.BlockBreakEvent;
+import com.archivesmc.archblock.events.BlockPlaceEvent;
+import com.archivesmc.archblock.events.PistonMoveEvent;
+import com.archivesmc.archblock.events.PlayerConnectEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.hibernate.Session;
@@ -44,6 +48,11 @@ public class Plugin extends JavaPlugin {
         ));
 
         session.close();
+
+        this.getServer().getPluginManager().registerEvents(new BlockBreakEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
+//        this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerConnectEvent(this), this);
     }
 
     @Override
