@@ -64,6 +64,11 @@ repositories {
         url "http://maven.sk89q.com/artifactory/repo/"
         name "sk89q"
     }
+
+    maven {
+        url "http://maven.mewin.de/"
+        name "mewin"
+    }
 }
 
 dependencies {
@@ -71,6 +76,8 @@ dependencies {
     compile "org.bukkit:bukkit:1.7.9-R0.2"
     compile "net.milkbowl.vault:VaultAPI:1.5"
     compile "com.sk89q.worldedit:worldedit-bukkit:6.0.1"
+    compile "com.sk89q:worldguard:6.0.0-SNAPSHOT"
+    compile "com.mewin:WGCustomFlags:1.8.1-beta"
     compile "mysql:mysql-connector-java:5.1.34"
     compile "org.hibernate:hibernate-core:4.2.5.Final"
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"

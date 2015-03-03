@@ -21,7 +21,9 @@ public class PistonMoveEvent implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onExtendEvent(BlockPistonExtendEvent event) {
         // Strangely enough, this also fires when sticky pistons attempt to pull blocks.
-        // TODO: WorldEdit region bypass
+        if (this.plugin.getWorldGuardIntegration().isInIgnoredRegion(event.getBlock())) {
+            return;
+        }
 
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlock());
 
@@ -35,9 +37,9 @@ public class PistonMoveEvent implements Listener {
                     continue;
                 }
 
-//                if (blockOwner.equals(owner)) {
-//                    continue;
-//                }
+                if (blockOwner.equals(owner)) {
+                    continue;
+                }
 
                 if (this.plugin.getApi().hasFriendship(blockOwner, owner)) {
                     continue;
@@ -56,7 +58,9 @@ public class PistonMoveEvent implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onRetractEvent(BlockPistonRetractEvent event) {
-        // TODO: WorldEdit region bypass
+        if (this.plugin.getWorldGuardIntegration().isInIgnoredRegion(event.getBlock())) {
+            return;
+        }
 
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlock());
 
@@ -68,9 +72,9 @@ public class PistonMoveEvent implements Listener {
                 return;
             }
 
-//            if (blockOwner.equals(owner)) {
-//                return;
-//            }
+            if (blockOwner.equals(owner)) {
+                return;
+            }
 
             if (this.plugin.getApi().hasFriendship(blockOwner, owner)) {
                 return;

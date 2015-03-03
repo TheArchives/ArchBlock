@@ -1,3 +1,4 @@
+zap com.mewin.**
 zap com.sk89q.**
 zap net.milkbowl.**
 zap org.bukkit.**

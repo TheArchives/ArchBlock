@@ -4,7 +4,7 @@ version: 0.0.1
 author: Gareth Coles
 website: https://github.com/TheArchives/ArchBlock
 
-depend: [WorldEdit]
+depend: [WGCustomFlags, WorldEdit, WorldGuard]
 
 commands:
     friend:

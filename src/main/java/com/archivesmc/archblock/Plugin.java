@@ -10,7 +10,11 @@ import com.archivesmc.archblock.events.BlockBreakEvent;
 import com.archivesmc.archblock.events.BlockPlaceEvent;
 import com.archivesmc.archblock.events.PistonMoveEvent;
 import com.archivesmc.archblock.events.PlayerConnectEvent;
+import com.archivesmc.archblock.integrations.WorldGuard;
+import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.BooleanFlag;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.hibernate.Session;
@@ -22,8 +26,10 @@ import java.util.List;
 public class Plugin extends JavaPlugin {
     private ArchBlock api;
     private MainConfig mainConfig;
-
     private SessionFactory sessionFactory;
+    private WorldGuard worldGuardIntegration;
+
+    public static BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
 
     @Override
     public void onLoad() {
@@ -62,6 +68,9 @@ public class Plugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerConnectEvent(this), this);
+
+        this.getWGCustomFlagsPlugin().addCustomFlag(Plugin.bypassProtectionFlag);
+        this.worldGuardIntegration = new WorldGuard(this);
     }
 
     @Override
@@ -85,5 +94,17 @@ public class Plugin extends JavaPlugin {
 
     public WorldEditPlugin getWorldEdit() {
         return (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
+    }
+
+    public WorldGuardPlugin getWorldGuard() {
+        return (WorldGuardPlugin) this.getServer().getPluginManager().getPlugin("WorldGuard");
+    }
+
+    public WGCustomFlagsPlugin getWGCustomFlagsPlugin() {
+        return (WGCustomFlagsPlugin) this.getServer().getPluginManager().getPlugin("WGCustomFlags");
+    }
+
+    public WorldGuard getWorldGuardIntegration() {
+        return this.worldGuardIntegration;
     }
 }
