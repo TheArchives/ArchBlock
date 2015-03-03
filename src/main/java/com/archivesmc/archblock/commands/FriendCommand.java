@@ -26,11 +26,11 @@ public class FriendCommand implements CommandExecutor {
                     label, ChatColor.DARK_GREEN
             ));
         } else {
-            UUID player;
-            UUID friend;
+            String player;
+            String friend;
 
             if (sender instanceof Player) {
-                player = ((Player) sender).getUniqueId();
+                player = ((Player) sender).getUniqueId().toString();
                 friend = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (friend == null) {
@@ -40,14 +40,14 @@ public class FriendCommand implements CommandExecutor {
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
-                    if (this.plugin.getApi().hasFriendship(player, friend)) {
+                    if (this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
                         sender.sendMessage(String.format(
                                 "%s[%sArchBlock%s]%s You are already friends with %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
                     } else {
-                        this.plugin.getApi().createFriendship(player, friend);
+                        this.plugin.getApi().createFriendship(UUID.fromString(player), UUID.fromString(friend));
                         sender.sendMessage(String.format(
                                 "%s[%sArchBlock%s]%s You are now friends with %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
@@ -80,14 +80,14 @@ public class FriendCommand implements CommandExecutor {
                                 ChatColor.RED, ChatColor.AQUA, args[1]
                         ));
                     } else {
-                        if (this.plugin.getApi().hasFriendship(player, friend)) {
+                        if (this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
                             sender.sendMessage(String.format(
                                     "%s[%sArchBlock%s]%s %s%s is already friends with %s%s",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.RED, ChatColor.AQUA, args[1]
                             ));
                         } else {
-                            this.plugin.getApi().createFriendship(player, friend);
+                            this.plugin.getApi().createFriendship(UUID.fromString(player), UUID.fromString(friend));
 
                             sender.sendMessage(String.format(
                                     "%s[%sArchBlock%s]%s %s%s is now friends with %s%s",

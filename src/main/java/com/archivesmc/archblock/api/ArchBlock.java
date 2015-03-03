@@ -62,13 +62,9 @@ public class ArchBlock {
     public void setOwnerUUID(String world, Integer x, Integer y, Integer z, UUID owner) {
         Session s = this.plugin.getSession();
 
-        com.archivesmc.archblock.storage.entities.Block b = new com.archivesmc.archblock.storage.entities.Block();
-
-        b.setUuid(owner.toString());
-        b.setX(Long.valueOf(x));
-        b.setY(Long.valueOf(y));
-        b.setZ(Long.valueOf(z));
-        b.setWorld(world);
+        com.archivesmc.archblock.storage.entities.Block b = new com.archivesmc.archblock.storage.entities.Block(
+                Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), owner.toString(), world
+        );
 
         s.saveOrUpdate(b);
         s.flush();
@@ -114,10 +110,7 @@ public class ArchBlock {
 
     public void createFriendship(UUID left, UUID right) {
         Session s = this.plugin.getSession();
-        Friendship f = new Friendship();
-
-        f.setPlayerUuid(left.toString());
-        f.setFriendUuid(right.toString());
+        Friendship f = new Friendship(left.toString(), right.toString());
 
         s.saveOrUpdate(f);
 
@@ -154,7 +147,7 @@ public class ArchBlock {
         return (String) result;
     }
 
-    public UUID getUuidForUsername(String username) {
+    public String getUuidForUsername(String username) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=?");
         q.setString(0, username);
@@ -167,23 +160,27 @@ public class ArchBlock {
             return null;
         }
 
-        return UUID.fromString((String) result);
+        return (String) result;
     }
 
-    public void associateUuidWithUsername(UUID uuid, String username) {
-        Session s = this.plugin.getSession();
-        com.archivesmc.archblock.storage.entities.Player p = new com.archivesmc.archblock.storage.entities.Player();
+    public void storePlayer(UUID uuid, String username) {
+        com.archivesmc.archblock.storage.entities.Player p = new com.archivesmc.archblock.storage.entities.Player(
+                uuid.toString(), username
+        );
 
-        p.setCastedUuid(uuid);
-        p.setUsername(username);
-
-        s.saveOrUpdate(p);
-        s.flush();
-        s.close();
+        this.storePlayer(p);
     }
 
     public void storePlayer(Player player) {
-        this.associateUuidWithUsername(player.getUniqueId(), player.getName());
+        this.storePlayer(player.getUniqueId(), player.getName());
+    }
+
+    public void storePlayer(com.archivesmc.archblock.storage.entities.Player player) {
+        Session s = this.plugin.getSession();
+
+        s.saveOrUpdate(player);
+        s.flush();
+        s.close();
     }
 
     // TODO: Come up with a sane API

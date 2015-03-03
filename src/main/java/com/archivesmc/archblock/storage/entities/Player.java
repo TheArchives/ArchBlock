@@ -8,6 +8,10 @@ public class Player {
 
     public Player() {}
 
+    public Player(String uuid, String username) {
+        this.uuid = uuid;
+        this.username = username;
+    }
 
     public String getUsername() {
         return username;

@@ -47,7 +47,7 @@ public class SetOwnerCommand implements CommandExecutor {
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE, ChatColor.AQUA, ChatColor.BLUE
                 ));
             } else if (sender instanceof Player) {
-                UUID target = this.plugin.getApi().getUuidForUsername(args[0]);
+                String target = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (target == null && !("!".equals(args[0]))) {
                     sender.sendMessage(String.format(

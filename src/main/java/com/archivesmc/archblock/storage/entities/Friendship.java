@@ -7,6 +7,10 @@ public class Friendship {
 
     public Friendship() {}
 
+    public Friendship(String playerUuid, String friendUuid) {
+        this.playerUuid = playerUuid;
+        this.friendUuid = friendUuid;
+    }
 
     public Long getId() {
         return this.id;

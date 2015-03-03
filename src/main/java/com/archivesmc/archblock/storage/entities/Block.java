@@ -11,6 +11,14 @@ public class Block {
 
     public Block() {}
 
+    public Block(Long x, Long y, Long z, String uuid, String world) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.uuid = uuid;
+        this.world = world;
+    }
+
     public Long getId() {
         return this.id;
     }
