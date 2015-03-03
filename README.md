@@ -1,12 +1,12 @@
 This plugin is not finished!
 ============================
 
-Builds are available! You can get them at [my Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
+You can see my [TODO ticket](https://github.com/TheArchives/ArchBlock/issues/1) for more information on what's left.
 
 ArchBlock
 =========
 
-You can see my [TODO ticket](https://github.com/TheArchives/ArchBlock/issues/1) for more information on what's left.
+Builds are available! You can get them at [my Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
 
 ---
 
