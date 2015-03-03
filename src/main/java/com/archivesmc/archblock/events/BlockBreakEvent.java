@@ -20,21 +20,14 @@ public class BlockBreakEvent implements Listener {
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlock());
         UUID ourUuid = event.getPlayer().getUniqueId();
 
-        if (owner == null) {
-            return;
-        }
-
-        if (event.getPlayer().hasPermission("archblock.bypass")) {
-            return;
-        }
-
         if (this.plugin.getWorldGuardIntegration().isInIgnoredRegion(event.getBlock())) {
+            this.plugin.debug("Region has bypass-protection set to true");
             return;
         }
 
 
-        if (! owner.equals(ourUuid)) {
-            if (! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
+        if (owner != null && ! owner.equals(ourUuid)) {
+            if (! event.getPlayer().hasPermission("archblock.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
                 event.getPlayer().sendMessage(
                         String.format(
                                 "%s[%sArchBlock%s]%s You may not break blocks owned by %s%s%s.",
@@ -47,9 +40,10 @@ public class BlockBreakEvent implements Listener {
                 event.setCancelled(true);
                 return;
             }
+            this.plugin.debug("Owner is different but player has a bypass or is friends with the owner");
         }
 
-
+        this.plugin.debug("Everything's okay - break the block");
         this.plugin.getApi().removeOwner(event.getBlock());
     }
 }
