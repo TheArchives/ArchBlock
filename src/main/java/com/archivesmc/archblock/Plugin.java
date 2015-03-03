@@ -88,10 +88,6 @@ public class Plugin extends JavaPlugin {
         return this.sessionFactory.openSession();
     }
 
-    public List<String> getDisabledWorlds() {
-        return this.mainConfig.getDisabledWorlds();
-    }
-
     public WorldEditPlugin getWorldEdit() {
         return (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
     }

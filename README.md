@@ -72,7 +72,7 @@ What **isn't** this plugin?
 
 * This is not an automated region protection plugin - We hate PlotMe, and feel like it tends to stifle
   Creative servers by limiting users to small plots, and so this is our answer to that problem.
-* This is not a chunk- or area-ownership plugin - We feel like plugins that take the PreciousStone
+* This is not a chunk- or area-ownership plugin - We feel like plugins that take the PreciousStones
   approach can be annoying to use when all you want to do is build.
 * This is not a region-ownership plugin - WorldGuard does this extremely well, and this isn't a
   protection model we really wanted to look at in the first place.
@@ -131,7 +131,6 @@ If you simply need to redownload your configuration,
     * `password` - The password to use when connecting to the database.
     * `debug` - Set this to `true` to output all generated SQL to the terminal. Note that this will slow your
       server down considerably, so you should only use it for debugging purposes.
-* `disabled_worlds` - A list of disabled worlds that ArchBlock should not operate within.
 * `version` - Don't touch this. This value is used for automated configuration migrations, and will be
   updated automatically along with the plugin. If you edit this, you'll probably break your config.
 
@@ -178,5 +177,5 @@ anything that isn't a player, they may be run on other users.
 As of right now, we use the **WGCustomFlags** plugin to add a flag to every WorldGuard region. If
 you would like to disable protection in any region, you may set the flag `bypass-protection` to
 `true`, and no edits, piston movements, etc will be checked there. WorldGuard 6.x has planned support
-for custom flags, so we'll be able to implement this ourselves at that point, and thus we won't need
-to use **WGCustomFlags** for it at that point.
+for custom flags, so we'll eventually be able to implement this ourselves, and thus we won't need
+to use **WGCustomFlags** for it.

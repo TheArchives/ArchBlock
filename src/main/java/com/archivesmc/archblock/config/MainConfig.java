@@ -55,10 +55,6 @@ public class MainConfig {
         return this.configuration.getString("db_config.connection_url");
     }
 
-    public List<String> getDisabledWorlds() {
-        return this.configuration.getStringList("disabled_worlds");
-    }
-
     public Boolean getDatabseDebug() {
         return this.configuration.getBoolean("db_config.debug");
     }

@@ -26,9 +26,5 @@ db_config:
     # Debug mode. This will print all the generated SQL to the terminal (which could slow things down quite a bit)
     debug: false
 
-# Worlds to disable this plugin for.
-disabled_worlds:
-- some_world_name  # For example.
-
 # Don't edit this - you'll break your configuration.
 version: "0.0.1"
