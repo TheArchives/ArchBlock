@@ -24,7 +24,7 @@ public class BlockBreakEvent implements Listener {
             return;
         }
 
-        if (!event.getPlayer().hasPermission("archblock.bypass")) {
+        if (event.getPlayer().hasPermission("archblock.bypass")) {
             return;
         }
 
