@@ -1,7 +1,7 @@
 package com.archivesmc.archblock.commands;
 
 import com.archivesmc.archblock.Plugin;
-import com.archivesmc.archblock.runnables.MassOwnershipChanger;
+import com.archivesmc.archblock.runnables.database.MassOwnershipChanger;
 import com.archivesmc.archblock.runnables.RelayRunnable;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;

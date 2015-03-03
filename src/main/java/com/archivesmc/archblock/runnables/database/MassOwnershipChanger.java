@@ -1,4 +1,4 @@
-package com.archivesmc.archblock.runnables;
+package com.archivesmc.archblock.runnables.database;
 
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.block.Block;
