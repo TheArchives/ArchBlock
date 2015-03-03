@@ -40,7 +40,7 @@ public class UnfriendCommand implements CommandExecutor {
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
-                    if (this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
+                    if (! this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
                         sender.sendMessage(String.format(
                                 "%s[%sArchBlock%s]%s You are not friends with %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
