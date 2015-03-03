@@ -32,7 +32,7 @@ public class MassOwnershipChanger extends Thread {
         Query query;
 
         String world;
-        Object owner;
+        Object blockOwner;
 
         Integer x;
         Integer y;
@@ -52,10 +52,10 @@ public class MassOwnershipChanger extends Thread {
                 query.setInteger("y", y);
                 query.setInteger("z", z);
 
-                owner = query.uniqueResult();
+                blockOwner = query.uniqueResult();
 
-                if (owner != null) {
-                    if (!this.owner.equals(owner)) {
+                if (blockOwner != null) {
+                    if (! blockOwner.equals(this.owner)) {
                         if (this.owner != null) {
                             query = s.createQuery(updateOwnerQuery);
 

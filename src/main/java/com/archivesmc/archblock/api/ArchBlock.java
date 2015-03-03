@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ArchBlock {
@@ -129,6 +130,29 @@ public class ArchBlock {
 
         s.flush();
         s.close();
+    }
+
+    public List getFriendships(UUID left) {
+        Session s = this.plugin.getSession();
+        Query q = s.createQuery(
+                "SELECT p.username FROM Friendship f, Player p WHERE f.playerUuid=:uuid AND p.uuid=f.friendUuid"
+        );
+
+        q.setString("uuid", left.toString());
+
+        return q.list();
+    }
+
+    public List getFriendships(String username) {
+        Session s = this.plugin.getSession();
+        Query q = s.createQuery(
+                "SELECT p2.username FROM Friendship f, Player p1, Player p2 WHERE " +
+                "p1.username=:username AND f.playerUuid=p1.uuid AND p2.uuid=f.friendUuid"
+        );
+
+        q.setString("username", username);
+
+        return q.list();
     }
 
     public String getUsernameForUuid(UUID uuid) {
