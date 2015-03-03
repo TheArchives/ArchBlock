@@ -29,7 +29,7 @@ public class Plugin extends JavaPlugin {
     private SessionFactory sessionFactory;
     private WorldGuard worldGuardIntegration;
 
-    public static BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
+    public static final BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
 
     @Override
     public void onLoad() {
