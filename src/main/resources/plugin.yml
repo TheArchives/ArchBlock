@@ -11,10 +11,10 @@ commands:
         description: Add another player as a friend, and allow them to edit your blocks
         usage: /<command> [player]
         aliases: [fr, f]
-#    friends:
-#        description: List everyone you've added as a friend
-#        usage: /<command>
-#        aliases: [fs]
+    friends:
+        description: List everyone you've added as a friend
+        usage: /<command>
+        aliases: [fs]
     setowner:
         description: Set a player as the owner of a (WorldEdit) selecion of blocks
         usage: /setowner [player]
