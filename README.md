@@ -62,7 +62,7 @@ following things.
   * This also extends to connected blocks, eg blocks pushing other blocks
 * Users placing a sticky piston next to a protected block and pulling it out of place without
   permission
-  * This also extends to connected block (eg, slime blocks) but may cause strange visual issues.
+  * This also extends to connected blocks (eg, slime blocks) but may cause strange visual issues.
     Please note, the blocks being pulled may appear to disappear client-side, but in reality, they're
     still there. This appears to be a bug in either Bukkit or Minecraft itself, and you can fix it
     by relogging, changing world, or simply going far away enough to unload the affected chunks.
