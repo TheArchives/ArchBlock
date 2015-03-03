@@ -173,7 +173,7 @@ public class ArchBlock {
     }
 
     public void storePlayer(com.archivesmc.archblock.storage.entities.Player player) {
-        new StorePlayerTh(this.plugin, player).start();
+        new StorePlayerThread(this.plugin, player).start();
     }
 
     // TODO: Come up with a sane API
