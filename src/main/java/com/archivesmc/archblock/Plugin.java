@@ -2,7 +2,6 @@ package com.archivesmc.archblock;
 
 import com.archivesmc.archblock.api.ArchBlock;
 import com.archivesmc.archblock.commands.FriendCommand;
-import com.archivesmc.archblock.commands.FriendsCommand;
 import com.archivesmc.archblock.commands.SetOwnerCommand;
 import com.archivesmc.archblock.commands.UnfriendCommand;
 import com.archivesmc.archblock.config.MainConfig;
@@ -23,7 +22,6 @@ public class Plugin extends JavaPlugin {
     private ArchBlock api;
     private MainConfig mainConfig;
 
-    private Configuration hibernateConfiguration;
     private SessionFactory sessionFactory;
 
     @Override
@@ -36,15 +34,15 @@ public class Plugin extends JavaPlugin {
         this.saveDefaultConfig();
         this.mainConfig = new MainConfig(this);
 
-        this.hibernateConfiguration = new Configuration().configure()
+        Configuration hibernateConfiguration = new Configuration().configure()
                 .setProperty("hibernate.dialect", this.mainConfig.getDatabaseDialect())                // org.hibernate.dialect.MySQL5Dialect
                 .setProperty("hibernate.connection.driver_class", this.mainConfig.getDatabaseDriver()) // com.mysql.jdbc.Driver
                 .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())             // jdbc:mysql://localhost:3306/archblock
                 .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())   // correct_username
                 .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword())   // correct_password
-                .setProperty("show_sql", this.mainConfig.getDatabseDebug() ? "true" : "false");        // false
+                .setProperty("show_sql", this.mainConfig.getDatabseDebug() ? "true" : "false");
 
-        this.sessionFactory = this.hibernateConfiguration.buildSessionFactory();
+        this.sessionFactory = hibernateConfiguration.buildSessionFactory();
 
         Session session = this.getSession();
 

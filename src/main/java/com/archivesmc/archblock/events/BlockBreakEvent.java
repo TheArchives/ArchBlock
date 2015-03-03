@@ -17,8 +17,8 @@ public class BlockBreakEvent implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(org.bukkit.event.block.BlockBreakEvent event) {
-        // TODO: Permissions
         // TODO: WorldEdit region bypass
+
         UUID owner = this.plugin.getApi().getOwnerUUID(event.getBlock());
         UUID ourUuid = event.getPlayer().getUniqueId();
 

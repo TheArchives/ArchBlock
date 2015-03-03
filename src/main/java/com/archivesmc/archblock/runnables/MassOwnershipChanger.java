@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.UUID;
 
 public class MassOwnershipChanger extends Thread {
     private Plugin plugin;
