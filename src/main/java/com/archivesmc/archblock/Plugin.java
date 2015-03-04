@@ -84,6 +84,14 @@ public class Plugin extends JavaPlugin {
         }
     }
 
+    public void debug(Object message) {
+        if (this.mainConfig.getDatabseDebug()) {
+            this.getLogger().info(String.format(
+                    "[DEBUG] %s", message
+            ));
+        }
+    }
+
     public ArchBlock getApi() {
         return this.api;
     }

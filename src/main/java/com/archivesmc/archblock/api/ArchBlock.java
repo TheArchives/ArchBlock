@@ -123,7 +123,7 @@ public class ArchBlock {
                 "p1.username=:username AND f.playerUuid=p1.uuid AND p2.uuid=f.friendUuid"
         );
 
-        q.setString("username", username);
+        q.setString("username", username.toLowerCase());
 
         return q.list();
     }
@@ -147,7 +147,7 @@ public class ArchBlock {
     public String getUuidForUsername(String username) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=?");
-        q.setString(0, username);
+        q.setString(0, username.toLowerCase());
 
         Object result = q.uniqueResult();
 
@@ -162,14 +162,14 @@ public class ArchBlock {
 
     public void storePlayer(UUID uuid, String username) {
         com.archivesmc.archblock.storage.entities.Player p = new com.archivesmc.archblock.storage.entities.Player(
-                uuid.toString(), username
+                uuid.toString(), username.toLowerCase()
         );
 
         this.storePlayer(p);
     }
 
     public void storePlayer(Player player) {
-        this.storePlayer(player.getUniqueId(), player.getName());
+        this.storePlayer(player.getUniqueId(), player.getName().toLowerCase());
     }
 
     public void storePlayer(com.archivesmc.archblock.storage.entities.Player player) {

@@ -1,3 +1,8 @@
+This plugin is not finished!
+============================
+
+You can see my [TODO ticket](https://github.com/TheArchives/ArchBlock/issues/1) for more information on what's left.
+
 ArchBlock
 =========
 

@@ -1,11 +1,11 @@
 package com.archivesmc.archblock.commands;
 
 import com.archivesmc.archblock.Plugin;
-import com.sk89q.worldedit.entity.Player;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -61,7 +61,7 @@ public class FriendCommand implements CommandExecutor {
                             "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <friend>",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                            command, ChatColor.DARK_GREEN
+                            label, ChatColor.DARK_GREEN
                     ));
                 } else {
                     player = this.plugin.getApi().getUuidForUsername(args[0]);
