@@ -3,6 +3,7 @@ zap com.sk89q.**
 zap net.milkbowl.**
 zap org.bukkit.**
 zap org.yaml.**
+zap java.tk.minecraftopia.**
 
 
 rule com.archivesmc.** com.archivesmc.@1

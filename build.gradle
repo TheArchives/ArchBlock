@@ -41,6 +41,10 @@ download {
     src 'https://jarjar.googlecode.com/files/jarjar-1.4.jar'
     dest 'lib/jarjar-1.4.jar'
 }
+download {
+    src 'http://dev.bukkit.org/media/files/716/564/WatchBlock.jar'
+    dest 'lib/WatchBlock.jar'
+}
 
 repositories {
     mavenCentral()
@@ -81,6 +85,9 @@ dependencies {
     compile "mysql:mysql-connector-java:5.1.34"
     compile "org.hibernate:hibernate-core:4.2.5.Final"
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
+    compile "commons-io:commons-io:2.4"
+
+    compile files('lib/WatchBlock.jar')
 }
 
 jar {
