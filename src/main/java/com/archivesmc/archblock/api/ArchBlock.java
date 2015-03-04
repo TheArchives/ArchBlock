@@ -34,6 +34,8 @@ public class ArchBlock {
     }
 
     public UUID getOwnerUUID(String world, Integer x, Integer y, Integer z) {
+        world = world.toLowerCase();
+
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT b.uuid FROM Block b WHERE world=? AND x=? AND y=? AND z=?");
 
@@ -62,6 +64,8 @@ public class ArchBlock {
     }
 
     public void setOwnerUUID(String world, Integer x, Integer y, Integer z, UUID owner) {
+        world = world.toLowerCase();
+
         com.archivesmc.archblock.storage.entities.Block b = new com.archivesmc.archblock.storage.entities.Block(
                 Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), owner.toString(), world
         );
@@ -78,6 +82,8 @@ public class ArchBlock {
     }
 
     public void removeOwner(String world, Integer x, Integer y, Integer z) {
+        world = world.toLowerCase();
+
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
@@ -117,6 +123,8 @@ public class ArchBlock {
     }
 
     public List getFriendships(String username) {
+        username = username.toLowerCase();
+
         Session s = this.plugin.getSession();
         Query q = s.createQuery(
                 "SELECT p2.username FROM Friendship f, Player p1, Player p2 WHERE " +
@@ -145,6 +153,8 @@ public class ArchBlock {
     }
 
     public String getUuidForUsername(String username) {
+        username = username.toLowerCase();
+
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=?");
         q.setString(0, username.toLowerCase());
@@ -161,6 +171,8 @@ public class ArchBlock {
     }
 
     public void storePlayer(UUID uuid, String username) {
+        username = username.toLowerCase();
+
         com.archivesmc.archblock.storage.entities.Player p = new com.archivesmc.archblock.storage.entities.Player(
                 uuid.toString(), username.toLowerCase()
         );
