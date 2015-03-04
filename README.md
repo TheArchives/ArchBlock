@@ -119,6 +119,9 @@ If there's enough demand, I'll make these dependencies optional, but for now, th
 If you simply need to redownload your configuration,
 [you can find the bundled config file here](https://github.com/TheArchives/ArchBlock/blob/master/src/main/resources/config.yml).
 
+* `enabled` - This is set to `false` by default. Set it to `true` when you're sure all your configuration
+  is correct. Doing so too early will cause your server to crash on load, as the threadpool will keep trying
+  to get a connection.
 * `db_config` - This section is for specifying your database connection details.
     * `jdbc_driver` - The JDBC driver to use for your database. Bukkit ships with the MySQL driver,
       but you may prefer to provide your own here. If you need to download one, you should be able
