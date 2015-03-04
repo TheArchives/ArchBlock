@@ -21,8 +21,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.List;
-
 public class Plugin extends JavaPlugin {
     private ArchBlock api;
     private MainConfig mainConfig;
@@ -40,6 +38,12 @@ public class Plugin extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.mainConfig = new MainConfig(this);
+
+        if (!this.mainConfig.getEnabled()) {
+            this.getLogger().warning("Plugin is disabled in the config. Set it up or it will do nothing!");
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         Configuration hibernateConfiguration = new Configuration().configure()
                 .setProperty("hibernate.dialect", this.mainConfig.getDatabaseDialect())                // org.hibernate.dialect.MySQL5Dialect
@@ -102,5 +106,9 @@ public class Plugin extends JavaPlugin {
 
     public WorldGuard getWorldGuardIntegration() {
         return this.worldGuardIntegration;
+    }
+
+    public Boolean hasWatchBlockPlugin() {
+        return this.getServer().getPluginManager().isPluginEnabled("WatchBlock");
     }
 }

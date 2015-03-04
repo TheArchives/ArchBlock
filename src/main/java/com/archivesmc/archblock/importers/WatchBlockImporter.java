@@ -1,5 +1,16 @@
 package com.archivesmc.archblock.importers;
 
-public class WatchBlockImporter {
-    // TODO: EVERYTHING
+import com.archivesmc.archblock.Plugin;
+
+public class WatchBlockImporter implements Importer{
+    private Plugin plugin;
+
+    public WatchBlockImporter(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public Boolean doImport() {
+        return null;
+    }
 }

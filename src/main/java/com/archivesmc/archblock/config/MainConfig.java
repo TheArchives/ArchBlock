@@ -58,4 +58,8 @@ public class MainConfig {
     public Boolean getDatabseDebug() {
         return this.configuration.getBoolean("db_config.debug");
     }
+
+    public Boolean getEnabled() {
+        return this.configuration.getBoolean("enabled", true);
+    }
 }

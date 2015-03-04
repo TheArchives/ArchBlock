@@ -1,5 +1,9 @@
 # ArchBlock main configuration file.
 
+# Set this to true after you've set up the plugin. Don't do it beforehand.
+# Make sure your database details are 100% correct BEFORE enabling this plugin.
+enabled: false
+
 # Database configuration.
 db_config:
     # Remember, when specifying class names for anything bundled with this
