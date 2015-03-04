@@ -120,7 +120,7 @@ public class WatchBlockImporter implements Importer{
                     IOUtils.closeQuietly(in);
 
                     jsonData = gson.fromJson(urlData, Map.class);
-                    uuid = UUID.fromString((String) jsonData.get("id"));
+                    uuid = this.getUuidFromId((String) jsonData.get("id"));
 
                     this.plugin.getApi().storePlayer(uuid, rs.getString("playername").toLowerCase());
                     this.plugin.getLogger().info(String.format(
@@ -160,7 +160,6 @@ public class WatchBlockImporter implements Importer{
             }
         }
 
-
         return true;
     }
 
@@ -183,5 +182,9 @@ public class WatchBlockImporter implements Importer{
         }
 
         return true;
+    }
+
+    private UUID getUuidFromId(String id) {
+        return UUID.fromString(id.substring(0, 8) + "-" + id.substring(8, 12) + "-" + id.substring(12, 16) + "-" + id.substring(16, 20) + "-" +id.substring(20, 32));
     }
 }
