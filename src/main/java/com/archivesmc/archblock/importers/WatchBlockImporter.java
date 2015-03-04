@@ -2,7 +2,6 @@ package com.archivesmc.archblock.importers;
 
 import com.archivesmc.archblock.Plugin;
 import com.archivesmc.archblock.utils.Utils;
-import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 import tk.minecraftopia.watchblock.WatchBlock;
@@ -17,7 +16,6 @@ public class WatchBlockImporter implements Importer{
     private WatchBlock watchBlockPlugin;
     private File watchBlockConfigDir;
 
-    private final Gson gson = new Gson();
     private final List<String> worlds = new ArrayList<>();
 
     public WatchBlockImporter(Plugin plugin) {
