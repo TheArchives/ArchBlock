@@ -237,6 +237,8 @@ public class WatchBlockImporter implements Importer{
             }
         }
 
+        this.info("Committing to the database. This can take an extremely long time!");
+
         s.flush();
         s.close();
 
@@ -339,7 +341,7 @@ public class WatchBlockImporter implements Importer{
 
                     tempUuid = this.plugin.getApi().getUuidForUsername(username);
                 }
-                
+
                 points.put(blockPoint, UUID.fromString(tempUuid));
             }
         } catch (FileNotFoundException | InterruptedException e) {
