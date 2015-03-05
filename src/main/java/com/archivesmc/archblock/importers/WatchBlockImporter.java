@@ -1,6 +1,8 @@
 package com.archivesmc.archblock.importers;
 
 import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.utils.Point2D;
+import com.archivesmc.archblock.utils.Point3D;
 import com.archivesmc.archblock.utils.Utils;
 import org.apache.commons.lang.StringUtils;
 import org.yaml.snakeyaml.Yaml;
@@ -10,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.List;
 
 public class WatchBlockImporter implements Importer{
     private Plugin plugin;
@@ -116,6 +119,11 @@ public class WatchBlockImporter implements Importer{
         return true;
     }
 
+    private Boolean convertWorld(String world) {
+        HashMap<Point2D, HashMap<Point3D, String>> points = new HashMap<>();
+        return true;
+    }
+
     private void doFetchUuid(String player) throws InterruptedException {
         String stringUuid;
         UUID uuid;
@@ -124,16 +132,49 @@ public class WatchBlockImporter implements Importer{
 
         if (stringUuid == null) {
             uuid = Utils.fetchUuid(player);
-            this.plugin.getApi().storePlayer(uuid, player);
 
             if (uuid == null) {
                 this.warning(String.format("Unable to fetch UUID for player: %s", player));
             } else {
+                this.plugin.getApi().storePlayer(uuid, player);
                 this.info(String.format("Fetched UUID for player: %s", player));
             }
 
             Thread.sleep(1500);  // Mojang rate-limiting..
         }
+    }
+
+    private Point2D pointFromFilename(String filename) {
+        String[] strings = filename.split("\\.");
+
+        if (strings.length < 3) {
+            // Last one is the file extension
+            return null;
+        }
+
+        return new Point2D(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
+    }
+
+    private Point3D pointFromStringTuple(String tuple) {
+        String[] strings = tuple.split(",");
+
+        if (strings.length < 3) {
+            return null;
+        }
+
+        return new Point3D(
+                Integer.parseInt(strings[0]),
+                Integer.parseInt(strings[1]),
+                Integer.parseInt(strings[2])
+        );
+    }
+
+    private void translatePointForChunk(Point2D chunkPoint, Point3D blockPoint) {
+        Integer x = chunkPoint.getX() * 16;
+        Integer z = chunkPoint.getY() * 16;
+
+        blockPoint.setX(x + blockPoint.getX());
+        blockPoint.setZ(z + blockPoint.getZ());
     }
 
     private void info(String message) {
