@@ -180,6 +180,7 @@ public class WatchBlockImporter implements Importer{
 
         Integer doneChunks = 0;
         Integer totalChunks = points.size();
+        Integer doneBlocks = 0;
 
         this.info(String.format(
                 "Importing %s chunks. This may take a while.", totalChunks
@@ -225,11 +226,18 @@ public class WatchBlockImporter implements Importer{
                 );
 
                 s.save(b);
+
+                doneBlocks += 1;
+
+                if (doneBlocks % 100 == 0) {
+                    s.flush();
+                    s.clear();
+                }
             }
 
             doneChunks += 1;
 
-            if (doneChunks % 100 == 0) {
+            if (doneChunks % 25 == 0) {
                 this.info(String.format(
                         "Chunks done: %s/%s",
                         doneChunks, totalChunks
@@ -237,7 +245,9 @@ public class WatchBlockImporter implements Importer{
             }
         }
 
-        this.info("Committing to the database. This can take an extremely long time!");
+        this.info(String.format(
+                "Total blocks: %s", doneBlocks
+        ));
 
         s.flush();
         s.close();
