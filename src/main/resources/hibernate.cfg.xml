@@ -43,7 +43,7 @@
         <property name="hibernate.order_inserts">
             true
         </property>
-        
+
         <property name="hibernate.order_updates">
             true
         </property>

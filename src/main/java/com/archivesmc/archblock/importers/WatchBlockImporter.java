@@ -270,6 +270,7 @@ public class WatchBlockImporter implements Importer{
 
             if (uuid == null) {
                 this.warning(String.format("Unable to fetch UUID for player: %s", player));
+                Thread.sleep(1500);  // Mojang rate-limiting..
                 return false;
             } else {
                 this.plugin.getApi().storePlayer(uuid, player);
