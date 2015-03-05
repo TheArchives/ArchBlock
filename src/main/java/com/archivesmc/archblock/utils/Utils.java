@@ -25,7 +25,13 @@ public class Utils {
             String urlData = IOUtils.toString(in);
 
             Map jsonData = gson.fromJson(urlData, Map.class);
-            String id = (String) jsonData.get("id");
+            Object idObject = jsonData.get("id");
+
+            if (idObject == null) {
+                return null;
+            }
+
+            String id = (String) idObject;
 
             return UUID.fromString(  // Of course, Mojang couldn't send actual UUIDs, that'd be too easy
                     id.substring(0 ,  8) + "-"
