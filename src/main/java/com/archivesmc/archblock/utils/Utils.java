@@ -25,6 +25,11 @@ public class Utils {
             String urlData = IOUtils.toString(in);
 
             Map jsonData = gson.fromJson(urlData, Map.class);
+
+            if (jsonData == null) {
+                return null;
+            }
+
             Object idObject = jsonData.get("id");
 
             if (idObject == null) {
