@@ -13,6 +13,7 @@ import tk.minecraftopia.watchblock.WatchBlock;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -93,8 +94,11 @@ public class WatchBlockImporter implements Importer{
         File friendsFile = new File(this.watchBlockConfigDir, "allow.yml");
 
         Yaml yaml = new Yaml();
+        FileInputStream in = null;
+
         try {
-            Map<String, Map<String, Boolean>> data = (Map) ((Map) yaml.load(new FileInputStream(friendsFile))).get("allow");
+            in = new FileInputStream(friendsFile);
+            Map<String, Map<String, Boolean>> data = (Map) ((Map) yaml.load(in)).get("allow");
             Map<String, Boolean> friends;
 
             String left;
@@ -103,9 +107,13 @@ public class WatchBlockImporter implements Importer{
             UUID leftUuid;
             UUID rightUuid;
 
-            for (String player : data.keySet()) {
+            String player;
+
+            for (Map.Entry<String, Map<String, Boolean>> entry : data.entrySet()) {
+                player = entry.getKey();
+                friends = entry.getValue();
+
                 this.doFetchUuid(player);
-                friends = data.get(player);
 
                 for (String friend : friends.keySet()) {
                     this.doFetchUuid(friend);
@@ -136,6 +144,14 @@ public class WatchBlockImporter implements Importer{
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         this.info("Friendships converted.");
@@ -315,11 +331,14 @@ public class WatchBlockImporter implements Importer{
 
         Map<Point3D, UUID> points = new HashMap<>();
         List<String> failedUsers = new ArrayList<>();
+        FileInputStream in = null;
 
         try {
             Yaml yaml = new Yaml();
+            in = new FileInputStream(file);
+
             Map<String, Map<String, String>> data =
-                    (Map<String, Map<String, String>>) yaml.load(new FileInputStream(file));
+                    (Map<String, Map<String, String>>) yaml.load(in);
 
             if (data == null) {
                 return null;
@@ -357,6 +376,14 @@ public class WatchBlockImporter implements Importer{
             }
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return points;
