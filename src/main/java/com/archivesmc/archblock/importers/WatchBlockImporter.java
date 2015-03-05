@@ -156,7 +156,7 @@ public class WatchBlockImporter implements Importer{
         }
 
         Point2D chunkPoint;
-        Map<Point3D, UUID> chunkMap = new HashMap<>();
+        Map<Point3D, UUID> chunkMap;
 
         for (File file : worldDir.listFiles()) {
             chunkPoint = this.pointFromFilename(file.getName());
@@ -247,7 +247,7 @@ public class WatchBlockImporter implements Importer{
         return true;
     }
 
-    private void doFetchUuid(String player) throws InterruptedException {
+    private Boolean doFetchUuid(String player) throws InterruptedException {
         String stringUuid;
         UUID uuid;
 
@@ -258,6 +258,7 @@ public class WatchBlockImporter implements Importer{
 
             if (uuid == null) {
                 this.warning(String.format("Unable to fetch UUID for player: %s", player));
+                return false;
             } else {
                 this.plugin.getApi().storePlayer(uuid, player);
                 this.info(String.format("Fetched UUID for player: %s", player));
@@ -265,6 +266,8 @@ public class WatchBlockImporter implements Importer{
 
             Thread.sleep(1500);  // Mojang rate-limiting..
         }
+
+        return true;
     }
 
     private Point2D pointFromFilename(String filename) {
@@ -298,6 +301,7 @@ public class WatchBlockImporter implements Importer{
         }
 
         Map<Point3D, UUID> points = new HashMap<>();
+        List<String> failedUsers = new ArrayList<>();
 
         try {
             Yaml yaml = new Yaml();
@@ -311,19 +315,32 @@ public class WatchBlockImporter implements Importer{
             Point3D blockPoint;
             String username;
             String tempUuid;
+            Boolean fetched;
 
             for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
                 blockPoint = this.pointFromStringTuple(entry.getKey());
                 this.translatePointForChunk(chunkPoint, blockPoint);
 
                 username = entry.getValue().get("player");
-                this.doFetchUuid(username);
+
+                if (failedUsers.contains(username)) {
+                    continue;
+                }
 
                 tempUuid = this.plugin.getApi().getUuidForUsername(username);
 
-                if (tempUuid != null) {
-                    points.put(blockPoint, UUID.fromString(tempUuid));
+                if (tempUuid == null) {
+                    fetched = this.doFetchUuid(username);
+
+                    if (!fetched) {
+                        failedUsers.add(username);
+                        continue;
+                    }
+
+                    tempUuid = this.plugin.getApi().getUuidForUsername(username);
                 }
+                
+                points.put(blockPoint, UUID.fromString(tempUuid));
             }
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();
