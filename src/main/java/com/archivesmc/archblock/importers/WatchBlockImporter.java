@@ -319,10 +319,10 @@ public class WatchBlockImporter implements Importer{
                 username = entry.getValue().get("player");
                 this.doFetchUuid(username);
 
-                tempUuid = this.plugin.getApi().getUuidForUsername(username));
-                
+                tempUuid = this.plugin.getApi().getUuidForUsername(username);
+
                 if (tempUuid != null) {
-                    points.put(blockPoint, UUID.fromString(tempUuid);
+                    points.put(blockPoint, UUID.fromString(tempUuid));
                 }
             }
         } catch (FileNotFoundException | InterruptedException e) {
