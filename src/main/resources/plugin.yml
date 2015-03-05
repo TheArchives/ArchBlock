@@ -5,6 +5,7 @@ author: Gareth Coles
 website: https://github.com/TheArchives/ArchBlock
 
 depend: [WGCustomFlags, WorldEdit, WorldGuard]
+softdepend: [WatchBlock]
 
 commands:
     friend:

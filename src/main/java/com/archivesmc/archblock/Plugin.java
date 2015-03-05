@@ -10,6 +10,7 @@ import com.archivesmc.archblock.events.BlockBreakEvent;
 import com.archivesmc.archblock.events.BlockPlaceEvent;
 import com.archivesmc.archblock.events.PistonMoveEvent;
 import com.archivesmc.archblock.events.PlayerConnectEvent;
+import com.archivesmc.archblock.importers.WatchBlockImporter;
 import com.archivesmc.archblock.integrations.WorldGuard;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -54,6 +55,18 @@ public class Plugin extends JavaPlugin {
                 .setProperty("show_sql", this.mainConfig.getDatabseDebug() ? "true" : "false");
 
         this.sessionFactory = hibernateConfiguration.buildSessionFactory();
+
+        if (this.mainConfig.getMigrate()) {
+            if (!this.hasWatchBlockPlugin()) {
+                this.getLogger().warning("Migration is enabled, but WatchBlock was not found!");
+            } else {
+                Boolean result = new WatchBlockImporter(this).doImport();
+
+                if (!result) {
+                    this.getLogger().warning("Import seems to have failed - please check for errors!");
+                }
+            }
+        }
 
         Session session = this.getSession();
 

@@ -30,5 +30,10 @@ db_config:
     # Debug mode. This will print all the generated SQL to the terminal (which could slow things down quite a bit)
     debug: false
 
+# Set this to true to enable automated WatchBlock data migration.
+# Make sure you export your WatchBlock database to flatfiles before you do this,
+# if you haven't done so already.
+migrate: false
+
 # Don't edit this - you'll break your configuration.
 version: "0.0.1"

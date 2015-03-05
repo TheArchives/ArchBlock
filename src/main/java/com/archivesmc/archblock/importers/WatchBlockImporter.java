@@ -1,10 +1,12 @@
 package com.archivesmc.archblock.importers;
 
 import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.storage.entities.Block;
 import com.archivesmc.archblock.utils.Point2D;
 import com.archivesmc.archblock.utils.Point3D;
 import com.archivesmc.archblock.utils.Utils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Session;
 import org.yaml.snakeyaml.Yaml;
 import tk.minecraftopia.watchblock.WatchBlock;
 
@@ -44,6 +46,27 @@ public class WatchBlockImporter implements Importer{
         if (!result) {
             return result;
         }
+
+        Boolean allWorldsDone = true;
+
+        for (String world : this.worlds) {
+            if (!this.convertWorld(world)) {
+                allWorldsDone = false;
+            }
+        }
+
+        if (!allWorldsDone) {
+            this.warning("Not all worlds were converted. Please check for errors!");
+        }
+
+        this.info(
+                "Disabling WatchBlock now. Please remember to remove it before you " +
+                "restart next, or you'll have problems!"
+        );
+
+        this.plugin.getServer().getPluginManager().disablePlugin(this.watchBlockPlugin);
+
+        this.info("Import complete!");
 
         return true;
     }
@@ -120,7 +143,107 @@ public class WatchBlockImporter implements Importer{
     }
 
     private Boolean convertWorld(String world) {
-        HashMap<Point2D, HashMap<Point3D, String>> points = new HashMap<>();
+        this.info(String.format(
+                "Loading blocks for world: %s", world
+        ));
+
+        Map<Point2D, Map<Point3D, UUID>> points = new HashMap<>();
+        File worldDir = new File(this.watchBlockConfigDir, "/" + world);
+
+        if (!worldDir.exists() || !worldDir.isDirectory()) {
+            this.warning("Unable to find data files!");
+            return false;
+        }
+
+        Point2D chunkPoint;
+        Map<Point3D, UUID> chunkMap = new HashMap<>();
+
+        for (File file : worldDir.listFiles()) {
+            chunkPoint = this.pointFromFilename(file.getName());
+
+            if (chunkPoint == null) {
+                this.warning(String.format(
+                        "Unable to get chunk for file: %s", file.getName()
+                ));
+
+                continue;
+            }
+
+            chunkMap = this.getPointsFromFile(file, chunkPoint);
+
+            if (chunkMap == null) {
+                continue;
+            }
+
+            points.put(chunkPoint, chunkMap);
+        }
+
+        Integer doneChunks = 0;
+        Integer totalChunks = points.size();
+
+        this.info(String.format(
+                "Importing %s chunks. This may take a while.", totalChunks
+        ));
+
+        Session s = this.plugin.getSession();
+        Block b;
+        Point3D blockPoint;
+        UUID uuid;
+        UUID owner;
+
+        for (Map<Point3D, UUID> chunk : points.values()) {
+            for (Map.Entry<Point3D, UUID> block : chunk.entrySet()) {
+                blockPoint = block.getKey();
+                uuid = block.getValue();
+
+                owner = this.plugin.getApi().getOwnerUUID(
+                        world,
+                        blockPoint.getX(),
+                        blockPoint.getY(),
+                        blockPoint.getZ()
+                );
+
+                if (owner != null) {
+                    if (owner.equals(uuid)) {
+                        continue;
+                    }
+
+                    this.plugin.getApi().removeOwner(
+                            world,
+                            blockPoint.getX(),
+                            blockPoint.getY(),
+                            blockPoint.getZ()
+                    );
+                }
+
+                b = new Block(
+                        Long.valueOf(blockPoint.getX()),
+                        Long.valueOf(blockPoint.getY()),
+                        Long.valueOf(blockPoint.getZ()),
+                        uuid.toString(),
+                        world
+                );
+
+                s.save(b);
+            }
+
+            doneChunks += 1;
+
+            if (doneChunks % 100 == 0) {
+                this.info(String.format(
+                        "Chunks done: %s/%s",
+                        doneChunks, totalChunks
+                ));
+            }
+        }
+
+        s.flush();
+        s.close();
+
+        this.info(String.format(
+                "World import complete!"
+        ));
+
         return true;
     }
 
@@ -167,6 +290,41 @@ public class WatchBlockImporter implements Importer{
                 Integer.parseInt(strings[1]),
                 Integer.parseInt(strings[2])
         );
+    }
+
+    private Map<Point3D, UUID> getPointsFromFile(File file, Point2D chunkPoint) {
+        if (!file.exists()) {
+            return null;
+        }
+
+        Map<Point3D, UUID> points = new HashMap<>();
+
+        try {
+            Yaml yaml = new Yaml();
+            Map<String, Map<String, String>> data =
+                    (Map<String, Map<String, String>>) yaml.load(new FileInputStream(file));
+
+            if (data == null) {
+                return null;
+            }
+
+            Point3D blockPoint;
+            String username;
+
+            for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
+                blockPoint = this.pointFromStringTuple(entry.getKey());
+                this.translatePointForChunk(chunkPoint, blockPoint);
+
+                username = entry.getValue().get("player");
+                this.doFetchUuid(username);
+
+                points.put(blockPoint, UUID.fromString(this.plugin.getApi().getUuidForUsername(username)));
+            }
+        } catch (FileNotFoundException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return points;
     }
 
     private void translatePointForChunk(Point2D chunkPoint, Point3D blockPoint) {

@@ -62,4 +62,8 @@ public class MainConfig {
     public Boolean getEnabled() {
         return this.configuration.getBoolean("enabled", true);
     }
+
+    public Boolean getMigrate() {
+        return this.configuration.getBoolean("migrate", true);
+    }
 }
