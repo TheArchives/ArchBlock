@@ -310,6 +310,7 @@ public class WatchBlockImporter implements Importer{
 
             Point3D blockPoint;
             String username;
+            String tempUuid;
 
             for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
                 blockPoint = this.pointFromStringTuple(entry.getKey());
@@ -318,7 +319,11 @@ public class WatchBlockImporter implements Importer{
                 username = entry.getValue().get("player");
                 this.doFetchUuid(username);
 
-                points.put(blockPoint, UUID.fromString(this.plugin.getApi().getUuidForUsername(username)));
+                tempUuid = this.plugin.getApi().getUuidForUsername(username));
+                
+                if (tempUuid != null) {
+                    points.put(blockPoint, UUID.fromString(tempUuid);
+                }
             }
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();
