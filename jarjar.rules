@@ -24,7 +24,6 @@ rule org.hamcrest.** libs.org.hamcrest.@1
 rule org.hibernate.** libs.org.hibernate.@1
 rule org.jboss.** libs.org.jboss.@1
 rule org.mozilla.** libs.org.mozilla.@1
-rule org.yaml.** libs.org.yaml.@1
 
 
 keep com.archivesmc.**
