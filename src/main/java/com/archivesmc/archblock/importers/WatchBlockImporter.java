@@ -6,6 +6,7 @@ import com.archivesmc.archblock.utils.Point2D;
 import com.archivesmc.archblock.utils.Point3D;
 import com.archivesmc.archblock.utils.Utils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.yaml.snakeyaml.Yaml;
 import tk.minecraftopia.watchblock.WatchBlock;
@@ -163,7 +164,7 @@ public class WatchBlockImporter implements Importer{
                 "Loading blocks for world: %s", world
         ));
 
-        Map<Point2D, Map<Point3D, UUID>> points = new HashMap<>();
+        Map<Point2D, Map<Point3D, String>> points = new HashMap<>();
         File worldDir = new File(this.watchBlockConfigDir, "/" + world);
 
         if (!worldDir.exists() || !worldDir.isDirectory()) {
@@ -172,7 +173,7 @@ public class WatchBlockImporter implements Importer{
         }
 
         Point2D chunkPoint;
-        Map<Point3D, UUID> chunkMap;
+        Map<Point3D, String> chunkMap;
 
         for (File file : worldDir.listFiles()) {
             chunkPoint = this.pointFromFilename(file.getName());
@@ -203,41 +204,45 @@ public class WatchBlockImporter implements Importer{
         ));
 
         Session s = this.plugin.getSession();
+        Query ownerQuery = s.createQuery("SELECT b.uuid FROM Block b WHERE world=? AND x=? AND y=? AND z=?");
+        Query deleteQuery = s.createQuery("DELETE Block WHERE world=? AND x=? AND y=? AND z=?");
+
         Block b;
         Point3D blockPoint;
-        UUID uuid;
-        UUID owner;
+        String uuid;
 
-        for (Map<Point3D, UUID> chunk : points.values()) {
-            for (Map.Entry<Point3D, UUID> block : chunk.entrySet()) {
+        Object result;
+
+        for (Map<Point3D, String> chunk : points.values()) {
+            for (Map.Entry<Point3D, String> block : chunk.entrySet()) {
                 blockPoint = block.getKey();
                 uuid = block.getValue();
 
-                owner = this.plugin.getApi().getOwnerUUID(
-                        world,
-                        blockPoint.getX(),
-                        blockPoint.getY(),
-                        blockPoint.getZ()
-                );
+                ownerQuery.setString(0, world);
+                ownerQuery.setInteger(1, blockPoint.getX());
+                ownerQuery.setInteger(2, blockPoint.getY());
+                ownerQuery.setInteger(3, blockPoint.getZ());
 
-                if (owner != null) {
-                    if (owner.equals(uuid)) {
+                result = ownerQuery.uniqueResult();
+
+                if (result != null) {
+                    if (result.equals(uuid)) {
                         continue;
                     }
 
-                    this.plugin.getApi().removeOwner(
-                            world,
-                            blockPoint.getX(),
-                            blockPoint.getY(),
-                            blockPoint.getZ()
-                    );
+                    deleteQuery.setString(0, world);
+                    deleteQuery.setInteger(1, blockPoint.getX());
+                    deleteQuery.setInteger(2, blockPoint.getY());
+                    deleteQuery.setInteger(3, blockPoint.getZ());
+
+                    deleteQuery.executeUpdate();
                 }
 
                 b = new Block(
                         Long.valueOf(blockPoint.getX()),
                         Long.valueOf(blockPoint.getY()),
                         Long.valueOf(blockPoint.getZ()),
-                        uuid.toString(),
+                        uuid,
                         world
                 );
 
@@ -245,12 +250,16 @@ public class WatchBlockImporter implements Importer{
 
                 doneBlocks += 1;
 
-                if (doneBlocks % 100 == 0) {
+                if (doneBlocks % 250 == 0) {
                     s.flush();
                     s.clear();
                 }
             }
 
+            s.flush();
+            s.clear();
+
+            doneBlocks = 0;
             doneChunks += 1;
 
             if (doneChunks % 25 == 0) {
@@ -324,12 +333,12 @@ public class WatchBlockImporter implements Importer{
         );
     }
 
-    private Map<Point3D, UUID> getPointsFromFile(File file, Point2D chunkPoint) {
+    private Map<Point3D, String> getPointsFromFile(File file, Point2D chunkPoint) {
         if (!file.exists()) {
             return null;
         }
 
-        Map<Point3D, UUID> points = new HashMap<>();
+        Map<Point3D, String> points = new HashMap<>();
         List<String> failedUsers = new ArrayList<>();
         FileInputStream in = null;
 
@@ -372,7 +381,7 @@ public class WatchBlockImporter implements Importer{
                     tempUuid = this.plugin.getApi().getUuidForUsername(username);
                 }
 
-                points.put(blockPoint, UUID.fromString(tempUuid));
+                points.put(blockPoint, tempUuid);
             }
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();
