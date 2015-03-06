@@ -1,6 +1,7 @@
 package com.archivesmc.archblock.importers;
 
 import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.runnables.migration.ImportThread;
 import com.archivesmc.archblock.storage.entities.Block;
 import com.archivesmc.archblock.utils.Point2D;
 import com.archivesmc.archblock.utils.Point3D;
@@ -43,11 +44,11 @@ public class WatchBlockImporter implements Importer{
             return result;
         }
 
-        result = this.convertFriends();
-
-        if (!result) {
-            return result;
-        }
+//        result = this.convertFriends();
+//
+//        if (!result) {
+//            return result;
+//        }
 
         Boolean allWorldsDone = true;
 
@@ -164,7 +165,7 @@ public class WatchBlockImporter implements Importer{
                 "Loading blocks for world: %s", world
         ));
 
-        Map<Point2D, Map<Point3D, String>> points = new HashMap<>();
+        List<Map<Point3D, String>> points = new ArrayList<>();
         File worldDir = new File(this.watchBlockConfigDir, "/" + world);
 
         if (!worldDir.exists() || !worldDir.isDirectory()) {
@@ -192,87 +193,83 @@ public class WatchBlockImporter implements Importer{
                 continue;
             }
 
-            points.put(chunkPoint, chunkMap);
+            points.add(chunkMap);
         }
 
         Integer doneChunks = 0;
         Integer totalChunks = points.size();
-        Integer doneBlocks = 0;
 
         this.info(String.format(
                 "Importing %s chunks. This may take a while.", totalChunks
         ));
 
-        Session s = this.plugin.getSession();
-        Query ownerQuery = s.createQuery("SELECT b.uuid FROM Block b WHERE world=? AND x=? AND y=? AND z=?");
-        Query deleteQuery = s.createQuery("DELETE Block WHERE world=? AND x=? AND y=? AND z=?");
+        List<ImportThread> threads;
+        List<Map<Point3D, String>> chunks;
 
-        Point3D blockPoint;
-        String uuid;
+        int cores = Runtime.getRuntime().availableProcessors();
+        int i;
+        int j;
+        int k;
 
-        Object result;
+        HashSet<Integer> doneThreads;
+        ImportThread t;
 
-        for (Map<Point3D, String> chunk : points.values()) {
-            for (Map.Entry<Point3D, String> block : chunk.entrySet()) {
-                blockPoint = block.getKey();
-                uuid = block.getValue();
+        while (points.size() > 0) {
+            doneThreads = new HashSet<>();
+            threads = new ArrayList<>();
 
-                ownerQuery.setString(0, world);
-                ownerQuery.setInteger(1, blockPoint.getX());
-                ownerQuery.setInteger(2, blockPoint.getY());
-                ownerQuery.setInteger(3, blockPoint.getZ());
+            for (i = 0; i < cores; i += 1) {
+                this.info(String.format("Setting up thread: %s", i + 1));
 
-                result = ownerQuery.uniqueResult();
+                chunks = new ArrayList<>();
 
-                if (result != null) {
-                    if (result.equals(uuid)) {
+                for (j = 0; j < 25; j += 1) {
+                    if (points.size() < 0) {
+                        break;
+                    }
+
+                    chunks.add(points.remove(0));
+                }
+
+                if (chunks.size() < 0) {
+                    break;
+                }
+
+                t = new ImportThread(world, chunks, this.plugin);
+                threads.add(t);
+                t.start();
+            }
+
+            while (true) {
+                for (k = 0; k < threads.size(); k += 1) {
+                    t = threads.get(k);
+
+                    if (doneThreads.contains(k)) {
                         continue;
                     }
 
-                    deleteQuery.setString(0, world);
-                    deleteQuery.setInteger(1, blockPoint.getX());
-                    deleteQuery.setInteger(2, blockPoint.getY());
-                    deleteQuery.setInteger(3, blockPoint.getZ());
+                    if (t.getDone()) {
+                        this.info(String.format("Thread completed: %s", k + 1));
+                        doneThreads.add(k);
+                        doneChunks += t.getNumberOfChunks();
 
-                    deleteQuery.executeUpdate();
+                        this.info(String.format(
+                                "Chunks done: %s/%s", doneChunks, totalChunks
+                        ));
+                    }
                 }
 
-                s.save(new Block(
-                        Long.valueOf(blockPoint.getX()),
-                        Long.valueOf(blockPoint.getY()),
-                        Long.valueOf(blockPoint.getZ()),
-                        uuid,
-                        world
-                ));
-
-                doneBlocks += 1;
-
-                if (doneBlocks % 250 == 0) {
-                    s.flush();
-                    s.clear();
+                if (doneThreads.size() == threads.size()) {
+                    break;
                 }
-            }
 
-            s.flush();
-            s.clear();
-
-            doneBlocks = 0;
-            doneChunks += 1;
-
-            if (doneChunks % 25 == 0) {
-                this.info(String.format(
-                        "Chunks done: %s/%s",
-                        doneChunks, totalChunks
-                ));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
-        this.info(String.format(
-                "Total blocks: %s", doneBlocks
-        ));
-
-        s.flush();
-        s.close();
 
         this.info(String.format(
                 "World import complete!"
