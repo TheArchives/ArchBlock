@@ -117,14 +117,14 @@ public class ArchBlock {
         Query q;
 
         q = s.createQuery(
-                "SELECT f.friendUuid FROM Friend f WHERE f.playerUuid=:uuid"
+                "SELECT f.friendUuid FROM Friendship f WHERE f.playerUuid=:uuid"
         );
         q.setString("uuid", left.toString());
 
         List uuids = q.list();
 
         q = s.createQuery(
-                "SELECT p.username FROM player p WHERE p.uuid IN (:uuids)"
+                "SELECT p.username FROM Player p WHERE p.uuid IN (:uuids)"
         );
         q.setParameter("uuids", uuids);
 
