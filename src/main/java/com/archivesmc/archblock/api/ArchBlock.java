@@ -6,8 +6,13 @@ import com.archivesmc.archblock.storage.entities.Friendship;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 
 import java.util.List;
 import java.util.UUID;
@@ -121,14 +126,12 @@ public class ArchBlock {
         );
         q.setString("uuid", left.toString());
 
-        List uuids = q.list();
-
-        q = s.createQuery(
-                "SELECT p.username FROM Player p WHERE p.uuid IN (:uuids)"
-        );
-        q.setParameter("uuids", uuids);
-
-        List result = q.list();
+        List result = s.createCriteria(com.archivesmc.archblock.storage.entities.Player.class)
+                .add(Restrictions.in("uuid", q.list()))
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("username"), "username")
+                )
+                .list();
 
         s.close();
 
