@@ -113,9 +113,14 @@ public class ArchBlock {
 
     public List getFriendships(UUID left) {
         Session s = this.plugin.getSession();
+
         Query q = s.createQuery(
-                "SELECT p.username FROM Friendship f, Player p WHERE f.playerUuid=:uuid AND p.uuid=f.friendUuid"
+                "SELECT p.username from Player p INNER JOIN Friendship f ON p.uuid=f.friendUuid WHERE f.playerUuid=:uuid"
         );
+
+//        Query q = s.createQuery(
+//                "SELECT p.username FROM Friendship f, Player p WHERE f.playerUuid=:uuid AND p.uuid=f.friendUuid"
+//        );
 
         q.setString("uuid", left.toString());
 

@@ -206,7 +206,7 @@ public class WatchBlockImporter implements Importer{
         Session s = this.plugin.getSession();
         Query ownerQuery = s.createQuery("SELECT b.uuid FROM Block b WHERE world=? AND x=? AND y=? AND z=?");
         Query deleteQuery = s.createQuery("DELETE Block WHERE world=? AND x=? AND y=? AND z=?");
-        
+
         Point3D blockPoint;
         String uuid;
 
