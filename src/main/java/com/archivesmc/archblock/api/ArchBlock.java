@@ -127,22 +127,16 @@ public class ArchBlock {
         );
         q.setString("uuid", left.toString());
 
+        List r = q.list();
+
         List result = s.createCriteria(com.archivesmc.archblock.storage.entities.Player.class)
-                .add(Restrictions.in("uuid", q.list()))
+                .add(Restrictions.in("uuid", r))
                 .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
                 .list();
 
         s.close();
 
         return result;
-
-//        Query q = s.createQuery(
-//                "SELECT p.username from Player p INNER JOIN Friendship f WHERE f.playerUuid=:uuid"
-//        );
-
-//        Query q = s.createQuery(
-//                "SELECT p.username FROM Friendship f, Player p WHERE f.playerUuid=:uuid AND p.uuid=f.friendUuid"
-//        );
     }
 
     public List getFriendships(String username) {

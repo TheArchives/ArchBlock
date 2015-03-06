@@ -66,7 +66,13 @@ public class FriendsCommand implements CommandExecutor {
                     currentLine = new ArrayList<>();
                 }
 
-                currentLine.add((String) p.get("username"));
+                currentLine.add(
+                        ((com.archivesmc.archblock.storage.entities.Player) p.get("this")).getUsername()
+                );
+            }
+
+            if (currentLine.size() > 0) {
+                lines.add(currentLine);
             }
 
             sender.sendMessage(String.format(
