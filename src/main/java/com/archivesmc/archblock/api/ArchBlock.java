@@ -129,7 +129,7 @@ public class ArchBlock {
 
         List result = s.createCriteria(com.archivesmc.archblock.storage.entities.Player.class)
                 .add(Restrictions.in("uuid", q.list()))
-                .setResultTransformer(Transformers.aliasToBean(com.archivesmc.archblock.storage.entities.Player.class))
+                .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
                 .list();
 
         s.close();

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class FriendsCommand implements CommandExecutor {
@@ -55,17 +56,17 @@ public class FriendsCommand implements CommandExecutor {
             List friends = this.plugin.getApi().getFriendships(UUID.fromString(uuid));
             List<List<String>> lines = new ArrayList<>();
             List<String> currentLine = new ArrayList<>();
-            com.archivesmc.archblock.storage.entities.Player p;
+            Map p;
 
             for (Object o : friends) {
-                p = (com.archivesmc.archblock.storage.entities.Player) o;
+                p = (Map) o;
 
                 if (currentLine.size() == 6) {
                     lines.add(currentLine);
                     currentLine = new ArrayList<>();
                 }
 
-                currentLine.add(p.getUsername());
+                currentLine.add((String) p.get("username"));
             }
 
             sender.sendMessage(String.format(
