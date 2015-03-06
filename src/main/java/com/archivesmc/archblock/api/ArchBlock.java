@@ -13,6 +13,7 @@ import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
+import org.hibernate.transform.Transformers;
 
 import java.util.List;
 import java.util.UUID;
@@ -128,9 +129,7 @@ public class ArchBlock {
 
         List result = s.createCriteria(com.archivesmc.archblock.storage.entities.Player.class)
                 .add(Restrictions.in("uuid", q.list()))
-                .setProjection(Projections.projectionList()
-                        .add(Projections.property("username"), "username")
-                )
+                .setResultTransformer(Transformers.aliasToBean(com.archivesmc.archblock.storage.entities.Player.class))
                 .list();
 
         s.close();

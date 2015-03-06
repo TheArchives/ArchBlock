@@ -1,6 +1,7 @@
 package com.archivesmc.archblock.commands;
 
 import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.storage.entities.Friendship;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -54,17 +55,17 @@ public class FriendsCommand implements CommandExecutor {
             List friends = this.plugin.getApi().getFriendships(UUID.fromString(uuid));
             List<List<String>> lines = new ArrayList<>();
             List<String> currentLine = new ArrayList<>();
-            String s;
+            com.archivesmc.archblock.storage.entities.Player p;
 
             for (Object o : friends) {
-                s = (String) o;
+                p = (com.archivesmc.archblock.storage.entities.Player) o;
 
                 if (currentLine.size() == 6) {
                     lines.add(currentLine);
                     currentLine = new ArrayList<>();
                 }
 
-                currentLine.add(s);
+                currentLine.add(p.getUsername());
             }
 
             sender.sendMessage(String.format(
