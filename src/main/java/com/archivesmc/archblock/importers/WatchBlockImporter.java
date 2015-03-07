@@ -2,13 +2,10 @@ package com.archivesmc.archblock.importers;
 
 import com.archivesmc.archblock.Plugin;
 import com.archivesmc.archblock.runnables.migration.ImportThread;
-import com.archivesmc.archblock.storage.entities.Block;
 import com.archivesmc.archblock.utils.Point2D;
 import com.archivesmc.archblock.utils.Point3D;
 import com.archivesmc.archblock.utils.Utils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.yaml.snakeyaml.Yaml;
 import tk.minecraftopia.watchblock.WatchBlock;
 
@@ -17,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 public class WatchBlockImporter implements Importer{
     private Plugin plugin;
@@ -25,6 +21,7 @@ public class WatchBlockImporter implements Importer{
     private File watchBlockConfigDir;
 
     private final List<String> worlds = new ArrayList<>();
+    private final List<String> failedUsers = new ArrayList<>();
 
     public WatchBlockImporter(Plugin plugin) {
         this.plugin = plugin;
@@ -203,76 +200,84 @@ public class WatchBlockImporter implements Importer{
                 "Importing %s chunks. This may take a while.", totalChunks
         ));
 
-        List<ImportThread> threads;
+        List<ImportThread> threads = new ArrayList<>();
+        List<ImportThread> operatingThreads = new ArrayList<>();
+        
+        Set<ImportThread> doneThreads = new HashSet<>();
+        
         List<Map<Point3D, String>> chunks;
 
         int cores = Runtime.getRuntime().availableProcessors();
         int i;
         int j;
-        int k;
-
-        HashSet<Integer> doneThreads;
-        ImportThread t;
-
+        int remaining;
+        
+        ImportThread th;
+        
         while (points.size() > 0) {
-            doneThreads = new HashSet<>();
-            threads = new ArrayList<>();
+            chunks = new ArrayList<>();
 
-            for (i = 0; i < cores; i += 1) {
-                this.info(String.format("Setting up thread: %s", i + 1));
-
-                chunks = new ArrayList<>();
-
-                for (j = 0; j < 25; j += 1) {
-                    if (points.size() < 0) {
-                        break;
-                    }
-
-                    chunks.add(points.remove(0));
-                }
-
-                if (chunks.size() < 0) {
+            for (j = 0; j < 25; j += 1) {
+                if (points.size() < 1) {
                     break;
                 }
 
-                t = new ImportThread(world, chunks, this.plugin);
-                threads.add(t);
-                t.start();
+                chunks.add(points.remove(0));
             }
 
-            while (true) {
-                for (k = 0; k < threads.size(); k += 1) {
-                    t = threads.get(k);
+            if (chunks.size() < 1) {
+                break;
+            }
 
-                    if (doneThreads.contains(k)) {
-                        continue;
+            th = new ImportThread(world, chunks, this.plugin);
+            this.info(String.format("Setting up thread: %s", th));
+            threads.add(th);
+        }
+        
+        while (threads.size() > 0 || operatingThreads.size() > 0) {
+            if (operatingThreads.size() < cores) {
+                remaining = threads.size();
+                
+                for (i = 0; i < remaining; i += 1) {
+                    if (operatingThreads.size() < cores && threads.size() > 0) {
+                        th = threads.remove(0);
+                        operatingThreads.add(th);
+                        th.start();
+                    } else {
+                        break;
                     }
-
-                    if (t.getDone()) {
-                        this.info(String.format("Thread completed: %s", k + 1));
-                        doneThreads.add(k);
-                        doneChunks += t.getNumberOfChunks();
-
-                        this.info(String.format(
-                                "Chunks done: %s/%s", doneChunks, totalChunks
-                        ));
-                    }
+                }
+            }
+            
+            for (Object thr : operatingThreads.toArray()) {
+                // So we can safely remove stuff from it while we iterate over it
+                th = (ImportThread) thr;
+                
+                if (doneThreads.contains(th)) {
+                    continue;
                 }
 
-                if (doneThreads.size() == threads.size()) {
-                    break;
-                }
+                if (th.getDone()) {
+                    this.info(String.format("Thread completed: %s", th));
+                    doneThreads.add(th);
+                    operatingThreads.remove(th);
+                    doneChunks += th.getNumberOfChunks();
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    this.info(String.format(
+                            "Chunks done: %s/%s", doneChunks, totalChunks
+                    ));
                 }
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
         this.info(String.format(
-                "World import complete!"
+                "World imported: %s", world
         ));
 
         return true;
@@ -333,7 +338,6 @@ public class WatchBlockImporter implements Importer{
         }
 
         Map<Point3D, String> points = new HashMap<>();
-        List<String> failedUsers = new ArrayList<>();
         FileInputStream in = null;
 
         try {
@@ -358,7 +362,7 @@ public class WatchBlockImporter implements Importer{
 
                 username = entry.getValue().get("player");
 
-                if (failedUsers.contains(username)) {
+                if (this.failedUsers.contains(username)) {
                     continue;
                 }
 
@@ -368,7 +372,7 @@ public class WatchBlockImporter implements Importer{
                     fetched = this.doFetchUuid(username);
 
                     if (!fetched) {
-                        failedUsers.add(username);
+                        this.failedUsers.add(username);
                         continue;
                     }
 

@@ -85,11 +85,15 @@ public class ImportThread extends Thread {
         s.flush();
         s.close();
 
-        this.done = true;
+        this.setDone(true);
     }
 
     public synchronized Boolean getDone() {
         return done;
+    }
+    
+    public synchronized void setDone(Boolean done) {
+        this.done = done;
     }
 
     public int getNumberOfChunks() {

@@ -36,18 +36,6 @@
             3000
         </property>
 
-        <property name="hibernate.jdbc.batch_size">
-            250
-        </property>
-
-        <property name="hibernate.order_inserts">
-            true
-        </property>
-
-        <property name="hibernate.order_updates">
-            true
-        </property>
-
         <!-- Mappings -->
         <mapping resource="com/archivesmc/archblock/storage/entities/Block.hbm.xml"/>
         <mapping resource="com/archivesmc/archblock/storage/entities/Friendship.hbm.xml"/>
