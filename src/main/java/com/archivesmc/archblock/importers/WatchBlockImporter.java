@@ -361,6 +361,10 @@ public class WatchBlockImporter implements Importer{
                 this.translatePointForChunk(chunkPoint, blockPoint);
 
                 username = entry.getValue().get("player");
+                
+                if (username == null) {
+                    continue;
+                }
 
                 if (this.failedUsers.contains(username)) {
                     continue;
