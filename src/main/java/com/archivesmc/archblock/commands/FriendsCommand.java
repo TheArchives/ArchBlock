@@ -72,7 +72,7 @@ public class FriendsCommand implements CommandExecutor {
             for (Object o : friends) {
                 p = (Map) o;
 
-                if (currentLine.size() == 6) {
+                if (currentLine.size() == 5) {
                     lines.add(currentLine);
                     currentLine = new ArrayList<>();
                 }

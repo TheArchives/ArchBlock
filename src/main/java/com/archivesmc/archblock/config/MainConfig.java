@@ -21,6 +21,8 @@ public class MainConfig {
         switch(this.getVersion()) {
             case "0.0.1":
                 break;
+            case "0.0.2":  // Latest version
+                break;
             default:
                 this.plugin.getLogger().warning(
                         String.format(

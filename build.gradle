@@ -23,7 +23,7 @@ tasks.withType(FindBugs) {
     }
  }
 
-version = "0.0.1"
+version = "0.0.2"
 sourceCompatibility = 1.7
 
 task runJarJar(type: Exec) {
