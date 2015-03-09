@@ -22,14 +22,27 @@ public class RemoveOwnerThread extends Thread {
     @Override
     public void run() {
         Session s = this.plugin.getSession();
-        Query q = s.createQuery("DELETE Block WHERE world=:world AND x=:x AND y=:y AND z=:z");
+        Query q;
+
+        q = s.createQuery("SELECT b.uuid FROM Block b WHERE world=:world AND x=:x AND y=:y AND z=:z");
 
         q.setString("world", this.world);
         q.setInteger("x", this.x);
         q.setInteger("y", this.y);
         q.setInteger("z", this.z);
 
-        q.executeUpdate();
+        Object result = q.uniqueResult();
+
+        if (result != null) {
+            q = s.createQuery("DELETE Block WHERE world=:world AND x=:x AND y=:y AND z=:z");
+
+            q.setString("world", this.world);
+            q.setInteger("x", this.x);
+            q.setInteger("y", this.y);
+            q.setInteger("z", this.z);
+
+            q.executeUpdate();
+        }
 
         s.flush();
         s.close();

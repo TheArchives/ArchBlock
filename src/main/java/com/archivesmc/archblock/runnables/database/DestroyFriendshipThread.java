@@ -20,12 +20,23 @@ public class DestroyFriendshipThread extends Thread {
     @Override
     public void run() {
         Session s = this.plugin.getSession();
-        Query q = s.createQuery("DELETE Friendship WHERE playerUuid=:player AND friendUuid=:enemy");
+        Query q;
+
+        q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=:player AND friendUuid=:friend");
 
         q.setString("player", this.playerUuid.toString());
-        q.setString("enemy", this.enemyUuid.toString());
+        q.setString("friend", this.enemyUuid.toString());
 
-        q.executeUpdate();
+        Object result = q.uniqueResult();
+
+        if (result != null) {
+            q = s.createQuery("DELETE Friendship WHERE playerUuid=:player AND friendUuid=:enemy");
+
+            q.setString("player", this.playerUuid.toString());
+            q.setString("enemy", this.enemyUuid.toString());
+
+            q.executeUpdate();
+        }
 
         s.flush();
         s.close();
