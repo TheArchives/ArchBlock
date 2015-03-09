@@ -29,15 +29,6 @@ artifacts {
     archives jar
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            pom.artifactId = "ArchBlock"
-            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
-        }
-    }
-}
-
 publishing {
     publications {
         ivyJava(IvyPublication) {
@@ -64,7 +55,6 @@ publishing {
         maven {
             name "publish"
             url "file://localhost/var/www/gserv/cherry/repos/maven/"
-            pom.artifactId = "ArchBlock"
         }
     }
 }
