@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class SetOwnerCommand implements CommandExecutor {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public SetOwnerCommand(Plugin plugin) {
         this.plugin = plugin;

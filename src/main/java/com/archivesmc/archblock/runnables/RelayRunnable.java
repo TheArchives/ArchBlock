@@ -4,9 +4,9 @@ import com.archivesmc.archblock.Plugin;
 import org.bukkit.entity.Player;
 
 public class RelayRunnable implements Runnable {
-    private Plugin plugin;
-    private String target;
-    private String message;
+    private final Plugin plugin;
+    private final String target;
+    private final String message;
 
     public RelayRunnable(Plugin plugin, String target, String message) {
         this.plugin = plugin;

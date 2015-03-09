@@ -5,8 +5,8 @@ import com.archivesmc.archblock.storage.entities.Block;
 import org.hibernate.Session;
 
 public class SetOwnerThread extends Thread {
-    private Plugin plugin;
-    private Block block;
+    private final Plugin plugin;
+    private final Block block;
 
     public SetOwnerThread(Plugin plugin, Block block) {
         this.plugin = plugin;

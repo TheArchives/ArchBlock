@@ -7,9 +7,9 @@ import org.hibernate.Session;
 import java.util.UUID;
 
 public class DestroyFriendshipThread extends Thread {
-    private Plugin plugin;
-    private UUID playerUuid;
-    private UUID enemyUuid;
+    private final Plugin plugin;
+    private final UUID playerUuid;
+    private final UUID enemyUuid;
 
     public DestroyFriendshipThread(Plugin plugin, UUID playerUuid, UUID enemyUuid) {
         this.plugin = plugin;

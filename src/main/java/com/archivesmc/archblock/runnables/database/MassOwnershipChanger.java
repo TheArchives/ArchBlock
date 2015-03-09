@@ -8,10 +8,10 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class MassOwnershipChanger extends Thread {
-    private Plugin plugin;
-    private List<Block> blocks;
-    private String owner;
-    private Runnable finishRunnable;
+    private final Plugin plugin;
+    private final List<Block> blocks;
+    private final String owner;
+    private final Runnable finishRunnable;
 
     public MassOwnershipChanger(Plugin plugin, List<Block> blocks, String owner, Runnable finishRunnable) {
         this.plugin = plugin;

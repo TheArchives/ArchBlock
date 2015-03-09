@@ -15,10 +15,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class WatchBlockImporter implements Importer{
-    private Plugin plugin;
-    private WatchBlock watchBlockPlugin;
-    private File watchBlockConfigDir;
+@SuppressWarnings("unchecked")
+public class WatchBlockImporter implements Importer {
+    private final Plugin plugin;
+    private final WatchBlock watchBlockPlugin;
+    private final File watchBlockConfigDir;
 
     private final List<String> worlds = new ArrayList<>();
     private final List<String> failedUsers = new ArrayList<>();
@@ -35,11 +36,7 @@ public class WatchBlockImporter implements Importer{
 
         Boolean result;
 
-        result = this.getWorlds();
-
-        if (!result) {
-            return result;
-        }
+        this.getWorlds();
 
         result = this.convertFriends();
 
@@ -71,7 +68,7 @@ public class WatchBlockImporter implements Importer{
         return true;
     }
 
-    private Boolean getWorlds() {
+    private void getWorlds() {
         this.info("Looking for worlds to import..");
 
         List<File> dirs = Utils.listDirectories(this.watchBlockConfigDir);
@@ -83,8 +80,6 @@ public class WatchBlockImporter implements Importer{
         this.info(String.format(
                 "Found worlds (%s): %s", this.worlds.size(), StringUtils.join(this.worlds, ", ")
         ));
-
-        return true;
     }
 
     private Boolean convertFriends() {
@@ -165,7 +160,7 @@ public class WatchBlockImporter implements Importer{
         List<Map<Point3D, String>> points = new ArrayList<>();
         File worldDir = new File(this.watchBlockConfigDir, "/" + world);
 
-        if (!worldDir.exists() || !worldDir.isDirectory()) {
+        if (! (worldDir.exists() || worldDir.isDirectory())) {
             this.warning("Unable to find data files!");
             return false;
         }

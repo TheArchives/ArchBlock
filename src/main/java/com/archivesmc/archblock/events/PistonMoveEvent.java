@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockPistonRetractEvent;
 import java.util.UUID;
 
 public class PistonMoveEvent implements Listener {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public PistonMoveEvent(Plugin plugin) {
         this.plugin = plugin;

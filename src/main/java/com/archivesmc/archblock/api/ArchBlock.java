@@ -6,22 +6,19 @@ import com.archivesmc.archblock.storage.entities.Friendship;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
 import org.hibernate.transform.Transformers;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
 public class ArchBlock {
     // Class is named this in case there are plugins using multiple protection APIs
 
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public ArchBlock(Plugin plugin) {
         this.plugin = plugin;
@@ -31,14 +28,17 @@ public class ArchBlock {
         return plugin;
     }
 
+    @Nullable
     public UUID getOwnerUUID(Block block) {
         return this.getOwnerUUID(block.getWorld(), block.getX(), block.getY(), block.getZ());
     }
 
+    @Nullable
     public UUID getOwnerUUID(World world, Integer x, Integer y, Integer z) {
         return this.getOwnerUUID(world.getName(), x, y, z);
     }
 
+    @Nullable
     public UUID getOwnerUUID(String world, Integer x, Integer y, Integer z) {
         world = world.toLowerCase();
 
@@ -103,6 +103,10 @@ public class ArchBlock {
         }
 
         UUID owner = this.getOwnerUUID(block);
+
+        if (owner == null) {
+            return true;
+        }
 
         if (owner.equals(player.getUniqueId())) {
             return true;
@@ -175,6 +179,7 @@ public class ArchBlock {
         return q.list();
     }
 
+    @Nullable
     public String getUsernameForUuid(UUID uuid) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=?");
@@ -191,6 +196,7 @@ public class ArchBlock {
         return (String) result;
     }
 
+    @Nullable
     public UUID getUuidForUsername(String username) {
         username = username.toLowerCase();
 

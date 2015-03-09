@@ -3,10 +3,8 @@ package com.archivesmc.archblock.config;
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.List;
-
 public class MainConfig {
-    private Plugin plugin;
+    private final Plugin plugin;
     private FileConfiguration configuration;
 
     public MainConfig(Plugin plugin) {

@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import java.util.UUID;
 
 public class BlockPlaceEvent implements Listener {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public BlockPlaceEvent(Plugin plugin) {
         this.plugin = plugin;

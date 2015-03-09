@@ -5,11 +5,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class RemoveOwnerThread extends Thread {
-    private Plugin plugin;
-    private String world;
-    private Integer x;
-    private Integer y;
-    private Integer z;
+    private final Plugin plugin;
+    private final String world;
+    private final Integer x;
+    private final Integer y;
+    private final Integer z;
 
     public RemoveOwnerThread(Plugin plugin, String world, Integer x, Integer y, Integer z) {
         this.plugin = plugin;

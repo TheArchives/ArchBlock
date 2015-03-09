@@ -9,7 +9,7 @@ import org.bukkit.block.Block;
 import static com.sk89q.worldguard.bukkit.BukkitUtil.toVector;
 
 public class WorldGuard {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public WorldGuard(Plugin plugin) {
         this.plugin = plugin;

@@ -109,6 +109,7 @@ dependencies {
     compile "org.hibernate:hibernate-core:4.2.5.Final"
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
     compile "commons-io:commons-io:2.4"
+    compile "com.intellij:annotations:12.0"
 
     compile files('lib/WatchBlock.jar')
 }
@@ -119,10 +120,4 @@ jar {
 
 shadowJar {
     from sourceSets.main.java
-
-    dependencies {
-        exclude(dependency("org.bukkit:bukkit:1.7.9-R0.2"))
-        exclude(dependency("net.milkbowl.vault:VaultAPI:1.5"))
-        exclude(dependency("com.sk89q.worldedit:worldedit-bukkit:6.0.1"))
-    }
 }

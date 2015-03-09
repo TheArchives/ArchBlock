@@ -1,7 +1,6 @@
 package com.archivesmc.archblock.commands;
 
 import com.archivesmc.archblock.Plugin;
-import com.archivesmc.archblock.storage.entities.Friendship;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class FriendsCommand implements CommandExecutor {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public FriendsCommand(Plugin plugin) {
         this.plugin = plugin;

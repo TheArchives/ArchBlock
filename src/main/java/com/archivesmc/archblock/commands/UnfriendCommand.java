@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class UnfriendCommand implements CommandExecutor {
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public UnfriendCommand(Plugin plugin) {
         this.plugin = plugin;

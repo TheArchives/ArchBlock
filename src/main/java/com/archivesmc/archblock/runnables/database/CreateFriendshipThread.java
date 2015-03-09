@@ -5,8 +5,8 @@ import com.archivesmc.archblock.storage.entities.Friendship;
 import org.hibernate.Session;
 
 public class CreateFriendshipThread extends Thread {
-    private Plugin plugin;
-    private Friendship isMagic;
+    private final Plugin plugin;
+    private final Friendship isMagic;
 
     public CreateFriendshipThread(Plugin plugin, Friendship isMagic) {
         this.plugin = plugin;

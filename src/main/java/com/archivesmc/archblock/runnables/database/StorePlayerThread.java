@@ -5,8 +5,8 @@ import com.archivesmc.archblock.storage.entities.Player;
 import org.hibernate.Session;
 
 public class StorePlayerThread extends Thread {
-    private Plugin plugin;
-    private Player player;
+    private final Plugin plugin;
+    private final Player player;
 
     public StorePlayerThread(Plugin plugin, Player player) {
         this.plugin = plugin;

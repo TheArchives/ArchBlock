@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PlayerConnectEvent implements Listener{
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public PlayerConnectEvent(Plugin plugin) {
         this.plugin = plugin;

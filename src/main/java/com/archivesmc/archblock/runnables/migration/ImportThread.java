@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ImportThread extends Thread {
-    private String world;
-    private List<Map<Point3D, String>> points;
-    private Plugin plugin;
+    private final String world;
+    private final List<Map<Point3D, String>> points;
+    private final Plugin plugin;
 
     private Boolean done;
 
@@ -85,15 +85,15 @@ public class ImportThread extends Thread {
         s.flush();
         s.close();
 
-        this.setDone(true);
+        this.setDone();
     }
 
     public synchronized Boolean getDone() {
         return done;
     }
     
-    public synchronized void setDone(Boolean done) {
-        this.done = done;
+    public synchronized void setDone() {
+        this.done = true;
     }
 
     public int getNumberOfChunks() {
