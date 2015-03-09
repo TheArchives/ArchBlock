@@ -6,10 +6,7 @@ import com.archivesmc.archblock.commands.FriendsCommand;
 import com.archivesmc.archblock.commands.SetOwnerCommand;
 import com.archivesmc.archblock.commands.UnfriendCommand;
 import com.archivesmc.archblock.config.MainConfig;
-import com.archivesmc.archblock.events.BlockBreakEvent;
-import com.archivesmc.archblock.events.BlockPlaceEvent;
-import com.archivesmc.archblock.events.PistonMoveEvent;
-import com.archivesmc.archblock.events.PlayerConnectEvent;
+import com.archivesmc.archblock.events.*;
 import com.archivesmc.archblock.importers.WatchBlockImporter;
 import com.archivesmc.archblock.integrations.WorldGuard;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
@@ -85,6 +82,7 @@ public class Plugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerConnectEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerInteractEvent(this), this);
 
         this.getWGCustomFlagsPlugin().addCustomFlag(Plugin.bypassProtectionFlag);
         this.worldGuardIntegration = new WorldGuard(this);
