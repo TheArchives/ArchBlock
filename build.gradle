@@ -63,8 +63,8 @@ publishing {
 
         maven {
             name "publish"
+            url "file://localhost/var/www/gserv/cherry/repos/maven/"
             pom.artifactId = "ArchBlock"
-            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
         }
     }
 }
