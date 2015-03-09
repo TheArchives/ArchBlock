@@ -6,14 +6,15 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MassOwnershipChanger extends Thread {
     private final Plugin plugin;
     private final List<Block> blocks;
-    private final String owner;
+    private final UUID owner;
     private final Runnable finishRunnable;
 
-    public MassOwnershipChanger(Plugin plugin, List<Block> blocks, String owner, Runnable finishRunnable) {
+    public MassOwnershipChanger(Plugin plugin, List<Block> blocks, UUID owner, Runnable finishRunnable) {
         this.plugin = plugin;
         this.blocks = blocks;
         this.owner = owner;
@@ -54,11 +55,11 @@ public class MassOwnershipChanger extends Thread {
                 blockOwner = query.uniqueResult();
 
                 if (blockOwner != null) {
-                    if (! blockOwner.equals(this.owner)) {
+                    if (!UUID.fromString((String) blockOwner).equals(this.owner)) {
                         if (this.owner != null) {
                             query = s.createQuery(updateOwnerQuery);
 
-                            query.setString("uuid", this.owner);
+                            query.setString("uuid", this.owner.toString());
 
                             query.setString("world", world);
                             query.setInteger("x", x);

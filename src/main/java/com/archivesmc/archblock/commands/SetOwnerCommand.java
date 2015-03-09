@@ -15,6 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SetOwnerCommand implements CommandExecutor {
     private final Plugin plugin;
@@ -46,7 +47,7 @@ public class SetOwnerCommand implements CommandExecutor {
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE, ChatColor.AQUA, ChatColor.BLUE
                 ));
             } else if (sender instanceof Player) {
-                String target = this.plugin.getApi().getUuidForUsername(args[0]).toString();
+                UUID target = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (target == null && !("!".equals(args[0]))) {
                     sender.sendMessage(String.format(

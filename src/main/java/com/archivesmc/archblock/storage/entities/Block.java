@@ -1,5 +1,7 @@
 package com.archivesmc.archblock.storage.entities;
 
+import java.util.UUID;
+
 public class Block {
     private Long id;
     private Long x;
@@ -16,6 +18,14 @@ public class Block {
         this.y = y;
         this.z = z;
         this.uuid = uuid;
+        this.world = world;
+    }
+
+    public Block(Long x, Long y, Long z, UUID uuid, String world) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.uuid = uuid.toString();
         this.world = world;
     }
 

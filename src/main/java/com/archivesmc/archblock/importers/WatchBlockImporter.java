@@ -279,12 +279,11 @@ public class WatchBlockImporter implements Importer {
     }
 
     private Boolean doFetchUuid(String player) throws InterruptedException {
-        String stringUuid;
         UUID uuid;
 
-        stringUuid = this.plugin.getApi().getUuidForUsername(player).toString();
+        uuid = this.plugin.getApi().getUuidForUsername(player);
 
-        if (stringUuid == null) {
+        if (uuid == null) {
             uuid = Utils.fetchUuid(player);
 
             if (uuid == null) {
@@ -348,7 +347,7 @@ public class WatchBlockImporter implements Importer {
 
             Point3D blockPoint;
             String username;
-            String tempUuid;
+            UUID tempUuid;
             Boolean fetched;
 
             for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
@@ -365,7 +364,7 @@ public class WatchBlockImporter implements Importer {
                     continue;
                 }
 
-                tempUuid = this.plugin.getApi().getUuidForUsername(username).toString();
+                tempUuid = this.plugin.getApi().getUuidForUsername(username);
 
                 if (tempUuid == null) {
                     fetched = this.doFetchUuid(username);
@@ -375,10 +374,10 @@ public class WatchBlockImporter implements Importer {
                         continue;
                     }
 
-                    tempUuid = this.plugin.getApi().getUuidForUsername(username).toString();
+                    tempUuid = this.plugin.getApi().getUuidForUsername(username);
                 }
 
-                points.put(blockPoint, tempUuid);
+                points.put(blockPoint, tempUuid.toString());
             }
         } catch (FileNotFoundException | InterruptedException e) {
             e.printStackTrace();

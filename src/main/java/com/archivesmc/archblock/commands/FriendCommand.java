@@ -26,12 +26,12 @@ public class FriendCommand implements CommandExecutor {
                     label, ChatColor.DARK_GREEN
             ));
         } else {
-            String player;
-            String friend;
+            UUID player;
+            UUID friend;
 
             if (sender instanceof Player) {
-                player = ((Player) sender).getUniqueId().toString();
-                friend = this.plugin.getApi().getUuidForUsername(args[0]).toString();
+                player = ((Player) sender).getUniqueId();
+                friend = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (friend == null) {
                     sender.sendMessage(String.format(
@@ -40,14 +40,14 @@ public class FriendCommand implements CommandExecutor {
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
-                    if (this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
+                    if (this.plugin.getApi().hasFriendship(player, friend)) {
                         sender.sendMessage(String.format(
                                 "%s[%sArchBlock%s]%s You are already friends with %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
                     } else {
-                        this.plugin.getApi().createFriendship(UUID.fromString(player), UUID.fromString(friend));
+                        this.plugin.getApi().createFriendship(player, friend);
                         sender.sendMessage(String.format(
                                 "%s[%sArchBlock%s]%s You are now friends with %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
@@ -64,8 +64,8 @@ public class FriendCommand implements CommandExecutor {
                             label, ChatColor.DARK_GREEN
                     ));
                 } else {
-                    player = this.plugin.getApi().getUuidForUsername(args[0]).toString();
-                    friend = this.plugin.getApi().getUuidForUsername(args[1]).toString();
+                    player = this.plugin.getApi().getUuidForUsername(args[0]);
+                    friend = this.plugin.getApi().getUuidForUsername(args[1]);
 
                     if (player == null) {
                         sender.sendMessage(String.format(
@@ -80,14 +80,14 @@ public class FriendCommand implements CommandExecutor {
                                 ChatColor.RED, ChatColor.AQUA, args[1]
                         ));
                     } else {
-                        if (this.plugin.getApi().hasFriendship(UUID.fromString(player), UUID.fromString(friend))) {
+                        if (this.plugin.getApi().hasFriendship(player, friend)) {
                             sender.sendMessage(String.format(
                                     "%s[%sArchBlock%s]%s %s%s is already friends with %s%s",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.RED, ChatColor.AQUA, args[1]
                             ));
                         } else {
-                            this.plugin.getApi().createFriendship(UUID.fromString(player), UUID.fromString(friend));
+                            this.plugin.getApi().createFriendship(player, friend);
 
                             sender.sendMessage(String.format(
                                     "%s[%sArchBlock%s]%s %s%s is now friends with %s%s",
