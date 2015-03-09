@@ -11,19 +11,19 @@ commands:
     friend:
         description: Add another player as a friend, and allow them to edit your blocks
         usage: /<command> [player]
-        aliases: [fr, f]
+        aliases: [fr, f, wallow]
     friends:
         description: List everyone you've added as a friend
         usage: /<command>
-        aliases: [fs]
+        aliases: [fs, wlist]
     setowner:
         description: Set a player as the owner of a (WorldEdit) selecion of blocks
         usage: /setowner [player]
-        aliases: [so]
+        aliases: [so, wtransfer]
     unfriend:
         description: Remove another player from your friends list, preventing them from editing your blocks
         usage: /<command> [player]
-        aliases: [ufr, uf]
+        aliases: [ufr, uf, wremove, unwallow]
 
 permissions:
     archblock.*:
