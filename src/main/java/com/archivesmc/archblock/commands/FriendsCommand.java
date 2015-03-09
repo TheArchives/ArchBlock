@@ -57,7 +57,7 @@ public class FriendsCommand implements CommandExecutor {
 
             if (friends.size() < 1) {
                 sender.sendMessage(String.format(
-                        "== %s[%sArchBlock%s]%s No friends found :( ==",
+                        "%s[%sArchBlock%s]%s No friends found :(",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.RED
                 ));
