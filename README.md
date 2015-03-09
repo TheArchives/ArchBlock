@@ -23,28 +23,20 @@ I will provide some API documentation shortly.
 
     <repositories>
         <!-- ... -->
-
         <repository>
           <id>gserv-me</id>
           <name>gserv.me</name>
           <url>http://cherry.gserv.me/repos/maven</url>
         </repository>
-
-        <!-- ... -->
     </repositories>
-
-    <!-- ... -->
 
     <dependencies>
         <!-- ... -->
-
         <dependency>
             <groupId>com.archivesmc.archblock</groupId>
             <artifactId>ArchBlock</artifactId>
             <version>0.0.2</version>
         </dependency>
-
-        <!-- ... -->
     <dependencies>
 
     <!-- ... -->
@@ -58,23 +50,15 @@ I will provide some API documentation shortly.
 
 repositories {
     // ...
-
     maven {
         url "http://cherry.gserv.me/repos/maven"
         name "gserv.me"
     }
-
-    // ...
 }
-
-// ...
 
 dependencies {
     // ...
-
     compile "com.archivesmc.archblock:ArchBlock:0.0.2"
-
-    // ...
 }
 ```
 
