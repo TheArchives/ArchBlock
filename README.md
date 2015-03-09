@@ -1,7 +1,7 @@
 ArchBlock
 =========
 
-Builds are available! You can get them at [my Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
+Builds are available! You can get them at [the Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
 
 ---
 
