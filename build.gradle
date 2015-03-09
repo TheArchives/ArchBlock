@@ -29,27 +29,13 @@ tasks.withType(FindBugs) {
     }
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.java
-    classifier "source"
-}
-
 publishing {
     publications {
         ivyJava(IvyPublication) {
             from components.java
-
-            artifact(sourceJar) {
-                type "source"
-                conf "runtime"
-            }
         }
         mavenJava(MavenPublication) {
             from components.java
-
-            artifact sourceJar {
-                classifier "sources"
-            }
         }
     }
     repositories {
