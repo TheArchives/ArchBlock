@@ -55,7 +55,7 @@ task runJarJar(type: Exec) {
     commandLine 'java', '-jar', 'lib/jarjar-1.4.jar',
             'process', 'jarjar.rules',
             "build/libs/ArchBlock-${version}-all.jar",
-            "build/libs/ArchBlock-${version}.jar"
+            "build/ArchBlock-${version}.jar"
 }
 
 defaultTasks 'shadowJar', 'runJarJar'
