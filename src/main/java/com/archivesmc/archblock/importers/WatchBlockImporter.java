@@ -34,30 +34,30 @@ public class WatchBlockImporter implements Importer{
         this.info("Beginning WatchBlock import..");
 
         Boolean result;
-
-        result = this.getWorlds();
-
-        if (!result) {
-            return result;
-        }
-
-//        result = this.convertFriends();
+//
+//        result = this.getWorlds();
 //
 //        if (!result) {
 //            return result;
 //        }
 
-        Boolean allWorldsDone = true;
+        result = this.convertFriends();
 
-        for (String world : this.worlds) {
-            if (!this.convertWorld(world)) {
-                allWorldsDone = false;
-            }
+        if (!result) {
+            return result;
         }
-
-        if (!allWorldsDone) {
-            this.warning("Not all worlds were converted. Please check for errors!");
-        }
+//
+//        Boolean allWorldsDone = true;
+//
+//        for (String world : this.worlds) {
+//            if (!this.convertWorld(world)) {
+//                allWorldsDone = false;
+//            }
+//        }
+//
+//        if (!allWorldsDone) {
+//            this.warning("Not all worlds were converted. Please check for errors!");
+//        }
 
         this.info(
                 "Disabling WatchBlock now. Please remember to remove it before you " +

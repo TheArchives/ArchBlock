@@ -52,7 +52,7 @@ public class Plugin extends JavaPlugin {
                 .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())             // jdbc:mysql://localhost:3306/archblock
                 .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())   // correct_username
                 .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword())   // correct_password
-                .setProperty("show_sql", this.mainConfig.getDatabseDebug() ? "true" : "false");
+                .setProperty("show_sql", this.mainConfig.getDatabseDebug().toString());
 
         this.sessionFactory = hibernateConfiguration.buildSessionFactory();
 

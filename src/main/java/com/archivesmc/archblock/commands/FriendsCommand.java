@@ -54,6 +54,17 @@ public class FriendsCommand implements CommandExecutor {
             ));
         } else {
             List friends = this.plugin.getApi().getFriendships(UUID.fromString(uuid));
+
+            if (friends.size() < 1) {
+                sender.sendMessage(String.format(
+                        "== %s[%sArchBlock%s]%s No friends found :( ==",
+                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
+                        ChatColor.RED
+                ));
+
+                return true;
+            }
+
             List<List<String>> lines = new ArrayList<>();
             List<String> currentLine = new ArrayList<>();
             Map p;

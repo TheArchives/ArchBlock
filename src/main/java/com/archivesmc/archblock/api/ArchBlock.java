@@ -147,6 +147,10 @@ public class ArchBlock {
 
         List r = q.list();
 
+        if (r.size() < 1) {
+            return r;
+        }
+
         List result = s.createCriteria(com.archivesmc.archblock.storage.entities.Player.class)
                 .add(Restrictions.in("uuid", r))
                 .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
