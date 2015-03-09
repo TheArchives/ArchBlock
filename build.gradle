@@ -25,16 +25,12 @@ tasks.withType(FindBugs) {
     }
 }
 
-artifacts {
-    archives jar
-}
-
 publishing {
     publications {
         ivyJava(IvyPublication) {
             from components.java
 
-            artifact(sourceJar) {
+            artifact sourceJar {
                 type "source"
             }
         }
@@ -42,7 +38,7 @@ publishing {
             from components.java
 
             artifact sourceJar {
-                classifier "sources"
+                type "source"
             }
         }
     }
