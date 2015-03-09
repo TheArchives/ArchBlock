@@ -18,9 +18,6 @@ I will provide some API documentation shortly.
 ### Maven
 
 ```xml
-<project>
-    <!-- ... -->
-
     <repositories>
         <!-- ... -->
         <repository>
@@ -38,16 +35,11 @@ I will provide some API documentation shortly.
             <version>0.0.2</version>
         </dependency>
     <dependencies>
-
-    <!-- ... -->
-</project>
 ```
 
 ### Gradle
 
 ```groovy
-// ...
-
 repositories {
     // ...
     maven {
