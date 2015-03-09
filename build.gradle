@@ -14,6 +14,8 @@ plugins {
     id 'findbugs'
     id 'com.github.johnrengelman.shadow' version '1.2.0'
     id "de.undercouch.download" version "1.2"
+    id 'maven-publish'
+    id 'ivy-publish'
 }
 
 tasks.withType(FindBugs) {
@@ -40,13 +42,29 @@ publishing {
     publications {
         ivyJava(IvyPublication) {
             from components.java
-            module "ArchBlock"
+
+            artifact(sourceJar) {
+                type "source"
+            }
+        }
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
         }
     }
     repositories {
         ivy {
             name "publish"
             url "/var/www/gserv/cherry/repos/ivy/"
+        }
+
+        maven {
+            name "publish"
+            pom.artifactId = "ArchBlock"
+            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
         }
     }
 }
