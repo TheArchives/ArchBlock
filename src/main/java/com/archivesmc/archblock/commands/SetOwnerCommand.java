@@ -76,8 +76,8 @@ public class SetOwnerCommand implements CommandExecutor {
                         int i, j, k;
 
                         for (i = minX; i <= maxX; i += 1) {
-                            for (j = minY; i <= maxY; i += 1) {
-                                for (k = minZ; i <= maxZ; i += 1) {
+                            for (j = minY; j <= maxY; j += 1) {
+                                for (k = minZ; k <= maxZ; k += 1) {
                                     Block b = ((Player) sender).getWorld().getBlockAt(i, j, k);
                                     if (b.getType() != Material.AIR) {
                                         blocks.add(b);
