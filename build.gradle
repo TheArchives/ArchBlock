@@ -40,13 +40,11 @@ publishing {
     }
     repositories {
         ivy {
-            name "publish"
             url "/var/www/gserv/cherry/repos/ivy/"
         }
 
         maven {
-            name "publish"
-            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
+            url "/var/www/gserv/cherry/repos/maven/"
         }
     }
 }
