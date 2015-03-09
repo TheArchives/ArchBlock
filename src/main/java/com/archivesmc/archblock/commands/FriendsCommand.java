@@ -44,7 +44,7 @@ public class FriendsCommand implements CommandExecutor {
             }
         }
 
-        String uuid = this.plugin.getApi().getUuidForUsername(toCheck);
+        String uuid = this.plugin.getApi().getUuidForUsername(toCheck).toString();
 
         if (uuid == null) {
             sender.sendMessage(String.format(

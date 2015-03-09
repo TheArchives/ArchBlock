@@ -191,7 +191,7 @@ public class ArchBlock {
         return (String) result;
     }
 
-    public String getUuidForUsername(String username) {
+    public UUID getUuidForUsername(String username) {
         username = username.toLowerCase();
 
         Session s = this.plugin.getSession();
@@ -206,7 +206,7 @@ public class ArchBlock {
             return null;
         }
 
-        return (String) result;
+        return UUID.fromString((String) result);
     }
 
     public void storePlayer(UUID uuid, String username) {

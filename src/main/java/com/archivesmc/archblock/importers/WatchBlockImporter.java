@@ -118,13 +118,13 @@ public class WatchBlockImporter implements Importer{
                     this.doFetchUuid(friend);
                 }
 
-                left = this.plugin.getApi().getUuidForUsername(player);
+                left = this.plugin.getApi().getUuidForUsername(player).toString();
 
                 if (left != null) {
                     leftUuid = UUID.fromString(left);
 
                     for (String friend : friends.keySet()) {
-                        right = this.plugin.getApi().getUuidForUsername(friend);
+                        right = this.plugin.getApi().getUuidForUsername(friend).toString();
 
                         if (right != null) {
                             rightUuid = UUID.fromString(right);
@@ -287,7 +287,7 @@ public class WatchBlockImporter implements Importer{
         String stringUuid;
         UUID uuid;
 
-        stringUuid = this.plugin.getApi().getUuidForUsername(player);
+        stringUuid = this.plugin.getApi().getUuidForUsername(player).toString();
 
         if (stringUuid == null) {
             uuid = Utils.fetchUuid(player);
@@ -370,7 +370,7 @@ public class WatchBlockImporter implements Importer{
                     continue;
                 }
 
-                tempUuid = this.plugin.getApi().getUuidForUsername(username);
+                tempUuid = this.plugin.getApi().getUuidForUsername(username).toString();
 
                 if (tempUuid == null) {
                     fetched = this.doFetchUuid(username);
@@ -380,7 +380,7 @@ public class WatchBlockImporter implements Importer{
                         continue;
                     }
 
-                    tempUuid = this.plugin.getApi().getUuidForUsername(username);
+                    tempUuid = this.plugin.getApi().getUuidForUsername(username).toString();
                 }
 
                 points.put(blockPoint, tempUuid);

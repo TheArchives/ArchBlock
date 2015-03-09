@@ -31,7 +31,7 @@ public class FriendCommand implements CommandExecutor {
 
             if (sender instanceof Player) {
                 player = ((Player) sender).getUniqueId().toString();
-                friend = this.plugin.getApi().getUuidForUsername(args[0]);
+                friend = this.plugin.getApi().getUuidForUsername(args[0]).toString();
 
                 if (friend == null) {
                     sender.sendMessage(String.format(
@@ -64,8 +64,8 @@ public class FriendCommand implements CommandExecutor {
                             label, ChatColor.DARK_GREEN
                     ));
                 } else {
-                    player = this.plugin.getApi().getUuidForUsername(args[0]);
-                    friend = this.plugin.getApi().getUuidForUsername(args[1]);
+                    player = this.plugin.getApi().getUuidForUsername(args[0]).toString();
+                    friend = this.plugin.getApi().getUuidForUsername(args[1]).toString();
 
                     if (player == null) {
                         sender.sendMessage(String.format(
