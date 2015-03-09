@@ -43,7 +43,7 @@ public class FriendsCommand implements CommandExecutor {
             }
         }
 
-        String uuid = this.plugin.getApi().getUuidForUsername(toCheck).toString();
+        UUID uuid = this.plugin.getApi().getUuidForUsername(toCheck);
 
         if (uuid == null) {
             sender.sendMessage(String.format(
@@ -52,7 +52,7 @@ public class FriendsCommand implements CommandExecutor {
                     ChatColor.RED, ChatColor.AQUA, args[0]
             ));
         } else {
-            List friends = this.plugin.getApi().getFriendships(UUID.fromString(uuid));
+            List friends = this.plugin.getApi().getFriendships(uuid);
 
             if (friends.size() < 1) {
                 sender.sendMessage(String.format(
