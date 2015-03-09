@@ -7,6 +7,49 @@ Builds are available! You can get them at [the Bamboo server](http://bamboo.gser
 
 Much of the plugin information has been [moved to BukkitDev](http://dev.bukkit.org/bukkit-plugins/archblock/) - You may find usage instructions there.
 
+Developing
+----------
+
+I will provide some API documentation shortly.
+
+* Maven repo: http://cherry.gserv.me/repos/maven
+* Ivy repo: http://cherry.gserv.me/repos/ivy
+
+### Maven
+
+```xml
+<repositories>
+    <repository>
+      <id>gserv-me</id>
+      <name>gserv.me</name>
+      <url>http://cherry.gserv.me/repos/maven</url>
+    </repository>
+</repositories>
+
+<dependency>
+	<groupId>com.archivesmc.archblock</groupId>
+	<artifactId>ArchBlock</artifactId>
+	<version>0.0.2</version>
+</dependency>
+```
+
+### Gradle
+
+```groovy
+repositories {
+    mavenCentral()
+
+    maven {
+        url "http://cherry.gserv.me/repos/maven"
+        name "gserv.me"
+    }
+}
+
+dependencies {
+    compile "com.archivesmc.archblock:ArchBlock:0.0.2"
+}
+```
+
 Compiling
 ---------
 
