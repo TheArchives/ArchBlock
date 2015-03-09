@@ -46,7 +46,7 @@ publishing {
 
         maven {
             name "publish"
-            url "file://localhost/var/www/gserv/cherry/repos/maven/"
+            repository(url: "file://localhost/var/www/gserv/cherry/repos/maven/")
         }
     }
 }
