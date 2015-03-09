@@ -93,6 +93,24 @@ public class ArchBlock {
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
+    public Boolean canEditBlock(Block block, Player player) {
+        if (player.hasPermission("archblock.bypass")) {
+            return true;
+        }
+
+        if (this.plugin.getWorldGuardIntegration().isInIgnoredRegion(block)) {
+            return true;
+        }
+
+        UUID owner = this.getOwnerUUID(block);
+
+        if (owner.equals(player.getUniqueId())) {
+            return true;
+        }
+
+        return this.hasFriendship(owner, player.getUniqueId());
+    }
+
     public Boolean hasFriendship(UUID left, UUID right) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=? AND friendUuid=?");
