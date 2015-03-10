@@ -2,6 +2,9 @@ package com.archivesmc.archblock.storage.entities;
 
 import java.util.UUID;
 
+/**
+ * Entity class that represents a player in the database.
+ */
 public class Player {
     private String uuid;
     private String username;

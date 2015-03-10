@@ -6,6 +6,9 @@ import org.hibernate.Session;
 
 import java.util.UUID;
 
+/**
+ * Thread used to remove a friendship from the database.
+ */
 public class DestroyFriendshipThread extends Thread {
     private final Plugin plugin;
     private final UUID playerUuid;

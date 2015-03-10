@@ -8,6 +8,11 @@ import org.hibernate.Session;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Thread used to set or remove the owner for a large number of blocks at once.
+ *
+ * This is used by the /setowner command.
+ */
 public class MassOwnershipChanger extends Thread {
     private final Plugin plugin;
     private final List<Block> blocks;

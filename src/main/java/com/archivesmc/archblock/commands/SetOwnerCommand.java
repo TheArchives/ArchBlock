@@ -17,6 +17,10 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * The command handler for the /setowner command for setting the owner
+ * of a large number of blocks, contained within a WorldEdit selection
+ */
 public class SetOwnerCommand implements CommandExecutor {
     private final Plugin plugin;
 
@@ -26,9 +30,6 @@ public class SetOwnerCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // TODO: WorldEdit support
-        // TODO: Transfer blocks between users, and also in a WorldEdit selection
-
         if (!sender.hasPermission("archblock.admin")) {
             sender.sendMessage(String.format(
                     "%s[%sArchBlock%s]%s You do not have permission to access this command.",

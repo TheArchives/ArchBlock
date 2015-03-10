@@ -5,6 +5,11 @@ import com.archivesmc.archblock.storage.entities.Friendship;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ * Thread used to create a friendship in the database.
+ *
+ * Friendships are magic!
+ */
 public class CreateFriendshipThread extends Thread {
     private final Plugin plugin;
     private final Friendship isMagic;

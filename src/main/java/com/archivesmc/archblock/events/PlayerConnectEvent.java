@@ -6,6 +6,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+/**
+ * Event handler that gets called when a player connects and puts their
+ * UUID into the database
+ */
 public class PlayerConnectEvent implements Listener{
     private final Plugin plugin;
 

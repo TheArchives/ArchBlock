@@ -4,6 +4,9 @@ import com.archivesmc.archblock.Plugin;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ * Thread used to disown a block in the database.
+ */
 public class RemoveOwnerThread extends Thread {
     private final Plugin plugin;
     private final String world;

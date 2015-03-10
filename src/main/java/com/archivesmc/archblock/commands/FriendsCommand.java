@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * The command handler for the /friends command for viewing the contents
+ * of one's friends list
+ */
 public class FriendsCommand implements CommandExecutor {
     private final Plugin plugin;
 

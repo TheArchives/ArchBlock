@@ -5,6 +5,9 @@ import com.archivesmc.archblock.storage.entities.Player;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ * Thread used to store or update the UUID/username of a player in the database.
+ */
 public class StorePlayerThread extends Thread {
     private final Plugin plugin;
     private final Player player;

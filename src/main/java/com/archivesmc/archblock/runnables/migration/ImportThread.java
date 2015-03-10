@@ -9,6 +9,9 @@ import org.hibernate.Session;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Thread used to import a set of blocks that have been converted from some other format.
+ */
 public class ImportThread extends Thread {
     private final String world;
     private final List<Map<Point3D, String>> points;

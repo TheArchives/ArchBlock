@@ -1,5 +1,8 @@
 package com.archivesmc.archblock.utils;
 
+/**
+ * Utility class that represents a coordinate in 3D space.
+ */
 public class Point3D {
     private Integer x;
     private Integer y;

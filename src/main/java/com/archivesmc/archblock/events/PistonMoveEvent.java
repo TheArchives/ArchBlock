@@ -11,6 +11,9 @@ import org.bukkit.event.block.BlockPistonRetractEvent;
 
 import java.util.UUID;
 
+/**
+ * Event handlers that get called when a piston extends or contracts
+ */
 public class PistonMoveEvent implements Listener {
     private final Plugin plugin;
 

@@ -5,6 +5,9 @@ import com.archivesmc.archblock.storage.entities.Block;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+/**
+ * Thread used to set the owner of a block in the database.
+ */
 public class SetOwnerThread extends Thread {
     private final Plugin plugin;
     private final Block block;

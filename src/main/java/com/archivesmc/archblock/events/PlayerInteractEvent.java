@@ -12,6 +12,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
+/**
+ * Event handler that gets called when a player left- or right-clicks a block
+ */
 public class PlayerInteractEvent implements Listener {
     private Plugin plugin;
 

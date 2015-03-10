@@ -1,5 +1,8 @@
 package com.archivesmc.archblock.storage.entities;
 
+/**
+ * Entity class that represents a friendship in the database.
+ */
 public class Friendship {
     private Long id;
     private String playerUuid;

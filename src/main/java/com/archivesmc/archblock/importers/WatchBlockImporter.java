@@ -15,6 +15,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Importer in charge of importing data from the WatchBlock plugin's flatfiles
+ */
 @SuppressWarnings("unchecked")
 public class WatchBlockImporter implements Importer {
     private final Plugin plugin;
@@ -68,6 +71,9 @@ public class WatchBlockImporter implements Importer {
         return true;
     }
 
+    /**
+     * Load up the list of worlds, which will be used later
+     */
     private void getWorlds() {
         this.info("Looking for worlds to import..");
 
@@ -82,6 +88,10 @@ public class WatchBlockImporter implements Importer {
         ));
     }
 
+    /**
+     * Load up and convert the file containing all of the players' allow lists
+     * @return true if successful, false otherwise
+     */
     private Boolean convertFriends() {
         this.info("Converting friendships..");
 
@@ -145,6 +155,11 @@ public class WatchBlockImporter implements Importer {
         return true;
     }
 
+    /**
+     * Load up and do a conversion for a specific world
+     * @param world The name of the world to load
+     * @return true if successful, false otherwise
+     */
     private Boolean convertWorld(String world) {
         this.info(String.format(
                 "Loading blocks for world: %s", world
@@ -271,6 +286,12 @@ public class WatchBlockImporter implements Importer {
         return true;
     }
 
+    /**
+     * Check if a UUID is in the database, and fetch it from Mojang if it's not
+     * @param player The username to fetch the UUID for
+     * @return true if the UUID was found or could be fetched, false otherwise
+     * @throws InterruptedException
+     */
     private Boolean doFetchUuid(String player) throws InterruptedException {
         UUID uuid;
 
@@ -294,6 +315,11 @@ public class WatchBlockImporter implements Importer {
         return true;
     }
 
+    /**
+     * Get the chunk coordinate from the filename of a chunk in a world
+     * @param filename The filename to parse
+     * @return The chunk coordinate, or null if it couldn't be parsed
+     */
     private Point2D pointFromFilename(String filename) {
         String[] strings = filename.split("\\.");
 
@@ -305,6 +331,11 @@ public class WatchBlockImporter implements Importer {
         return new Point2D(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
     }
 
+    /**
+     * Get the block coordinate from a comma-delimited string
+     * @param tuple The string to parse
+     * @return The block coordinate, or null if it couldn't be parsed
+     */
     private Point3D pointFromStringTuple(String tuple) {
         String[] strings = tuple.split(",");
 
@@ -319,6 +350,12 @@ public class WatchBlockImporter implements Importer {
         );
     }
 
+    /**
+     * Load up all the block coordinates from a chunk file
+     * @param file The file to load from
+     * @param chunkPoint The chunk coordinate associated with the file
+     * @return A map of block coordinates to the UUID of the user that owns them
+     */
     private Map<Point3D, String> getPointsFromFile(File file, Point2D chunkPoint) {
         if (!file.exists()) {
             return null;
@@ -390,12 +427,20 @@ public class WatchBlockImporter implements Importer {
         return points;
     }
 
+    /**
+     * Convenience method for logging an info message
+     * @param message The message to log
+     */
     private void info(String message) {
         this.plugin.getLogger().info(
                 String.format("IMPORT | %s", message)
         );
     }
 
+    /**
+     * Convenience method for logging a warning message
+     * @param message The message to log
+     */
     private void warning(String message) {
         this.plugin.getLogger().warning(
                 String.format("IMPORT | %s", message)

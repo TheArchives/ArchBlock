@@ -1,7 +1,9 @@
 package com.archivesmc.archblock.storage.entities;
 
 import java.util.UUID;
-
+/**
+ * Entity class that represents a block in the database.
+ */
 public class Block {
     private Long id;
     private Long x;

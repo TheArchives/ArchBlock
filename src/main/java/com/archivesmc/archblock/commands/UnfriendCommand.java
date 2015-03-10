@@ -9,6 +9,10 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ * The command handler for the /unfriend command for removing friends from
+ * one's friends list.
+ */
 public class UnfriendCommand implements CommandExecutor {
     private final Plugin plugin;
 

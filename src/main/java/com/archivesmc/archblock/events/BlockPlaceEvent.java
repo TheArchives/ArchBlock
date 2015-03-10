@@ -8,6 +8,9 @@ import org.bukkit.event.Listener;
 
 import java.util.UUID;
 
+/**
+ * Event handler that gets called when a block is placed
+ */
 public class BlockPlaceEvent implements Listener {
     private final Plugin plugin;
 

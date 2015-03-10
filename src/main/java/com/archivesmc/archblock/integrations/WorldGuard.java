@@ -8,6 +8,10 @@ import org.bukkit.block.Block;
 
 import static com.sk89q.worldguard.bukkit.BukkitUtil.toVector;
 
+/**
+ * WorldGuard integration, which is used to check if a block is within a
+ * region that protection has been disabled in
+ */
 public class WorldGuard {
     private final Plugin plugin;
 
@@ -15,6 +19,11 @@ public class WorldGuard {
         this.plugin = plugin;
     }
 
+    /**
+     * Check whether a block is in a region we don't check for protection in
+     * @param block The block to check
+     * @return true if the region exists and has protection disabled, false otherwise
+     */
     public Boolean isInIgnoredRegion(Block block) {
         Vector point = toVector(block);
         RegionManager regionManager = this.plugin.getWorldGuard().getRegionManager(block.getWorld());

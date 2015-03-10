@@ -9,6 +9,10 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ * The command handler for the /friend command for adding friends to
+ * one's friends list.
+ */
 public class FriendCommand implements CommandExecutor {
     private final Plugin plugin;
 

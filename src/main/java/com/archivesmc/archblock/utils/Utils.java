@@ -12,7 +12,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * A general utility class with several useful static method
+ */
 public class Utils {
+    /**
+     * Attempt to fetch a UUID for a player from Mojang
+     *
+     * @param username The username to look up
+     * @return The UUID of the player, or null when
+     */
     public static UUID fetchUuid(String username) {
         Gson gson = new Gson();
         InputStream in = null;
@@ -54,6 +63,13 @@ public class Utils {
         return null;
     }
 
+    /**
+     * Given a File object that represents a directory, return a List of File objects that represent
+     * subdirectories
+     *
+     * @param dir The containing directory to list subdirectories for
+     * @return A list containing all subdirectories
+     */
     public static List<File> listDirectories(File dir) {
         ArrayList<File> directories = new ArrayList<>();
 

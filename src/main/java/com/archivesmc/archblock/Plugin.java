@@ -19,6 +19,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * The main plugin class for ArchBlock.
+ */
 public class Plugin extends JavaPlugin {
     private ArchBlock api;
     private MainConfig mainConfig;
@@ -95,6 +98,11 @@ public class Plugin extends JavaPlugin {
         }
     }
 
+    /**
+     * Log an info message when debug mode is enabled in the config
+     *
+     * @param message The message to log
+     */
     public void debug(Object message) {
         if (this.mainConfig.getDatabseDebug()) {
             this.getLogger().info(String.format(
@@ -103,30 +111,65 @@ public class Plugin extends JavaPlugin {
         }
     }
 
+    /**
+     * Get an instance of the API class
+     *
+     * @return The API
+     */
     public ArchBlock getApi() {
         return this.api;
     }
 
+    /**
+     * Get a Hibernate database session
+     *
+     * @return Database session created by the current session factory
+     */
     public Session getSession() {
         return this.sessionFactory.openSession();
     }
 
+    /**
+     * Get an instance of the WorldEdit plugin, if it's loaded
+     *
+     * @return WorldEdit plugin, or null if it's not loaded
+     */
     public WorldEditPlugin getWorldEdit() {
         return (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
     }
 
+    /**
+     * Get an instance of the WorldGuard plugin, if it's loaded
+     *
+     * @return WorldGuard plugin, or null if it's not loaded
+     */
     public WorldGuardPlugin getWorldGuard() {
         return (WorldGuardPlugin) this.getServer().getPluginManager().getPlugin("WorldGuard");
     }
 
+    /**
+     * Get an instance of the WGCustomFlags plugin, if it's loaded
+     *
+     * @return WGCustomFlags plugin, or null if it's not loaded
+     */
     public WGCustomFlagsPlugin getWGCustomFlagsPlugin() {
         return (WGCustomFlagsPlugin) this.getServer().getPluginManager().getPlugin("WGCustomFlags");
     }
 
+    /**
+     * Get the instance of the WorldGuard integration class
+     *
+     * @return The WorldGuard integration class object
+     */
     public WorldGuard getWorldGuardIntegration() {
         return this.worldGuardIntegration;
     }
 
+    /**
+     * Check whether the WatchBlock plugin is loaded
+     *
+     * @return true if WatchBlock is loaded, false otherwise
+     */
     public Boolean hasWatchBlockPlugin() {
         return this.getServer().getPluginManager().isPluginEnabled("WatchBlock");
     }
