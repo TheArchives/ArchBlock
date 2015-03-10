@@ -10,7 +10,8 @@ Much of the plugin information has been [moved to BukkitDev](http://dev.bukkit.o
 Developing
 ----------
 
-I will provide some API documentation shortly.
+JavaDocs may be found [here](http://cherry.gserv.me/docs/com.archivesmc.archblock/). I'll add a usage
+tutorial at some later stage.
 
 * Maven repo: http://cherry.gserv.me/repos/maven
 * Ivy repo: http://cherry.gserv.me/repos/ivy
