@@ -18,7 +18,7 @@ public class MainConfig {
 
         switch(this.getVersion()) {
             case "0.0.1":
-                break;
+                this.configuration.set("version", "0.0.2");
             case "0.0.2":  // Latest version
                 break;
             default:
