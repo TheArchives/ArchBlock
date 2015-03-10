@@ -95,9 +95,6 @@ public class WatchBlockImporter implements Importer {
             Map<String, Map<String, Boolean>> data = (Map) ((Map) yaml.load(in)).get("allow");
             Map<String, Boolean> friends;
 
-            String left;
-            String right;
-
             UUID leftUuid;
             UUID rightUuid;
 
@@ -113,17 +110,13 @@ public class WatchBlockImporter implements Importer {
                     this.doFetchUuid(friend);
                 }
 
-                left = this.plugin.getApi().getUuidForUsername(player).toString();
+                leftUuid = this.plugin.getApi().getUuidForUsername(player);
 
-                if (left != null) {
-                    leftUuid = UUID.fromString(left);
-
+                if (leftUuid != null) {
                     for (String friend : friends.keySet()) {
-                        right = this.plugin.getApi().getUuidForUsername(friend).toString();
+                        rightUuid = this.plugin.getApi().getUuidForUsername(friend);
 
-                        if (right != null) {
-                            rightUuid = UUID.fromString(right);
-
+                        if (rightUuid != null) {
                             if (! this.plugin.getApi().hasFriendship(leftUuid, rightUuid)) {
                                 this.plugin.getApi().createFriendship(leftUuid, rightUuid);
                                 this.info(String.format(
@@ -374,6 +367,10 @@ public class WatchBlockImporter implements Importer {
                     }
 
                     tempUuid = this.plugin.getApi().getUuidForUsername(username);
+                }
+
+                if (tempUuid == null) {
+                    continue;
                 }
 
                 points.put(blockPoint, tempUuid.toString());

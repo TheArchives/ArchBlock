@@ -19,6 +19,9 @@ public class MainConfig {
         switch(this.getVersion()) {
             case "0.0.1":
                 this.configuration.set("version", "0.0.2");
+                this.plugin.saveConfig();
+                this.reload();
+                break;
             case "0.0.2":  // Latest version
                 break;
             default:
