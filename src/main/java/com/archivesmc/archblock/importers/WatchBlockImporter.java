@@ -352,7 +352,6 @@ public class WatchBlockImporter implements Importer {
 
             for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
                 blockPoint = this.pointFromStringTuple(entry.getKey());
-                this.translatePointForChunk(chunkPoint, blockPoint);
 
                 username = entry.getValue().get("player");
                 
@@ -392,14 +391,6 @@ public class WatchBlockImporter implements Importer {
         }
 
         return points;
-    }
-
-    private void translatePointForChunk(Point2D chunkPoint, Point3D blockPoint) {
-        Integer x = chunkPoint.getX() * 16;
-        Integer z = chunkPoint.getY() * 16;
-
-        blockPoint.setX(x + blockPoint.getX());
-        blockPoint.setZ(z + blockPoint.getZ());
     }
 
     private void info(String message) {
