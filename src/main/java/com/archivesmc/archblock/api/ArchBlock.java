@@ -15,6 +15,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * ArchBlock's main API class. If you need to integrate with the plugin,
+ * you may find various way to do so here.
+ *
+ * You can get an instance of this using Plugin#getApi()
+ */
 public class ArchBlock {
     // Class is named this in case there are plugins using multiple protection APIs
 
@@ -24,20 +30,49 @@ public class ArchBlock {
         this.plugin = plugin;
     }
 
+    /**
+     * Get an instance of the main ArchBlock plugin
+     *
+     * @return Current ArchBlock plugin instance
+     */
     public Plugin getPlugin() {
         return plugin;
     }
 
+    /**
+     * Get the UUID of the player that owns a block
+     *
+     * @param block The Block to check
+     * @return UUID of the block's owner, or null if nobody owns the block
+     */
     @Nullable
     public UUID getOwnerUUID(Block block) {
         return this.getOwnerUUID(block.getWorld(), block.getX(), block.getY(), block.getZ());
     }
 
+    /**
+     * Get the UUID of the player that owns a block at the given location
+     *
+     * @param world World object containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     * @return UUID of the block's owner, or null if nobody owns the block
+     */
     @Nullable
     public UUID getOwnerUUID(World world, Integer x, Integer y, Integer z) {
         return this.getOwnerUUID(world.getName(), x, y, z);
     }
 
+    /**
+     * Get the UUID of the player that owns a block
+     *
+     * @param world Name of the world containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     * @return UUID of the block's owner, or null if nobody owns the block
+     */
     @Nullable
     public UUID getOwnerUUID(String world, Integer x, Integer y, Integer z) {
         world = world.toLowerCase();
@@ -61,14 +96,38 @@ public class ArchBlock {
         return UUID.fromString((String) result);
     }
 
+    /**
+     * Set the owner of a block. Note that this method is threaded and returns immediately.
+     *
+     * @param block The Block to set an owner for
+     * @param owner The UUID of the player to set as the owner
+     */
     public void setOwnerUUID(Block block, UUID owner) {
         this.setOwnerUUID(block.getWorld(), block.getX(), block.getY(), block.getZ(), owner);
     }
 
+    /**
+     * Set the owner of a block. Note that this method is threaded and returns immediately.
+     *
+     * @param world World object containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     * @param owner The UUID of the player to set as the owner
+     */
     public void setOwnerUUID(World world, Integer x, Integer y, Integer z, UUID owner) {
         this.setOwnerUUID(world.getName(), x, y, z, owner);
     }
 
+    /**
+     * Set the owner of a block. Note that this method is threaded and returns immediately.
+     *
+     * @param world Name of the world containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     * @param owner The UUID of the player to set as the owner
+     */
     public void setOwnerUUID(String world, Integer x, Integer y, Integer z, UUID owner) {
         world = world.toLowerCase();
 
@@ -79,20 +138,51 @@ public class ArchBlock {
         new SetOwnerThread(this.plugin, b).start();
     }
 
+    /**
+     * Disown a block. Note that this method is threaded and returns immediately.
+     *
+     * @param block The Block to disown
+     */
     public void removeOwner(Block block){
         this.removeOwner(block.getWorld(), block.getX(), block.getY(), block.getZ());
     }
 
+    /**
+     * Disown a block. Note that this method is threaded and returns immediately.
+     *
+     * @param world World object containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     */
     public void removeOwner(World world, Integer x, Integer y, Integer z) {
         this.removeOwner(world.getName(), x, y, z);
     }
 
+    /**
+     * Disown a block. Note that this method is threaded and returns immediately.
+     *
+     * @param world Name of the world containing the block
+     * @param x Block's X coordinate
+     * @param y Block's Y coordinate
+     * @param z Block's Z coordinate
+     */
     public void removeOwner(String world, Integer x, Integer y, Integer z) {
         world = world.toLowerCase();
 
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
+    /**
+     * Check whether a player is allowed to edit a block.
+     *
+     * This takes their permissions, WorldGuard integration, and any applicable
+     * friends lists into account.
+     *
+     * @param block The Block to check against
+     * @param player The Player to be checked for
+     * @return true if the player is allowed to edit the block, false otherwise
+     */
     public Boolean canEditBlock(Block block, Player player) {
         if (player.hasPermission("archblock.bypass")) {
             return true;
@@ -115,6 +205,13 @@ public class ArchBlock {
         return this.hasFriendship(owner, player.getUniqueId());
     }
 
+    /**
+     * Check whether one player has another in their friends list.
+     *
+     * @param left The UUID of the player that owns the friends list we wish to check
+     * @param right The UUID of the player we want to check the friends list for
+     * @return true if the player has the other player in their friends list, false otherwise
+     */
     public Boolean hasFriendship(UUID left, UUID right) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=? AND friendUuid=?");
@@ -129,16 +226,34 @@ public class ArchBlock {
         return result != null;
     }
 
+    /**
+     * Create a friendship. Note that this method is threaded and returns immediately.
+     *
+     * @param left The UUID of the player that owns the friends list we wish to modify
+     * @param right The UUID of the player we want to add to the friends list
+     */
     public void createFriendship(UUID left, UUID right) {
         Friendship f = new Friendship(left.toString(), right.toString());
 
         new CreateFriendshipThread(this.plugin, f).start();
     }
 
+    /**
+     * Destroy a friendship. Note that this method is threaded and returns immediately.
+     *
+     * @param left The UUID of the player that owns the friends list we wish to modify
+     * @param right The UUID of the player we want to remove from the friends list
+     */
     public void destroyFriendship(UUID left, UUID right) {
         new DestroyFriendshipThread(this.plugin, left, right).start();
     }
 
+    /**
+     * Get a list of all the UUIDs in a player's friends list.
+     *
+     * @param left The UUID of the player that owns the friends list we wish to get
+     * @return A List of UUIDs of players in the friends list, which will be empty if no results were found
+     */
     public List getFriendships(UUID left) {
         Session s = this.plugin.getSession();
 
@@ -165,20 +280,12 @@ public class ArchBlock {
         return result;
     }
 
-    public List getFriendships(String username) {
-        username = username.toLowerCase();
-
-        Session s = this.plugin.getSession();
-        Query q = s.createQuery(
-                "SELECT p2.username FROM Friendship f, Player p1, Player p2 WHERE " +
-                "p1.username=:username AND f.playerUuid=p1.uuid AND p2.uuid=f.friendUuid"
-        );
-
-        q.setString("username", username.toLowerCase());
-
-        return q.list();
-    }
-
+    /**
+     * Translate a UUID to a username using ArchBlock's database of players.
+     *
+     * @param uuid The UUID to convert
+     * @return The converted username, or null if the UUID isn't in the database
+     */
     @Nullable
     public String getUsernameForUuid(UUID uuid) {
         Session s = this.plugin.getSession();
@@ -196,6 +303,12 @@ public class ArchBlock {
         return (String) result;
     }
 
+    /**
+     * Translate a username to a UUID using ArchBlock's database of players.
+     *
+     * @param username The username to convert
+     * @return The converted UUID, or null if the username isn't in the database
+     */
     @Nullable
     public UUID getUuidForUsername(String username) {
         username = username.toLowerCase();
@@ -215,6 +328,13 @@ public class ArchBlock {
         return UUID.fromString((String) result);
     }
 
+    /**
+     * Associate a UUID with a username and store it in the database.
+     * Note that this method is threaded and returns immediately.
+     *
+     * @param uuid The UUID to store
+     * @param username The username to store
+     */
     public void storePlayer(UUID uuid, String username) {
         username = username.toLowerCase();
 
@@ -225,13 +345,23 @@ public class ArchBlock {
         this.storePlayer(p);
     }
 
+    /**
+     * Associate a UUID with a username and store it in the database.
+     * Note that this method is threaded and returns immediately.
+     *
+     * @param player The Bukkit Player object to store
+     */
     public void storePlayer(Player player) {
         this.storePlayer(player.getUniqueId(), player.getName().toLowerCase());
     }
 
+    /**
+     * Associate a UUID with a username and store it in the database.
+     * Note that this method is threaded and returns immediately.
+     *
+     * @param player The ArchBlock Player entity to store
+     */
     public void storePlayer(com.archivesmc.archblock.storage.entities.Player player) {
         new StorePlayerThread(this.plugin, player).start();
     }
-
-    // TODO: Come up with a sane API
 }

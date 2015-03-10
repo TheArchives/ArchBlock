@@ -17,21 +17,38 @@ public class StorePlayerThread extends Thread {
     @Override
     public void run() {
         Session s = this.plugin.getSession();
+        Object uuid, username;
+        Query q;
 
-        Query q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=:uuid");
+        q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=:username");
+        q.setString("username", this.player.getUsername());
+        uuid = q.uniqueResult();
 
+        q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=:uuid");
         q.setString("uuid", this.player.getUuid());
+        username = q.uniqueResult();
 
-        Object result = q.uniqueResult();
-
-        if (result != null) {
-            String username = (String) result;
-
-            if (! username.equalsIgnoreCase(this.player.getUsername())) {
-                s.saveOrUpdate(this.player);
+        if (this.player.getUuid().equalsIgnoreCase((String) uuid)) {
+            // If the UUID was found..
+            if (! this.player.getUsername().equalsIgnoreCase((String) username)) {
+                // If the username wasn't found..
+                q = s.createQuery("UPDATE Player p SET p.username=:username WHERE p.uuid=:uuid");
+                q.setString("username", this.player.getUsername());
+                q.setString("uuid", (String) uuid);
+                q.executeUpdate();
             }
         } else {
-            s.saveOrUpdate(this.player);
+            // If the UUID wasn't found..
+            if (this.player.getUsername().equalsIgnoreCase((String) username)) {
+                // If the username was found..
+                q = s.createQuery("UPDATE Player p SET p.uuid=:uuid WHERE p.username=:username");
+                q.setString("username", this.player.getUsername());
+                q.setString("uuid", (String) uuid);
+                q.executeUpdate();
+            } else {
+                // If the username wasn't found..
+                s.save(this.player);
+            }
         }
 
         s.flush();
