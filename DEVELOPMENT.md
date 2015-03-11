@@ -127,10 +127,10 @@ for ArchBlock, this may be the route you want to take.
 
   ```java
   // ...
-  private ArchBlockIntegration archBlockIntegration = null;
 
   public class MyPlugin extends JavaPlugin {
       // ...
+      private ArchBlockIntegration archBlockIntegration = null;
 
       @Override
       public void onEnable() {
