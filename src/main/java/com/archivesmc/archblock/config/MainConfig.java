@@ -27,6 +27,7 @@ public class MainConfig {
             case "0.0.1":
                 this.configuration.set("version", "0.0.2");
                 this.plugin.saveConfig();
+                this.plugin.getLogger().info("Updated config to version 0.0.2");
                 this.reload();
                 break;
             case "0.0.2":  // Latest version
@@ -34,7 +35,8 @@ public class MainConfig {
             default:
                 this.plugin.getLogger().warning(
                         String.format(
-                                "Unknown version \"%s\", please make sure your config.yml is correct.", this.getVersion()
+                                "Unknown version \"%s\", please make sure your config.yml is correct.",
+                                this.getVersion()
                         )
                 );
                 break;
