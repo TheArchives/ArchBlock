@@ -30,78 +30,82 @@ public class MassOwnershipChanger extends Thread {
     public void run() {
         this.plugin.setTaskRunning(true);
 
-        Session s = this.plugin.getSession();
+        try {
+            Session s = this.plugin.getSession();
 
-        String getOwnerQuery = "SELECT b.uuid FROM Block b WHERE world=:world AND x=:x AND y=:y AND z=:z";
-        String updateOwnerQuery = "UPDATE Block b SET b.uuid=:uuid WHERE world=:world AND x=:x AND y=:y AND z=:z";
-        String deleteOwnerQuery = "DELETE Block WHERE world=:world AND x=:x AND y=:y AND z=:z";
+            String getOwnerQuery = "SELECT b.uuid FROM Block b WHERE world=:world AND x=:x AND y=:y AND z=:z";
+            String updateOwnerQuery = "UPDATE Block b SET b.uuid=:uuid WHERE world=:world AND x=:x AND y=:y AND z=:z";
+            String deleteOwnerQuery = "DELETE Block WHERE world=:world AND x=:x AND y=:y AND z=:z";
 
-        Query query;
+            Query query;
 
-        String world;
-        Object blockOwner;
+            String world;
+            Object blockOwner;
 
-        Integer x;
-        Integer y;
-        Integer z;
+            Integer x;
+            Integer y;
+            Integer z;
 
-        for (Block b : this.blocks) {
-            world = b.getWorld().getName();
-            x = b.getX();
-            y = b.getY();
-            z = b.getZ();
+            for (Block b : this.blocks) {
+                world = b.getWorld().getName();
+                x = b.getX();
+                y = b.getY();
+                z = b.getZ();
 
-            try {
-                query = s.createQuery(getOwnerQuery);
+                try {
+                    query = s.createQuery(getOwnerQuery);
 
-                query.setString("world", world);
-                query.setInteger("x", x);
-                query.setInteger("y", y);
-                query.setInteger("z", z);
+                    query.setString("world", world);
+                    query.setInteger("x", x);
+                    query.setInteger("y", y);
+                    query.setInteger("z", z);
 
-                blockOwner = query.uniqueResult();
+                    blockOwner = query.uniqueResult();
 
-                if (blockOwner != null) {
-                    if (!UUID.fromString((String) blockOwner).equals(this.owner)) {
-                        if (this.owner != null) {
-                            query = s.createQuery(updateOwnerQuery);
+                    if (blockOwner != null) {
+                        if (!UUID.fromString((String) blockOwner).equals(this.owner)) {
+                            if (this.owner != null) {
+                                query = s.createQuery(updateOwnerQuery);
 
-                            query.setString("uuid", this.owner.toString());
+                                query.setString("uuid", this.owner.toString());
 
-                            query.setString("world", world);
-                            query.setInteger("x", x);
-                            query.setInteger("y", y);
-                            query.setInteger("z", z);
+                                query.setString("world", world);
+                                query.setInteger("x", x);
+                                query.setInteger("y", y);
+                                query.setInteger("z", z);
 
-                            query.executeUpdate();
-                        } else {
-                            query = s.createQuery(deleteOwnerQuery);
+                                query.executeUpdate();
+                            } else {
+                                query = s.createQuery(deleteOwnerQuery);
 
-                            query.setString("world", world);
-                            query.setInteger("x", x);
-                            query.setInteger("y", y);
-                            query.setInteger("z", z);
+                                query.setString("world", world);
+                                query.setInteger("x", x);
+                                query.setInteger("y", y);
+                                query.setInteger("z", z);
 
-                            query.executeUpdate();
+                                query.executeUpdate();
+                            }
                         }
+                    } else {
+                        com.archivesmc.archblock.storage.entities.Block newBlock = new com.archivesmc.archblock.storage.entities.Block(
+                                Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), this.owner, world
+                        );
+
+                        s.save(newBlock);
                     }
-                } else {
-                    com.archivesmc.archblock.storage.entities.Block newBlock = new com.archivesmc.archblock.storage.entities.Block(
-                            Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), this.owner, world
-                    );
-
-                    s.save(newBlock);
+                } catch (Exception e) {
+                    this.plugin.getLogger().warning(String.format(
+                            "Unable to update block owner at %s(%s, %s, %s): %s",
+                            world, x, y, z, e.getMessage()
+                    ));
                 }
-            } catch (Exception e) {
-                this.plugin.getLogger().warning(String.format(
-                        "Unable to update block owner at %s(%s, %s, %s): %s",
-                        world, x, y, z, e.getMessage()
-                ));
             }
-        }
 
-        s.flush();
-        s.close();
+            s.flush();
+            s.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.plugin.setTaskRunning(false);
         this.plugin.getServer().getScheduler().runTask(this.plugin, this.finishRunnable);

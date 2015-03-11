@@ -24,16 +24,21 @@ public class TransferBlocksThread extends Thread {
     @Override
     public void run() {
         this.plugin.setTaskRunning(true);
+        int rows = 0;
 
-        Session s = this.plugin.getSession();
-        Query q = s.createQuery("UPDATE Block b SET b.uuid=:toUuid WHERE p.uuid=:fromUuid");
+        try {
+            Session s = this.plugin.getSession();
+            Query q = s.createQuery("UPDATE Block b SET b.uuid=:toUuid WHERE b.uuid=:fromUuid");
 
-        q.setString("toUuid", this.toPlayer.toString());
-        q.setString("fromUuid", this.fromPlayer.toString());
-        int rows = q.executeUpdate();
+            q.setString("toUuid", this.toPlayer.toString());
+            q.setString("fromUuid", this.fromPlayer.toString());
+            rows = q.executeUpdate();
 
-        s.flush();
-        s.close();
+            s.flush();
+            s.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.plugin.setTaskRunning(false);
 

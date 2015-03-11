@@ -22,15 +22,21 @@ public class DisownBlocksPlayerThread extends Thread {
     @Override
     public void run() {
         this.plugin.setTaskRunning(true);
+        int rows = 0;
 
-        Session s = this.plugin.getSession();
-        Query q = s.createQuery("DELETE Block WHERE uuid=:uuid");
+        try {
+            Session s = this.plugin.getSession();
+            Query q = s.createQuery("DELETE Block WHERE uuid=:uuid");
 
-        q.setString("uuid", this.playerUuid.toString());
-        int rows = q.executeUpdate();
+            q.setString("uuid", this.playerUuid.toString());
+            rows = q.executeUpdate();
 
-        s.flush();
-        s.close();
+            s.flush();
+            s.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.plugin.setTaskRunning(false);
 

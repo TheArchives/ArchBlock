@@ -20,15 +20,20 @@ public class DisownBlocksWorldThread extends Thread {
     @Override
     public void run() {
         this.plugin.setTaskRunning(true);
+        int rows = 0;
 
-        Session s = this.plugin.getSession();
-        Query q = s.createQuery("DELETE Block WHERE world=:world");
+        try {
+            Session s = this.plugin.getSession();
+            Query q = s.createQuery("DELETE Block WHERE world=:world");
 
-        q.setString("world", this.world);
-        int rows = q.executeUpdate();
+            q.setString("world", this.world);
+            rows = q.executeUpdate();
 
-        s.flush();
-        s.close();
+            s.flush();
+            s.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.plugin.setTaskRunning(false);
 
