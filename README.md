@@ -21,11 +21,13 @@ be aware that you will need at least Java 7 to both build and use this plugin.
 #### Compiling on Windows
 
 1. Clone this repository
-2. `cd` into the directory you cloned to and `gradlew.bat`
+2. `cd` into the directory you cloned to and run `gradlew.bat`
 3. Find your jar in `build/libs`
 
 #### Compiling on Linux
 
 1. Clone this repository
-2. `cd` into the directory you cloned to and `gradlew`
-3. Find your jar in `build/libs`
+2. `cd` into the directory you cloned to
+3. Make `gradlew` executable: `chmod +x ./gradlew`
+4. Run the build steps: `./gradlew`
+5. Find your jar in `build/libs`

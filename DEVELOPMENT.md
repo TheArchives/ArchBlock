@@ -224,6 +224,7 @@ If you want to check out the JavaDocs for a specific version, you can do the fol
 git clone https://github.com/TheArchives/ArchBlock.git
 cd ArchBlock
 git checkout tags/<version>
+chmod +x ./gradlew
 ./gradlew javadoc
 ```
 
