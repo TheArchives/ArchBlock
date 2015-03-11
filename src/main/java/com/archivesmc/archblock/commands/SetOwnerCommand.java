@@ -1,7 +1,7 @@
 package com.archivesmc.archblock.commands;
 
 import com.archivesmc.archblock.Plugin;
-import com.archivesmc.archblock.runnables.database.MassOwnershipChanger;
+import com.archivesmc.archblock.runnables.database.commands.MassOwnershipChanger;
 import com.archivesmc.archblock.runnables.RelayRunnable;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
@@ -48,6 +48,15 @@ public class SetOwnerCommand implements CommandExecutor {
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE, ChatColor.AQUA, ChatColor.BLUE
                 ));
             } else if (sender instanceof Player) {
+                if (this.plugin.isTaskRunning()) {
+                    sender.sendMessage(String.format(
+                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
+                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
+                            ChatColor.RED
+                    ));
+                    return true;
+                }
+
                 UUID target = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (target == null && !("!".equals(args[0]))) {

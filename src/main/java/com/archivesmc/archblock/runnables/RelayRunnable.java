@@ -6,12 +6,18 @@ import org.bukkit.entity.Player;
 public class RelayRunnable implements Runnable {
     private final Plugin plugin;
     private final String target;
-    private final String message;
+    private String message;
 
     public RelayRunnable(Plugin plugin, String target, String message) {
         this.plugin = plugin;
         this.target = target;
         this.message = message;
+    }
+
+    public RelayRunnable(Plugin plugin, String target) {
+        this.plugin = plugin;
+        this.target = target;
+        this.message = "";
     }
 
     @Override
@@ -21,5 +27,9 @@ public class RelayRunnable implements Runnable {
         if (p != null) {
             p.sendMessage(this.message);
         }
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

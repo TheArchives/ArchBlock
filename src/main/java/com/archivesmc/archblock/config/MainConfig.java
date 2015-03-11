@@ -30,7 +30,13 @@ public class MainConfig {
                 this.plugin.getLogger().info("Updated config to version 0.0.2");
                 this.reload();
                 break;
-            case "0.0.2":  // Latest version
+            case "0.0.2":
+                this.configuration.set("version", "0.0.3");
+                this.plugin.saveConfig();
+                this.plugin.getLogger().info("Updated config to version 0.0.3");
+                this.reload();
+                break;
+            case "0.0.3":  // Latest version
                 break;
             default:
                 this.plugin.getLogger().warning(

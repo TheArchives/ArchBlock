@@ -1,10 +1,7 @@
 package com.archivesmc.archblock;
 
 import com.archivesmc.archblock.api.ArchBlock;
-import com.archivesmc.archblock.commands.FriendCommand;
-import com.archivesmc.archblock.commands.FriendsCommand;
-import com.archivesmc.archblock.commands.SetOwnerCommand;
-import com.archivesmc.archblock.commands.UnfriendCommand;
+import com.archivesmc.archblock.commands.*;
 import com.archivesmc.archblock.config.MainConfig;
 import com.archivesmc.archblock.events.*;
 import com.archivesmc.archblock.importers.WatchBlockImporter;
@@ -27,6 +24,7 @@ public class Plugin extends JavaPlugin {
     private MainConfig mainConfig;
     private SessionFactory sessionFactory;
     private WorldGuard worldGuardIntegration;
+    private Boolean taskRunning;
 
     public static final BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
 
@@ -39,6 +37,8 @@ public class Plugin extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.mainConfig = new MainConfig(this);
+
+        this.setTaskRunning(false);
 
         if (!this.mainConfig.getEnabled()) {
             this.getLogger().warning("Plugin is disabled in the config. Set it up or it will do nothing!");
@@ -76,10 +76,17 @@ public class Plugin extends JavaPlugin {
 
         session.close();
 
+        // User commands
         this.getCommand("friend").setExecutor(new FriendCommand(this));
         this.getCommand("friends").setExecutor(new FriendsCommand(this));
-        this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
+        this.getCommand("transferblocks").setExecutor(new TransferBlocksCommand(this));
         this.getCommand("unfriend").setExecutor(new UnfriendCommand(this));
+
+        // Staff commands
+        this.getCommand("disownplayer").setExecutor(new DisownPlayerCommand(this));
+        this.getCommand("disownworld").setExecutor(new DisownWorldCommand(this));
+        this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
+        this.getCommand("transferplayer").setExecutor(new TransferPlayerCommand(this));
 
         this.getServer().getPluginManager().registerEvents(new BlockBreakEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
@@ -172,5 +179,13 @@ public class Plugin extends JavaPlugin {
      */
     public Boolean hasWatchBlockPlugin() {
         return this.getServer().getPluginManager().isPluginEnabled("WatchBlock");
+    }
+
+    public synchronized Boolean isTaskRunning() {
+        return this.taskRunning;
+    }
+
+    public synchronized void setTaskRunning(Boolean taskRunning) {
+        this.taskRunning = taskRunning;
     }
 }

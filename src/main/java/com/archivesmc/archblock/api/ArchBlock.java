@@ -173,6 +173,15 @@ public class ArchBlock {
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
+    public Boolean hasWorld(String world) {
+        Session s = this.plugin.getSession();
+        Query q = s.createQuery("SELECT 1 FROM Block b WHERE b.world=:world");
+
+        q.setString("world", world);
+
+        return (q.uniqueResult() != null);
+    }
+
     /**
      * Check whether a player is allowed to edit a block.
      *

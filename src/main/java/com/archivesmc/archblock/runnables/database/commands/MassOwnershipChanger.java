@@ -1,4 +1,4 @@
-package com.archivesmc.archblock.runnables.database;
+package com.archivesmc.archblock.runnables.database.commands;
 
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.block.Block;
@@ -28,6 +28,8 @@ public class MassOwnershipChanger extends Thread {
 
     @Override
     public void run() {
+        this.plugin.setTaskRunning(true);
+
         Session s = this.plugin.getSession();
 
         String getOwnerQuery = "SELECT b.uuid FROM Block b WHERE world=:world AND x=:x AND y=:y AND z=:z";
@@ -101,6 +103,7 @@ public class MassOwnershipChanger extends Thread {
         s.flush();
         s.close();
 
+        this.plugin.setTaskRunning(false);
         this.plugin.getServer().getScheduler().runTask(this.plugin, this.finishRunnable);
     }
 }
