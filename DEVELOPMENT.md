@@ -94,7 +94,7 @@ for ArchBlock, this may be the route you want to take.
   public class MyPlugin extends JavaPlugin {
       // ...
 
-      public Boolean hasArchBlock() {
+      public boolean hasArchBlock() {
           return this.getServer().getPluginManager().isPluginEnabled("ArchBlock");
       }
   }
@@ -188,7 +188,7 @@ If your plugin requires ArchBlock to function, this may be the route for you.
           }
       }
 
-      public Boolean setupArchBlock() {
+      public boolean setupArchBlock() {
           JavaPlugin p = this.getServer().getPluginManager().getPlugin("ArchBlock");
 
           if (p instanceof Plugin) {
