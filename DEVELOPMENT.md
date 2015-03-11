@@ -1,6 +1,8 @@
 Developer Guide
 ===============
 
+**Quick links**: [Maven repo](http://cherry.gserv.me/repos/maven/) | [Ivy repo](http://cherry.gserv.me/repos/ivy/) | [JavaDocs](http://cherry.gserv.me/docs/com.archivesmc.archblock/) | [Valid Git tags](https://github.com/TheArchives/ArchBlock/tags)
+
 So, you're looking to integrate your plugin with ArchBlock? Look no further!
 
 The first thing you'll want to do is set up your dependencies with either the Ivy
@@ -146,7 +148,7 @@ for ArchBlock, this may be the route you want to take.
       }
   }
   ```
-  
+
 The goal here is to avoid importing any ArchBlock classes when ArchBlock isn't available.
 If you try to import them without ArchBlock loaded, you'll get some exceptions and your
 plugin will fail to load at all.
@@ -172,7 +174,7 @@ If your plugin requires ArchBlock to function, this may be the route for you.
   import com.archivesmc.archblock.Plugin;
 
   public class MyPlugin extends JavaPlugin {
-  // ...
+      // ...
       private ArchBlock archBlockApi;
 
       @Override
@@ -201,3 +203,40 @@ If your plugin requires ArchBlock to function, this may be the route for you.
 
 This is arguably a simpler path, but please don't take it unless your plugin is totally
 unable to function with ArchBlock.
+
+Using the API
+=============
+
+Instead of me listing every possible function you could use, you should instead take a look
+at the API documentation.
+
+* JavaDocs overview: http://cherry.gserv.me/docs/com.archivesmc.archblock/
+* ArchBlock API at the JavaDocs: http://cherry.gserv.me/docs/com.archivesmc.archblock/com/archivesmc/archblock/api/ArchBlock.html
+
+Please note that the JavaDocs are built automatically on every commit, and so will always match the latest version.
+If you want to check out the JavaDocs for a specific version, you can do the following.
+
+### Linux
+
+* Install Git first
+
+```sh
+git clone https://github.com/TheArchives/ArchBlock.git
+cd ArchBlock
+git checkout tags/<version>
+./gradlew javadoc
+```
+
+### Windows
+
+* Install MSysGit or Git for Windows first
+
+```batch
+git clone https://github.com/TheArchives/ArchBlock.git
+cd ArchBlock
+git checkout tags/<version>
+gradlew javadoc
+```
+
+You can get a list of valid version tags [here](https://github.com/TheArchives/ArchBlock/tags). Your newly-built
+JavaDocs can be found in `build/docs/javadoc/`.

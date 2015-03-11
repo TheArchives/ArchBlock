@@ -10,50 +10,7 @@ Much of the plugin information has been [moved to BukkitDev](http://dev.bukkit.o
 Developing
 ----------
 
-JavaDocs may be found [here](http://cherry.gserv.me/docs/com.archivesmc.archblock/). I'll add a usage
-tutorial at some later stage.
-
-* Maven repo: http://cherry.gserv.me/repos/maven
-* Ivy repo: http://cherry.gserv.me/repos/ivy
-
-### Maven
-
-```xml
-    <repositories>
-        <!-- ... -->
-        <repository>
-          <id>gserv-me</id>
-          <name>gserv.me</name>
-          <url>http://cherry.gserv.me/repos/maven</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <!-- ... -->
-        <dependency>
-            <groupId>com.archivesmc.archblock</groupId>
-            <artifactId>ArchBlock</artifactId>
-            <version>0.0.2</version>
-        </dependency>
-    <dependencies>
-```
-
-### Gradle
-
-```groovy
-repositories {
-    // ...
-    maven {
-        url "http://cherry.gserv.me/repos/maven"
-        name "gserv.me"
-    }
-}
-
-dependencies {
-    // ...
-    compile "com.archivesmc.archblock:ArchBlock:0.0.2"
-}
-```
+Looking to integrate your plugin with ArchBlock? Take a look at [the DEVELOPMENT.md file](https://github.com/TheArchives/ArchBlock/blob/master/DEVELOPMENT.md) for more information.
 
 Compiling
 ---------
