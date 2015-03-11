@@ -100,7 +100,7 @@ for ArchBlock, this may be the route you want to take.
   }
   ```
 
-* Create a separate class that will handle all of your integration tasks
+* Create a separate class that will handle all of your integration tasks.
 
   ```java
   // ...
