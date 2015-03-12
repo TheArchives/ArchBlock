@@ -9,5 +9,5 @@ public interface Importer {
      * Do the import
      * @return true if the import succeeded, false otherwise
      */
-    public Boolean doImport();
+    public boolean doImport();
 }

@@ -17,7 +17,7 @@ public class ImportThread extends Thread {
     private final List<Map<Point3D, String>> points;
     private final Plugin plugin;
 
-    private Boolean done;
+    private boolean done;
 
     public ImportThread(String world, List<Map<Point3D, String>> points, Plugin plugin) {
         this.world = world;

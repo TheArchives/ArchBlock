@@ -56,6 +56,8 @@ public class PlayerInteractEvent implements Listener {
                             ChatColor.RED
                     ));
                 }
+
+                event.setCancelled(true);
             }
         }
     }

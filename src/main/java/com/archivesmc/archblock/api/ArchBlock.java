@@ -173,7 +173,7 @@ public class ArchBlock {
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
-    public Boolean hasWorld(String world) {
+    public boolean hasWorld(String world) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT 1 FROM Block b WHERE b.world=:world");
 
@@ -192,7 +192,7 @@ public class ArchBlock {
      * @param player The Player to be checked for
      * @return true if the player is allowed to edit the block, false otherwise
      */
-    public Boolean canEditBlock(Block block, Player player) {
+    public boolean canEditBlock(Block block, Player player) {
         if (player.hasPermission("archblock.bypass")) {
             return true;
         }
@@ -221,7 +221,7 @@ public class ArchBlock {
      * @param right The UUID of the player we want to check the friends list for
      * @return true if the player has the other player in their friends list, false otherwise
      */
-    public Boolean hasFriendship(UUID left, UUID right) {
+    public boolean hasFriendship(UUID left, UUID right) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT f FROM Friendship f WHERE playerUuid=? AND friendUuid=?");
 

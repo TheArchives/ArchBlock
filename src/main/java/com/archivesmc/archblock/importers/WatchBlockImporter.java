@@ -34,10 +34,10 @@ public class WatchBlockImporter implements Importer {
     }
 
     @Override
-    public Boolean doImport() {
+    public boolean doImport() {
         this.info("Beginning WatchBlock import..");
 
-        Boolean result;
+        boolean result;
 
         this.getWorlds();
 
@@ -47,7 +47,7 @@ public class WatchBlockImporter implements Importer {
             return result;
         }
 
-        Boolean allWorldsDone = true;
+        boolean allWorldsDone = true;
 
         for (String world : this.worlds) {
             if (!this.convertWorld(world)) {
@@ -92,7 +92,7 @@ public class WatchBlockImporter implements Importer {
      * Load up and convert the file containing all of the players' allow lists
      * @return true if successful, false otherwise
      */
-    private Boolean convertFriends() {
+    private boolean convertFriends() {
         this.info("Converting friendships..");
 
         File friendsFile = new File(this.watchBlockConfigDir, "allow.yml");
@@ -160,7 +160,7 @@ public class WatchBlockImporter implements Importer {
      * @param world The name of the world to load
      * @return true if successful, false otherwise
      */
-    private Boolean convertWorld(String world) {
+    private boolean convertWorld(String world) {
         this.info(String.format(
                 "Loading blocks for world: %s", world
         ));
@@ -292,7 +292,7 @@ public class WatchBlockImporter implements Importer {
      * @return true if the UUID was found or could be fetched, false otherwise
      * @throws InterruptedException
      */
-    private Boolean doFetchUuid(String player) throws InterruptedException {
+    private boolean doFetchUuid(String player) throws InterruptedException {
         UUID uuid;
 
         uuid = this.plugin.getApi().getUuidForUsername(player);
@@ -378,7 +378,7 @@ public class WatchBlockImporter implements Importer {
             Point3D blockPoint;
             String username;
             UUID tempUuid;
-            Boolean fetched;
+            boolean fetched;
 
             for (Map.Entry<String, Map<String, String>> entry : data.entrySet()) {
                 blockPoint = this.pointFromStringTuple(entry.getKey());

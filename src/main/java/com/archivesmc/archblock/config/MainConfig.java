@@ -94,21 +94,21 @@ public class MainConfig {
     /**
      * @return Whether debug mode has been enabled in the configuration
      */
-    public Boolean getDatabseDebug() {
+    public boolean getDatabseDebug() {
         return this.configuration.getBoolean("db_config.debug");
     }
 
     /**
      * @return Whether the plugin has been enabled in the configuration
      */
-    public Boolean getEnabled() {
+    public boolean getEnabled() {
         return this.configuration.getBoolean("enabled", true);
     }
 
     /**
      * @return Whether data migration has been enabled in the configuration
      */
-    public Boolean getMigrate() {
+    public boolean getMigrate() {
         return this.configuration.getBoolean("migrate", true);
     }
 }

@@ -36,4 +36,4 @@ db_config:
 migrate: false
 
 # Don't edit this - you'll break your configuration.
-version: "0.0.3"
+version: "0.0.4"

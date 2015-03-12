@@ -24,7 +24,7 @@ public class WorldGuard {
      * @param block The block to check
      * @return true if the region exists and has protection disabled, false otherwise
      */
-    public Boolean isInIgnoredRegion(Block block) {
+    public boolean isInIgnoredRegion(Block block) {
         Vector point = toVector(block);
         RegionManager regionManager = this.plugin.getWorldGuard().getRegionManager(block.getWorld());
         ApplicableRegionSet set = regionManager.getApplicableRegions(point);

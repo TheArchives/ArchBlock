@@ -24,7 +24,7 @@ public class Plugin extends JavaPlugin {
     private MainConfig mainConfig;
     private SessionFactory sessionFactory;
     private WorldGuard worldGuardIntegration;
-    private Boolean taskRunning;
+    private boolean taskRunning;
 
     public static final BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
 
@@ -60,7 +60,7 @@ public class Plugin extends JavaPlugin {
             if (!this.hasWatchBlockPlugin()) {
                 this.getLogger().warning("Migration is enabled, but WatchBlock was not found!");
             } else {
-                Boolean result = new WatchBlockImporter(this).doImport();
+                boolean result = new WatchBlockImporter(this).doImport();
 
                 if (!result) {
                     this.getLogger().warning("Import seems to have failed - please check for errors!");
@@ -177,15 +177,15 @@ public class Plugin extends JavaPlugin {
      *
      * @return true if WatchBlock is loaded, false otherwise
      */
-    public Boolean hasWatchBlockPlugin() {
+    public boolean hasWatchBlockPlugin() {
         return this.getServer().getPluginManager().isPluginEnabled("WatchBlock");
     }
 
-    public synchronized Boolean isTaskRunning() {
+    public synchronized boolean isTaskRunning() {
         return this.taskRunning;
     }
 
-    public synchronized void setTaskRunning(Boolean taskRunning) {
+    public synchronized void setTaskRunning(boolean taskRunning) {
         this.taskRunning = taskRunning;
     }
 }
