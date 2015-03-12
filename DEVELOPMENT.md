@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
     // ...
-    compile "com.archivesmc.archblock:ArchBlock:0.0.2"
+    compile "com.archivesmc.archblock:ArchBlock:0.0.3"
 }
 ```
 
@@ -52,7 +52,7 @@ dependencies {
         <dependency>
             <groupId>com.archivesmc.archblock</groupId>
             <artifactId>ArchBlock</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
     <dependencies>
 ```
