@@ -76,13 +76,13 @@ public class SetOwnerCommand implements CommandExecutor {
                         Location min = cs.getMinimumPoint();
                         Location max = cs.getMaximumPoint();
 
-                        Integer minX = min.getBlockX();
-                        Integer minY = min.getBlockY();
-                        Integer minZ = min.getBlockZ();
+                        int minX = min.getBlockX();
+                        int minY = min.getBlockY();
+                        int minZ = min.getBlockZ();
 
-                        Integer maxX = max.getBlockX();
-                        Integer maxY = max.getBlockY();
-                        Integer maxZ = max.getBlockZ();
+                        int maxX = max.getBlockX();
+                        int maxY = max.getBlockY();
+                        int maxZ = max.getBlockZ();
 
                         int i, j, k;
 

@@ -4,7 +4,7 @@ package com.archivesmc.archblock.storage.entities;
  * Entity class that represents a friendship in the database.
  */
 public class Friendship {
-    private Long id;
+    private long id;
     private String playerUuid;
     private String friendUuid;
 
@@ -15,11 +15,11 @@ public class Friendship {
         this.friendUuid = friendUuid;
     }
 
-    public Long getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -4,37 +4,37 @@ package com.archivesmc.archblock.utils;
  * Utility class that represents a coordinate in 3D space.
  */
 public class Point3D {
-    private Integer x;
-    private Integer y;
-    private Integer z;
+    private int x;
+    private int y;
+    private int z;
 
-    public Point3D(Integer x, Integer y, Integer z) {
+    public Point3D(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(Integer x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(Integer y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public Integer getZ() {
+    public int getZ() {
         return z;
     }
 
-    public void setZ(Integer z) {
+    public void setZ(int z) {
         this.z = z;
     }
 
@@ -45,15 +45,15 @@ public class Point3D {
 
         Point3D point3D = (Point3D) o;
 
-        return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
+        return x == point3D.x && y == point3D.y && z == point3D.z;
 
     }
 
     @Override
     public int hashCode() {
-        int result = x.hashCode();
-        result = 31 * result + y.hashCode();
-        result = 31 * result + z.hashCode();
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + z;
         return result;
     }
 }

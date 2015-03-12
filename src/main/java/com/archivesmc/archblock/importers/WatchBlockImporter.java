@@ -196,8 +196,8 @@ public class WatchBlockImporter implements Importer {
             points.add(chunkMap);
         }
 
-        Integer doneChunks = 0;
-        Integer totalChunks = points.size();
+        int doneChunks = 0;
+        int totalChunks = points.size();
 
         this.info(String.format(
                 "Importing %s chunks. This may take a while.", totalChunks

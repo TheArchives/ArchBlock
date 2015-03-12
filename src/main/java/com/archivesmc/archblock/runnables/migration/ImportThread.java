@@ -36,7 +36,7 @@ public class ImportThread extends Thread {
         Point3D blockPoint;
         String uuid;
         Object result;
-        Integer doneBlocks = 0;
+        int doneBlocks = 0;
 
         for (Map<Point3D, String> chunk : this.points) {
             for (Map.Entry<Point3D, String> block : chunk.entrySet()) {
@@ -64,9 +64,9 @@ public class ImportThread extends Thread {
                 }
 
                 s.save(new Block(
-                        Long.valueOf(blockPoint.getX()),
-                        Long.valueOf(blockPoint.getY()),
-                        Long.valueOf(blockPoint.getZ()),
+                        (long) blockPoint.getX(),
+                        (long) blockPoint.getY(),
+                        (long) blockPoint.getZ(),
                         uuid,
                         world
                 ));
@@ -91,7 +91,7 @@ public class ImportThread extends Thread {
         this.setDone();
     }
 
-    public synchronized Boolean getDone() {
+    public synchronized boolean getDone() {
         return done;
     }
     

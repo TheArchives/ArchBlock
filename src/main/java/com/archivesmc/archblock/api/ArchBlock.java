@@ -60,7 +60,7 @@ public class ArchBlock {
      * @return UUID of the block's owner, or null if nobody owns the block
      */
     @Nullable
-    public UUID getOwnerUUID(World world, Integer x, Integer y, Integer z) {
+    public UUID getOwnerUUID(World world, int x, int y, int z) {
         return this.getOwnerUUID(world.getName(), x, y, z);
     }
 
@@ -74,7 +74,7 @@ public class ArchBlock {
      * @return UUID of the block's owner, or null if nobody owns the block
      */
     @Nullable
-    public UUID getOwnerUUID(String world, Integer x, Integer y, Integer z) {
+    public UUID getOwnerUUID(String world, int x, int y, int z) {
         world = world.toLowerCase();
 
         Session s = this.plugin.getSession();
@@ -115,7 +115,7 @@ public class ArchBlock {
      * @param z Block's Z coordinate
      * @param owner The UUID of the player to set as the owner
      */
-    public void setOwnerUUID(World world, Integer x, Integer y, Integer z, UUID owner) {
+    public void setOwnerUUID(World world, int x, int y, int z, UUID owner) {
         this.setOwnerUUID(world.getName(), x, y, z, owner);
     }
 
@@ -128,11 +128,11 @@ public class ArchBlock {
      * @param z Block's Z coordinate
      * @param owner The UUID of the player to set as the owner
      */
-    public void setOwnerUUID(String world, Integer x, Integer y, Integer z, UUID owner) {
+    public void setOwnerUUID(String world, int x, int y, int z, UUID owner) {
         world = world.toLowerCase();
 
         com.archivesmc.archblock.storage.entities.Block b = new com.archivesmc.archblock.storage.entities.Block(
-                Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), owner.toString(), world
+                (long) x, (long) y, (long) z, owner.toString(), world
         );
 
         new SetOwnerThread(this.plugin, b).start();
@@ -155,7 +155,7 @@ public class ArchBlock {
      * @param y Block's Y coordinate
      * @param z Block's Z coordinate
      */
-    public void removeOwner(World world, Integer x, Integer y, Integer z) {
+    public void removeOwner(World world, int x, int y, int z) {
         this.removeOwner(world.getName(), x, y, z);
     }
 
@@ -167,7 +167,7 @@ public class ArchBlock {
      * @param y Block's Y coordinate
      * @param z Block's Z coordinate
      */
-    public void removeOwner(String world, Integer x, Integer y, Integer z) {
+    public void removeOwner(String world, int x, int y, int z) {
         world = world.toLowerCase();
 
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();

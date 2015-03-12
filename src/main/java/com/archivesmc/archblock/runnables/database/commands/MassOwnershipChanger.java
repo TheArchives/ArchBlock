@@ -42,9 +42,9 @@ public class MassOwnershipChanger extends Thread {
             String world;
             Object blockOwner;
 
-            Integer x;
-            Integer y;
-            Integer z;
+            int x;
+            int y;
+            int z;
 
             for (Block b : this.blocks) {
                 world = b.getWorld().getName();
@@ -88,7 +88,7 @@ public class MassOwnershipChanger extends Thread {
                         }
                     } else {
                         com.archivesmc.archblock.storage.entities.Block newBlock = new com.archivesmc.archblock.storage.entities.Block(
-                                Long.valueOf(x), Long.valueOf(y), Long.valueOf(z), this.owner, world
+                                (long) x, (long) y, (long) z, this.owner, world
                         );
 
                         s.save(newBlock);

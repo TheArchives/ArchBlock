@@ -5,17 +5,17 @@ import java.util.UUID;
  * Entity class that represents a block in the database.
  */
 public class Block {
-    private Long id;
-    private Long x;
-    private Long y;
-    private Long z;
+    private long id;
+    private long x;
+    private long y;
+    private long z;
 
     private String uuid;
     private String world;
 
     public Block() {}
 
-    public Block(Long x, Long y, Long z, String uuid, String world) {
+    public Block(long x, long y, long z, String uuid, String world) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -23,7 +23,7 @@ public class Block {
         this.world = world;
     }
 
-    public Block(Long x, Long y, Long z, UUID uuid, String world) {
+    public Block(long x, long y, long z, UUID uuid, String world) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,38 +31,38 @@ public class Block {
         this.world = world;
     }
 
-    public Long getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
 
-    public Long getX() {
+    public long getX() {
         return x;
     }
 
-    public void setX(Long x) {
+    public void setX(long x) {
         this.x = x;
     }
 
 
-    public Long getY() {
+    public long getY() {
         return y;
     }
 
-    public void setY(Long y) {
+    public void setY(long y) {
         this.y = y;
     }
 
 
-    public Long getZ() {
+    public long getZ() {
         return z;
     }
 
-    public void setZ(Long z) {
+    public void setZ(long z) {
         this.z = z;
     }
 
