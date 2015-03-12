@@ -4,6 +4,10 @@ import com.archivesmc.archblock.api.ArchBlock;
 import com.archivesmc.archblock.commands.*;
 import com.archivesmc.archblock.config.MainConfig;
 import com.archivesmc.archblock.events.*;
+import com.archivesmc.archblock.events.protection.BlockBreakEvent;
+import com.archivesmc.archblock.events.protection.BlockPlaceEvent;
+import com.archivesmc.archblock.events.protection.PistonMoveEvent;
+import com.archivesmc.archblock.events.protection.PlayerInteractEvent;
 import com.archivesmc.archblock.importers.WatchBlockImporter;
 import com.archivesmc.archblock.integrations.WorldGuard;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
@@ -20,6 +24,18 @@ import org.hibernate.cfg.Configuration;
  * The main plugin class for ArchBlock.
  */
 public class Plugin extends JavaPlugin {
+
+    /**
+     * BIG TO-DO LIST
+     *
+     * TODO: HANGING ENTITIES
+     * TODO: LIGHTNING STRIKE
+     * TODO: BUCKETS
+     * TODO: VEHICLES
+     *
+     * TODO: REMOVE FROM CONFIG: GROW, PHYSICS
+     */
+
     private ArchBlock api;
     private MainConfig mainConfig;
     private SessionFactory sessionFactory;
@@ -52,7 +68,7 @@ public class Plugin extends JavaPlugin {
                 .setProperty("hibernate.connection.url", this.mainConfig.getDatabaseURL())             // jdbc:mysql://localhost:3306/archblock
                 .setProperty("hibernate.connection.username", this.mainConfig.getDatabaseUsername())   // correct_username
                 .setProperty("hibernate.connection.password", this.mainConfig.getDatabasePassword())   // correct_password
-                .setProperty("show_sql", this.mainConfig.getDatabseDebug().toString());
+                .setProperty("show_sql", String.valueOf(this.mainConfig.getDatabseDebug()));
 
         this.sessionFactory = hibernateConfiguration.buildSessionFactory();
 

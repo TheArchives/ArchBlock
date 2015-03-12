@@ -19,6 +19,7 @@ db_config:
 
     # JDBC connection URL. You may change "localhost", "3306" and "archblock" as needed
     # to change the database host, port and name respectively.
+    # If you're not using MySQL, check the documentation for your database driver.
     connection_url: "jdbc:mysql://localhost:3306/archblock"
 
     # Username to use for the database
@@ -34,6 +35,54 @@ db_config:
 # Make sure you export your WatchBlock database to flatfiles before you do this,
 # if you haven't done so already.
 migrate: false
+
+# Optional protections that can be toggled on and off
+special_protections:
+    # Prevent all owned blocks from being burned
+    prevent_burning: false
+    # Prevent non-friends from mining blocks in survival
+    prevent_damage: true
+    # Prevent owned blocks from fading - Stop snow/ice from melting and fire burning out
+    prevent_fade: true
+    # Prevent snow/ice/etc forming on top of owned blocks
+    prevent_form: true
+    # Prevent liquids from flowing on owned blocks
+    prevent_liquid_flow: false
+    # Prevent other players' dragon eggs from teleporting onto owned blocks
+    # they don't have permission for
+    prevent_dragon_egg_teleport: true
+    # Prevent growth of crops onto owned blocks from players that don't have permission to
+    # build there
+    prevent_growth: true
+    # Prevent natural ignition of owned blocks - note that this applies to players regardless
+    prevent_ignite: true
+    # Prevent owned blocks from being updated by block physics
+    # Be careful, this one can be quite heavy on a server
+    prevent_physics: false
+    # Prevent owned leaves from decaying
+    prevent_leaf_decay: true
+    # Prevent players from changing owned signs they don't have permission for
+    # This is usually with another plugin, but not always guaranteed to fire due to that
+    prevent_sign_change: true
+
+    # Prevent entities from exploding when on owned blocks
+    prevent_entity_explode: false
+    # Prevent players from removing hanging entities (paintings, item frames) they don't have access to
+    prevent_hanging_break: true
+    # Prevent entities from breaking owned hanging entities
+    prevent_hanging_break_by_entity: true
+    # Prevent players from placing hanging entities on blocks they don't have access to
+    prevent_hanging_place: true
+    # Prevent lightning strikes on owned blocks
+    # Use prevent_ignite if you just want to stop lightning from setting things on fire
+    prevent_lightning_strike: false
+    # Prevent players from emptying buckets on blocks they don't have access to
+    prevent_player_bucket_empty: true
+    # Prevent players from filling buckets from blocks they don't have access to
+    prevent_player_bucket_fill: true
+    # Prevent players from placing vehicles (boats, minecarts) on blocks they don't have access to
+    prevent_vehicle_create: true
+
 
 # Don't edit this - you'll break your configuration.
 version: "0.1.0"

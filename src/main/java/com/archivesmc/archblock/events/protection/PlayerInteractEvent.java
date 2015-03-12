@@ -1,4 +1,4 @@
-package com.archivesmc.archblock.events;
+package com.archivesmc.archblock.events.protection;
 
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.ChatColor;

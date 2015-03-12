@@ -173,6 +173,26 @@ public class ArchBlock {
         new RemoveOwnerThread(this.plugin, world, x, y, z).start();
     }
 
+    public boolean hasOwner(Block block) {
+        return this.hasOwner(block.getWorld(), block.getX(), block.getY(), block.getZ());
+    }
+
+    public boolean hasOwner(World world, int x, int y, int z) {
+        return this.hasOwner(world.getName(), x, y, z);
+    }
+
+    public boolean hasOwner(String world, int x, int y, int z) {
+        Session s = this.plugin.getSession();
+        Query q = s.createQuery("SELECT 1 FROM Block b WHERE b=world=:world AND b.x=:x AND b.y=:y AND b.z=:z");
+
+        q.setString("world", world);
+        q.setInteger("x", x);
+        q.setInteger("y", y);
+        q.setInteger("z", z);
+
+        return (q.uniqueResult() != null);
+    }
+
     public boolean hasWorld(String world) {
         Session s = this.plugin.getSession();
         Query q = s.createQuery("SELECT 1 FROM Block b WHERE b.world=:world");

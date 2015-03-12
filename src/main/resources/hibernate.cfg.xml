@@ -40,6 +40,7 @@
         <mapping resource="com/archivesmc/archblock/storage/entities/Block.hbm.xml"/>
         <mapping resource="com/archivesmc/archblock/storage/entities/Friendship.hbm.xml"/>
         <mapping resource="com/archivesmc/archblock/storage/entities/Player.hbm.xml"/>
+        <mapping resource="com/archivesmc/archblock/storage/entities/Entity.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
