@@ -227,11 +227,8 @@ public class ArchBlock {
             return true;
         }
 
-        if (owner.equals(player.getUniqueId())) {
-            return true;
-        }
+        return owner.equals(player.getUniqueId()) || this.hasFriendship(owner, player.getUniqueId());
 
-        return this.hasFriendship(owner, player.getUniqueId());
     }
 
     /**
