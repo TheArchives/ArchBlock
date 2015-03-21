@@ -365,7 +365,7 @@ public class ArchBlock {
         username = username.toLowerCase();
 
         com.archivesmc.archblock.storage.entities.Player p = new com.archivesmc.archblock.storage.entities.Player(
-                uuid.toString(), username.toLowerCase()
+                uuid.toString(), username
         );
 
         this.storePlayer(p);

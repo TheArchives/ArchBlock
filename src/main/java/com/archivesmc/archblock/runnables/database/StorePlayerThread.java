@@ -23,25 +23,24 @@ public class StorePlayerThread extends Thread {
         Object uuid, username;
         Query q;
 
-        q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=:username");
-        q.setString("username", this.player.getUsername().toLowerCase());
-        uuid = q.uniqueResult();
+        q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=:uuid");
+        q.setString("uuid", this.player.getUuid());
+        username = q.uniqueResult();
 
-        if (uuid == null) {
-            // Their username isn't in the database at all. Still, we need to
-            // look for the UUID.
+        if (username == null) {
+            // Their UUID isn't in the database, let's check for their username.
 
-            this.plugin.debug("Username isn't in the database.");
-        } else if (this.player.getUuid().equalsIgnoreCase((String) uuid)) {
+            this.plugin.debug("UUID isn't in the database.");
+        } else if (this.player.getUsername().equalsIgnoreCase((String) username)) {
             // Their username and UUID matches.
 
             s.flush();
             s.close();
             return;
         } else {
-            // Their username is there, but the UUID is wrong. Update it.
+            // Their UUID is there, but the username is wrong. Update it.
 
-            q = s.createQuery("UPDATE Player p SET p.uuid=:uuid WHERE p.username=:username");
+            q = s.createQuery("UPDATE Player p SET p.username=:username WHERE p.uuid=:uuid");
             q.setString("username", this.player.getUsername().toLowerCase());
             q.setString("uuid", this.player.getUuid());
             q.executeUpdate();
@@ -51,23 +50,23 @@ public class StorePlayerThread extends Thread {
             return;
         }
 
-        q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=:uuid");
-        q.setString("uuid", this.player.getUuid());
-        username = q.uniqueResult();
+        q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=:username");
+        q.setString("username", this.player.getUsername().toLowerCase());
+        uuid = q.uniqueResult();
 
-        if (username == null) {
-            // Their UUID isn't in the database either, so we can just save it.
+        if (uuid == null) {
+            // Their username isn't in the database either. Store them.
 
             s.save(this.player);
             s.flush();
             s.close();
-        } else if (this.player.getUsername().equalsIgnoreCase((String) username)) {
+        } else if (this.player.getUuid().equalsIgnoreCase((String) uuid)) {
             // Their username and UUID matches.
 
             s.flush();
             s.close();
         } else {
-            // Their UUID is there, but the username is wrong. Update it.
+            // Their username is there, but the UUID is wrong. Update it.
 
             q = s.createQuery("UPDATE Player p SET p.uuid=:uuid WHERE p.username=:username");
             q.setString("username", this.player.getUsername().toLowerCase());
