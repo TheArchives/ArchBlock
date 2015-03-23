@@ -37,6 +37,7 @@ db_config:
 migrate: false
 
 # Optional protections that can be toggled on and off
+# This is not used yet.
 special_protections:
     # Prevent all owned blocks from being burned
     prevent_burning: false
