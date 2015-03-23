@@ -4,10 +4,7 @@ import com.archivesmc.archblock.api.ArchBlock;
 import com.archivesmc.archblock.commands.*;
 import com.archivesmc.archblock.config.MainConfig;
 import com.archivesmc.archblock.events.*;
-import com.archivesmc.archblock.events.protection.BlockBreakEvent;
-import com.archivesmc.archblock.events.protection.BlockPlaceEvent;
-import com.archivesmc.archblock.events.protection.PistonMoveEvent;
-import com.archivesmc.archblock.events.protection.PlayerInteractEvent;
+import com.archivesmc.archblock.events.protection.*;
 import com.archivesmc.archblock.importers.WatchBlockImporter;
 import com.archivesmc.archblock.integrations.WorldGuard;
 import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
@@ -107,6 +104,7 @@ public class Plugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new BlockBreakEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PistonMoveEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerBucketEmpty(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerConnectEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerInteractEvent(this), this);
 
