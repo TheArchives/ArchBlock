@@ -1,8 +1,7 @@
-name: ArchBlock
+name: MarfProtect2
 main: com.archivesmc.archblock.Plugin
 version: 0.1.0b
-author: Gareth Coles
-website: https://github.com/TheArchives/ArchBlock
+author: Gareth Coles, Marvin Ferwerda
 
 depend: [WGCustomFlags, WorldEdit, WorldGuard]
 softdepend: [WatchBlock]
@@ -10,11 +9,11 @@ softdepend: [WatchBlock]
 commands:
     # User commands
 
-    friend:
+    ballow:
         description: Add another player as a friend, and allow them to edit your blocks
         usage: /<command> [player]
         aliases: [fr, f, wallow]
-    friends:
+    blist:
         description: List everyone you've added as a friend
         usage: /<command>
         aliases: [fs, wlist]
@@ -23,7 +22,7 @@ commands:
         usage: /<command> [player]
         aliases: [tb, transfer, transferb]
         permission: archblock.transfer
-    unfriend:
+    bremove:
         description: Remove another player from your friends list, preventing them from editing your blocks
         usage: /<command> [player]
         aliases: [ufr, uf, wremove, unwallow]

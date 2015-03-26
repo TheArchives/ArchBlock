@@ -19,14 +19,13 @@ db_config:
 
     # JDBC connection URL. You may change "localhost", "3306" and "archblock" as needed
     # to change the database host, port and name respectively.
-    # If you're not using MySQL, check the documentation for your database driver.
-    connection_url: "jdbc:mysql://localhost:3306/archblock"
+    connection_url: "jdbc:mysql://localhost:3306/marfprotect"
 
     # Username to use for the database
-    username: "archblock"
+    username: "marfprotect"
 
     # Login password for the above user. Can be empty.
-    password: "SomeKindOfSecurePasswordButNotThisOne"
+    password: ""
 
     # Debug mode. This will print all the generated SQL to the terminal (which could slow things down quite a bit)
     debug: false
@@ -37,4 +36,4 @@ db_config:
 migrate: false
 
 # Don't edit this - you'll break your configuration.
-version: "0.0.3"
+version: "0.1.0"
