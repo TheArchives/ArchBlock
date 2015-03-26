@@ -35,7 +35,7 @@ public class FriendsCommand implements CommandExecutor {
         } else {
             if (args.length < 1) {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
+                        "%s[%sSncProtect%s]%s Gebruik: %s/%s%s %s<user>",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                         label, ChatColor.DARK_GREEN
@@ -51,7 +51,7 @@ public class FriendsCommand implements CommandExecutor {
 
         if (uuid == null) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                    "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                     ChatColor.RED, ChatColor.AQUA, args[0]
             ));
@@ -60,7 +60,7 @@ public class FriendsCommand implements CommandExecutor {
 
             if (friends.size() < 1) {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s No friends found :(",
+                        "%s[%sSncProtect%s]%s Je hebt niemand geballowd! :(",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.RED
                 ));
@@ -90,7 +90,7 @@ public class FriendsCommand implements CommandExecutor {
             }
 
             sender.sendMessage(String.format(
-                    "== %s[%sFriends%s]%s ==",
+                    "== %s[%sGeballowed%s]%s ==",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                     ChatColor.WHITE
             ));

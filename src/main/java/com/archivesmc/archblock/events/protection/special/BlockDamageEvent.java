@@ -21,7 +21,7 @@ public class BlockDamageEvent implements Listener {
             return;
         }
 
-        if (event.getPlayer().hasPermission("archblock.bypass")) {
+        if (event.getPlayer().hasPermission("marfprotect.bypass")) {
             return;
         }
 
@@ -40,7 +40,7 @@ public class BlockDamageEvent implements Listener {
         }
 
         event.getPlayer().sendMessage(String.format(
-                "%s[%sArchBlock%s]%s You may not break blocks owned by %s%s%s.",
+                "%s[%sSncProtect%s]%s Deze block is niet van jou. hij is van: %s%s%s.",
                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                 ChatColor.RED, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
                 ChatColor.RED

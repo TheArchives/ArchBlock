@@ -29,10 +29,10 @@ public class BlockPlaceEvent implements Listener {
         }
 
         if (owner != null && !owner.equals(ourUuid)) {
-            if (! event.getPlayer().hasPermission("archblock.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
+            if (! event.getPlayer().hasPermission("marfprotect.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
                 event.getPlayer().sendMessage(
                         String.format(
-                                "%s[%sArchBlock%s]%s You may not place blocks against those owned by %s%s%s.",
+                                "%s[%sSncProtect%s]%s Je mag geen blokken tegen blockken niet van jou plaatsen. Hij is van: %s%s%s.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
                                 ChatColor.RED

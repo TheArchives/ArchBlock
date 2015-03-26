@@ -24,7 +24,7 @@ public class FriendCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 1) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
+                    "%s[%sSncProtect%s]%s gebruik: %s/%s%s %s<user>",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                     ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                     label, ChatColor.DARK_GREEN
@@ -39,21 +39,21 @@ public class FriendCommand implements CommandExecutor {
 
                 if (friend == null) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s ombekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
                     if (this.plugin.getApi().hasFriendship(player, friend)) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are already friends with %s%s",
+                                "%s[%sSncProtect%s]%s Je hebt hem/haar al geballowt: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
                     } else {
                         this.plugin.getApi().createFriendship(player, friend);
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are now friends with %s%s",
+                                "%s[%sSncProtect%s]%s je hebt nu %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.GREEN, ChatColor.AQUA, args[0]
                         ));
@@ -62,7 +62,7 @@ public class FriendCommand implements CommandExecutor {
             } else {
                 if (args.length < 2) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <friend>",
+                            "%s[%sSncProtect%s]%s Usage: %s/%s%s %s<user> <friend>",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                             label, ChatColor.DARK_GREEN
@@ -73,20 +73,20 @@ public class FriendCommand implements CommandExecutor {
 
                     if (player == null) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                                "%s[%sSncProtect%s]%s Unknown player: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
                     } else if (friend == null) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                                "%s[%sSncProtect%s]%s Unknown player: %s%s Geballowd.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[1]
                         ));
                     } else {
                         if (this.plugin.getApi().hasFriendship(player, friend)) {
                             sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is already friends with %s%s",
+                                    "%s[%sSncProtect%s]%s %s%s heeft al %s%s Geballowd.",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.RED, ChatColor.AQUA, args[1]
                             ));
@@ -94,7 +94,7 @@ public class FriendCommand implements CommandExecutor {
                             this.plugin.getApi().createFriendship(player, friend);
 
                             sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is now friends with %s%s",
+                                    "%s[%sSncProtect%s]%s %s%s ballowedt %s%s",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.GREEN, ChatColor.AQUA, args[1]
                             ));

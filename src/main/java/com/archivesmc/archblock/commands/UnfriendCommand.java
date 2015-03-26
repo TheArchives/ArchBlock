@@ -24,7 +24,7 @@ public class UnfriendCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 1) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
+                    "%s[%sSncProtect%s]%s Gebruik: %s/%s%s %s<user>",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                     ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                     label, ChatColor.DARK_GREEN
@@ -39,14 +39,14 @@ public class UnfriendCommand implements CommandExecutor {
 
                 if (friend == null) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
                     if (! this.plugin.getApi().hasFriendship(player, friend)) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are not friends with %s%s",
+                                "%s[%sSncProtect%s]%s Je hebt hem/haar niet gebeallowed: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
@@ -54,7 +54,7 @@ public class UnfriendCommand implements CommandExecutor {
                         this.plugin.getApi().destroyFriendship(player, friend);
 
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are no longer friends with %s%s",
+                                "%s[%sSncProtect%s]%s Hij/zij kan je blockken niet meer slopen: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.GREEN, ChatColor.AQUA, args[0]
                         ));
@@ -63,7 +63,7 @@ public class UnfriendCommand implements CommandExecutor {
             } else {
                 if (args.length < 2) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <friend>",
+                            "%s[%sSncProtect%s]%s Gebruik: %s/%s%s %s<user> <friend>",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                             label, ChatColor.DARK_GREEN
@@ -74,20 +74,20 @@ public class UnfriendCommand implements CommandExecutor {
 
                     if (player == null) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                                "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[0]
                         ));
                     } else if (friend == null) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                                "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, args[1]
                         ));
                     } else {
                         if (! this.plugin.getApi().hasFriendship(player, friend)) {
                             sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is not friends with %s%s",
+                                    "%s[%sSncProtect%s]%s %s%s heeft hem/haar niet geballowed. %s%s",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.RED, ChatColor.AQUA, args[1]
                             ));
@@ -95,7 +95,7 @@ public class UnfriendCommand implements CommandExecutor {
                             this.plugin.getApi().destroyFriendship(player, friend);
 
                             sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is no longer friends with %s%s",
+                                    "%s[%sSncProtect%s]%s %s%s heeft de ballowed verwijderd: %s%s",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.AQUA, args[0], ChatColor.GREEN, ChatColor.AQUA, args[1]
                             ));

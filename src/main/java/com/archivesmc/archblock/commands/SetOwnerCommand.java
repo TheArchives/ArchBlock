@@ -30,27 +30,27 @@ public class SetOwnerCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("archblock.admin")) {
+        if (!sender.hasPermission("marfprotect.admin")) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
+                    "%s[%sSncProtect%s]%s Je hebt geen toegang tot die commando.",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
             ));
         } else {
             if (args.length < 1) {
                 sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
+                    "%s[%sSncProtect%s]%s Gebruik: %s/%s%s %s<user>",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                     ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                         label, ChatColor.DARK_GREEN
                 ));
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Supply an exclamation point %s(\"!\")%s instead of a username to disown the selected blocks instead.",
+                        "%s[%sSncProtect%s]%s Zet er een uitroepteken %s(\"!\")%s in plaats van een gebruikersnaam om de geselecteerde blokken in plaats daarvan verloochenen.",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE, ChatColor.AQUA, ChatColor.BLUE
                 ));
             } else if (sender instanceof Player) {
                 if (this.plugin.isTaskRunning()) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
+                            "%s[%sSncProtect%s]%s Er is al een taak bezig. Een ogenblick geduld aub.",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED
                     ));
@@ -61,7 +61,7 @@ public class SetOwnerCommand implements CommandExecutor {
 
                 if (target == null && !("!".equals(args[0]))) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
@@ -98,7 +98,7 @@ public class SetOwnerCommand implements CommandExecutor {
                         }
 
                         RelayRunnable finishRunnable = new RelayRunnable(this.plugin, sender.getName(), String.format(
-                                "%s[%sArchBlock%s]%s Ownership of %s%s%s blocks has been changed.",
+                                "%s[%sSncProtect%s]%s Eigenaarschap blockken van %s%s%s is nu veranderd.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE,
                                 ChatColor.RED, blocks.size(), ChatColor.BLUE
                         ));
@@ -110,20 +110,20 @@ public class SetOwnerCommand implements CommandExecutor {
                         changer.start();
 
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Changing ownership of %s%s%s blocks. This may take a while.",
+                                "%s[%sSncProtect%s]%s Verandert Eigenaarschap van blokken %s%s%s Dit kan even duren.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE,
                                 ChatColor.RED, blocks.size(), ChatColor.BLUE
                         ));
                     } else {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Please make a valid WorldEdit cuboid selection.",
+                                "%s[%sSncProtect%s]%s Maak een geldig Worldedit cuboid selectie.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
                         ));
                     }
                 }
             } else {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s This command may only be run by a player.",
+                        "%s[%sSncProtect%s]%s This command may only be run by a player.",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
                 ));
             }

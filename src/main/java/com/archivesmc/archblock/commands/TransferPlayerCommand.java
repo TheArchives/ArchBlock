@@ -22,15 +22,15 @@ public class TransferPlayerCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("archblock.admin")) {
+        if (!sender.hasPermission("marfprotect.admin")) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
+                    "%s[%sSncProtect%s]%s Je hebt geen toegang tot die commando.",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
             ));
         } else {
             if (args.length < 2) {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <target>",
+                        "%s[%sSncProtect%s]%s gebruik: %s/%s%s %s<user> <target>",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                         label, ChatColor.DARK_GREEN
@@ -38,7 +38,7 @@ public class TransferPlayerCommand implements CommandExecutor {
             } else {
                 if (this.plugin.isTaskRunning()) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
+                            "%s[%sSncProtect%s]%s Er is al een taak bezig. Een ogenblik geduld aub.",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED
                     ));
@@ -50,13 +50,13 @@ public class TransferPlayerCommand implements CommandExecutor {
 
                 if (fromUuid == null) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else if (toUuid == null) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s Ombekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[1]
                     ));
@@ -76,8 +76,8 @@ public class TransferPlayerCommand implements CommandExecutor {
 
                     sender.sendMessage(
                             String.format(
-                                    "%s[%sArchBlock%s]%s Transferring blocks from %s%s%s to %s%s%s. "
-                                  + "This may take a while.",
+                                    "%s[%sSncProtect%s]%s Veranderd eigenaarschap van blockken van %s%s%s naar %s%s%s. "
+                                  + "Dit kan even duren.",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.BLUE, ChatColor.AQUA, args[0], ChatColor.BLUE,
                                     ChatColor.AQUA, args[1], ChatColor.BLUE

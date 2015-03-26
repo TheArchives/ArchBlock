@@ -30,10 +30,10 @@ public class BlockBreakEvent implements Listener {
 
 
         if (owner != null && ! owner.equals(ourUuid)) {
-            if (! event.getPlayer().hasPermission("archblock.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
+            if (! event.getPlayer().hasPermission("marfprotect.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
                 event.getPlayer().sendMessage(
                         String.format(
-                                "%s[%sArchBlock%s]%s You may not break blocks owned by %s%s%s.",
+                                "%s[%sSncProtect%s]%s Deze block is niet van jou hij is van: %s%s%s.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
                                 ChatColor.RED

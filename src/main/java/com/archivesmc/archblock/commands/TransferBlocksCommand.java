@@ -20,15 +20,15 @@ public class TransferBlocksCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("archblock.transfer")) {
+        if (!sender.hasPermission("marfprotect.transfer")) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
+                    "%s[%sSncProtect%s]%s Je hebt geen teogang tot die commando.",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
             ));
         } else {
             if (args.length < 1) {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
+                        "%s[%sSncProtect%s]%s Gebruik: %s/%s%s %s<user>",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                         label, ChatColor.DARK_GREEN
@@ -38,7 +38,7 @@ public class TransferBlocksCommand implements CommandExecutor {
 
                 if (uuid == null) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
+                            "%s[%sSncProtect%s]%s OMbekende speler: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
@@ -48,7 +48,7 @@ public class TransferBlocksCommand implements CommandExecutor {
                     if (sender instanceof Player) {
                         callback = new RelayRunnable(this.plugin, sender.getName());
                     } else {
-                        sender.sendMessage("This command may only be run by a player.");
+                        sender.sendMessage("Deze commando is alleen voor ingame.");
                         return true;
                     }
 
@@ -56,7 +56,7 @@ public class TransferBlocksCommand implements CommandExecutor {
 
                     sender.sendMessage(
                             String.format(
-                                    "%s[%sArchBlock%s]%s Transferring your blocks to %s%s%s. This may take a while.",
+                                    "%s[%sSncProtect%s]%s Veranderd eigenaarschap van blockken naar %s%s%s. Dit kan even duren.",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.BLUE, ChatColor.AQUA, args[0], ChatColor.BLUE
                             )
@@ -65,7 +65,7 @@ public class TransferBlocksCommand implements CommandExecutor {
 
                 if (this.plugin.isTaskRunning()) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
+                            "%s[%sSncProtect%s]%s Er is al een taak bezig een ogenblik geduld aub.",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED
                     ));

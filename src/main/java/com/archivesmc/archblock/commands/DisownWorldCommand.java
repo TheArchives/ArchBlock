@@ -20,15 +20,15 @@ public class DisownWorldCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("archblock.admin")) {
+        if (!sender.hasPermission("marfprotect.admin")) {
             sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
+                    "%s[%sSncProtect%s]%s Je hebt geen toegang tot die commando.",
                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
             ));
         } else {
             if (args.length < 1) {
                 sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<world>",
+                        "%s[%sSncProtect%s]%s gebruik: %s/%s%s %s<world>",
                         ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                         ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
                         label, ChatColor.DARK_GREEN
@@ -36,14 +36,14 @@ public class DisownWorldCommand implements CommandExecutor {
             } else {
                 if (! this.plugin.getApi().hasWorld(args[0])) {
                     sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown world: %s%s",
+                            "%s[%sSncProtect%s]%s Ombekende Wereld: %s%s",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.RED, ChatColor.AQUA, args[0]
                     ));
                 } else {
                     if (this.plugin.isTaskRunning()) {
                         sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
+                                "%s[%sSncProtect%s]%s Er is al een taak bezig. Een ogenblik geduld aub.",
                                 ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                 ChatColor.RED
                         ));
@@ -65,7 +65,7 @@ public class DisownWorldCommand implements CommandExecutor {
 
                     sender.sendMessage(
                             String.format(
-                                    "%s[%sArchBlock%s]%s Disowning blocks for world %s%s%s. This may take a while.",
+                                    "%s[%sSncProtect%s]%s Verwijdering van block-eigenaars in world: %s%s%s. dit kan even duren.",
                                     ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                                     ChatColor.BLUE, ChatColor.AQUA, args[0], ChatColor.BLUE
                             )

@@ -44,13 +44,13 @@ public class PlayerInteractEvent implements Listener {
 
                 if (owner == null) {
                     event.getPlayer().sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s This block is not owned by anyone.",
+                            "%s[%sSncProtect%s]%s Deze block is van niemand.",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.AQUA
                     ));
                 } else {
                     event.getPlayer().sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s This block is owned by %s%s%s.",
+                            "%s[%sSncProtect%s]%s Deze block is van: %s%s%s.",
                             ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
                             ChatColor.AQUA, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
                             ChatColor.RED
