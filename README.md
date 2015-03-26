@@ -1,16 +1,14 @@
+SncProtect
+++++++++
+This is a fork of ArchBlock. This version is Translated to dutch for our dutch server. and is renamed. it is to replace our old custom written plugin.
+
+
 ArchBlock
 =========
+mostly of the credits goes to gdude2002
+And some to creazymarf and Deferment to translate and tweak the plugin for our server.
+You are free to refork this plugin, or fork the original project: https://github.com/TheArchives/ArchBlock
 
-Builds are available! You can get them at [the Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
-
----
-
-Much of the plugin information has been [moved to the wiki](https://github.com/TheArchives/ArchBlock/wiki) - You may find usage instructions there. If you're looking for plugins that work with ArchBlock, try [this page](https://github.com/TheArchives/ArchBlock/wiki/Integrations).
-
-Developing
-----------
-
-Looking to integrate your plugin with ArchBlock? Take a look at [the developer documentation](https://github.com/TheArchives/ArchBlock/wiki/Development) for more information.
 
 Compiling
 ---------
