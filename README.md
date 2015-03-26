@@ -1,12 +1,26 @@
 SncProtect
-++++++++
+=======
+Codename: Marfprotect²
+
 This is a fork of ArchBlock. This version is Translated to dutch for our dutch server. and is renamed. it is to replace our old custom written plugin.
 
+
+(warning dutch.) LETOP SWEETNYANCRAFT, MARFPROJECT GEEFT EEN BEPERKTE ONDERSTEUNING,  WE GEVEN TOTAAL GEEN SUPPORT AAN:
+- UW EIGEN SERVER MET DEZE SOFTWARE
+- HULP MET INSTELLEN PLUGIN
+- WIJ HELPEN UW VOLLEDIG NIET OP UW SERVER WAT ER OOK GEBEURD.
+
+WE GEVEN WEL SUPPORT AAN:
+- BUGS MELDEN VIA DE GITHUB, DAT KAN ZOWEL HIER EN HET FORUM VAN SWEETNYANCRAFT
 
 ArchBlock
 =========
 mostly of the credits goes to gdude2002
-And some to Marfjeh and Deferment to translate and tweak the plugin for our server, such as ofcource translating, changed commands for legacy support for the players. we want to keep the same commands form our old plugin.
+
+And some to Marfjeh and Deferment to translate and tweak the plugin for our server, such as ofcource translating,
+
+changed commands for legacy support for the players. we want to keep the same commands form our old plugin.
+
 You are free to refork this plugin, or fork the original project: https://github.com/TheArchives/ArchBlock
 
 Compiling
