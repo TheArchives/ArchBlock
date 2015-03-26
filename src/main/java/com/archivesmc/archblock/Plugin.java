@@ -94,7 +94,7 @@ public class Plugin extends JavaPlugin {
         this.getCommand("blist").setExecutor(new FriendsCommand(this));
         this.getCommand("btrans").setExecutor(new TransferBlocksCommand(this));
         this.getCommand("bremove").setExecutor(new UnfriendCommand(this));
-
+        //this.getCommand("bnieuw").setExecutor(new Marfprotect_nieuw(this));
         // Staff commands
         // laten we dit gewoon het zelfde.
         this.getCommand("disownplayer").setExecutor(new DisownPlayerCommand(this));
