@@ -6,7 +6,7 @@ This is a fork of ArchBlock. This version is Translated to dutch for our dutch s
 ArchBlock
 =========
 mostly of the credits goes to gdude2002
-And some to crazymarf and Deferment to translate and tweak the plugin for our server.
+And some to Marfjeh and Deferment to translate and tweak the plugin for our server.
 You are free to refork this plugin, or fork the original project: https://github.com/TheArchives/ArchBlock
 
 
