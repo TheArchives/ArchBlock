@@ -2,7 +2,7 @@ SncProtect
 =======
 Codename: Marfprotect²
 
-This is a fork of ArchBlock. This version is Translated to dutch for our dutch server. and is renamed. it is to replace our old custom written plugin.
+This is a fork of ArchBlock. This version is Translated to dutch & tweaked. for our dutch server. and is renamed. it is to replace our old custom written plugin.
 
 
 (warning dutch.) LETOP SWEETNYANCRAFT, MARFPROJECT GEEFT EEN BEPERKTE ONDERSTEUNING,  WE GEVEN TOTAAL GEEN SUPPORT AAN:
@@ -12,6 +12,7 @@ This is a fork of ArchBlock. This version is Translated to dutch for our dutch s
 
 WE GEVEN WEL SUPPORT AAN:
 - BUGS MELDEN VIA DE GITHUB, DAT KAN ZOWEL HIER EN HET FORUM VAN SWEETNYANCRAFT
+- VERBETERINGEN VAN CODE VAN ANDEREN
 
 ArchBlock
 =========
