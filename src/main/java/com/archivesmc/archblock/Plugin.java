@@ -17,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 /**
  * The main plugin class for ArchBlock.
  */
@@ -201,5 +203,9 @@ public class Plugin extends JavaPlugin {
 
     public synchronized void setTaskRunning(boolean taskRunning) {
         this.taskRunning = taskRunning;
+    }
+
+    public List<String> getInteractProtected() {
+        return this.mainConfig.getInteractProtected();
     }
 }

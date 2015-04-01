@@ -59,6 +59,21 @@ public class PlayerInteractEvent implements Listener {
 
                 event.setCancelled(true);
             }
+        } else {
+            if (this.plugin.getInteractProtected().contains(event.getClickedBlock().getType().toString())) {
+                if (!this.plugin.getApi().canEditBlock(event.getClickedBlock(), event.getPlayer())) {
+                    event.getPlayer().sendMessage(String.format(
+                            "%s[%sArchBlock%s]%s You may not interact with any %s%s%s owned by %s%s%s.",
+                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
+                            ChatColor.RED, ChatColor.AQUA, event.getClickedBlock().getType().toString(),
+                            ChatColor.RED, ChatColor.AQUA,
+                            this.plugin.getApi().getUsernameForUuid(this.plugin.getApi().getOwnerUUID(event.getClickedBlock())),
+                            ChatColor.RED
+                    ));
+
+                    event.setCancelled(true);
+                }
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ package com.archivesmc.archblock.config;
 import com.archivesmc.archblock.Plugin;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.List;
+
 /**
  * The main configuration class, which handles abstraction of the plugin's configuration,
  * and automatically upgrades old configuration files when the plugin is updated.
@@ -37,6 +39,19 @@ public class MainConfig {
                 this.reload();
                 break;
             case "0.0.3":  // Don't do the update for now, since these are non-functional
+                this.configuration.set("protect_interact", new String[] {
+                        "ANVIL", "BEACON", "BED", "BED_BLOCK", "BREWING_STAND",
+                        "BURNING_FURNACE", "CAKE", "CAKE_BLOCK", "CAULDRON", "CHEST",
+                        "COMMAND", "CROPS", "DAYLIGHT_DETECTOR", "DIODE", "DIODE_BLOCK_OFF",
+                        "DIODE_BLOCK_ON", "DISPENSER", "DRAGON_EGG", "DROPPER", "ENCHANTMENT_TABLE",
+                        "ENDER_CHEST", "FENCE_GATE", "FLOWER_POT", "FURNACE", "GLOWING_REDSTONE_ORE",
+                        "GOLD_PLATE", "HOPPER", "IRON_DOOR", "IRON_DOOR_BLOCK", "IRON_PLATE", "JUKEBOX",
+                        "MOB_SPAWNER", "NETHER_STALK", "NETHER_WARTS", "NOTE_BLOCK", "REDSTONE_COMPARATOR",
+                        "REDSTONE_COMPARATOR_OFF", "REDSTONE_COMPARATOR_ON", "REDSTONE_ORE", "SIGN",
+                        "SIGN_POST", "SKULL", "STONE_BUTTON", "STONE_PLATE", "TNT", "TRAP_DOOR",
+                        "TRAPPED_CHEST", "WALL_SIGN", "WOOD_BUTTON", "WOOD_DOOR", "WOOD_PLATE",
+                        "WOODEN_DOOR", "WORKBENCH"
+                });
 //                this.configuration.set("special_permissions.prevent_burning",                   false);
 //                this.configuration.set("special_permissions.prevent_damage",                    true);
 //                this.configuration.set("special_permissions.prevent_fade",                      true);
@@ -56,13 +71,12 @@ public class MainConfig {
 //                this.configuration.set("special_permissions.prevent_player_bucket_empty",       true);
 //                this.configuration.set("special_permissions.prevent_player_bucket_fill",        true);
 //                this.configuration.set("special_permissions.prevent_vehicle_create",            true);
-//                this.configuration.set("version", "0.1.0");
-//                this.plugin.saveConfig();
-//                this.plugin.getLogger().info("Updated config to version 0.1.0");
-//                this.plugin.getLogger().info("You may want to check out all the extra options!");
-//                this.reload();
+                this.configuration.set("version", "0.1.0b1");
+                this.plugin.saveConfig();
+                this.plugin.getLogger().info("Updated config to version 0.1.0b1");
+                this.reload();
                 break;
-            case "0.1.0": // Latest version
+            case "0.1.0b1": // Latest version
                 break;
             default:
                 this.plugin.getLogger().warning(
@@ -138,79 +152,86 @@ public class MainConfig {
         return this.configuration.getBoolean("migrate", true);
     }
 
-    public boolean getSpecialPreventBurning() {
-        return this.configuration.getBoolean("special_protections.prevent_burning");
+    /**
+     * @return An array of material IDs that should be protected against interactions
+     */
+    public List<String> getInteractProtected() {
+        return this.configuration.getStringList("protect_interact");
     }
 
-    public boolean getSpecialPreventDamage() {
-        return this.configuration.getBoolean("special_protections.prevent_damage");
-    }
-
-    public boolean getSpecialPreventFade() {
-        return this.configuration.getBoolean("special_protections.prevent_fade");
-    }
-
-    public boolean getSpecialPreventForm() {
-        return this.configuration.getBoolean("special_protections.prevent_form");
-    }
-
-    public boolean getSpecialPreventLiquidFlow() {
-        return this.configuration.getBoolean("special_protections.prevent_liquid_flow");
-    }
-
-    public boolean getSpecialPreventDragonEggTeleport() {
-        return this.configuration.getBoolean("special_protections.prevent_dragon_egg_teleport");
-    }
-
-    public boolean getSpecialPreventGrowth() {
-        return this.configuration.getBoolean("special_protections.prevent_growth");
-    }
-
-    public boolean getSpecialPreventIgnite() {
-        return this.configuration.getBoolean("special_protections.prevent_ignite");
-    }
-
-    public boolean getSpecialPreventPhysics() {
-        return this.configuration.getBoolean("special_protections.prevent_physics");
-    }
-
-    public boolean getSpecialPreventLeafDecay() {
-        return this.configuration.getBoolean("special_protections.prevent_leaf_decay");
-    }
-
-    public boolean getSpecialPreventSignChange() {
-        return this.configuration.getBoolean("special_protections.prevent_sign_change");
-    }
-
-    public boolean getSpecialPreventEntityExplode() {
-        return this.configuration.getBoolean("special_protections.prevent_entity_explode");
-    }
-
-    public boolean getSpecialPreventHangingBreak() {
-        return this.configuration.getBoolean("special_protections.prevent_hanging_break");
-    }
-
-    public boolean getSpecialPreventHangingBreakByEntity() {
-        return this.configuration.getBoolean("special_protections.prevent_hanging_break_by_entity");
-    }
-
-    public boolean getSpecialPreventHangingPlace() {
-        return this.configuration.getBoolean("special_protections.prevent_hanging_place");
-    }
-
-    public boolean getSpecialPreventLightningStrike() {
-        return this.configuration.getBoolean("special_protections.prevent_lightning_strike");
-    }
-
-    public boolean getSpecialPreventBucketEmpty() {
-        return this.configuration.getBoolean("special_protections.prevent_player_bucket_empty");
-    }
-
-    public boolean getSpecialPreventBucketFill() {
-        return this.configuration.getBoolean("special_protections.prevent_player_bucket_fill");
-    }
-
-    public boolean getSpecialPreventVehicleCreate() {
-        return this.configuration.getBoolean("special_protections.prevent_vehicle_create");
-    }
+//    public boolean getSpecialPreventBurning() {
+//        return this.configuration.getBoolean("special_protections.prevent_burning");
+//    }
+//
+//    public boolean getSpecialPreventDamage() {
+//        return this.configuration.getBoolean("special_protections.prevent_damage");
+//    }
+//
+//    public boolean getSpecialPreventFade() {
+//        return this.configuration.getBoolean("special_protections.prevent_fade");
+//    }
+//
+//    public boolean getSpecialPreventForm() {
+//        return this.configuration.getBoolean("special_protections.prevent_form");
+//    }
+//
+//    public boolean getSpecialPreventLiquidFlow() {
+//        return this.configuration.getBoolean("special_protections.prevent_liquid_flow");
+//    }
+//
+//    public boolean getSpecialPreventDragonEggTeleport() {
+//        return this.configuration.getBoolean("special_protections.prevent_dragon_egg_teleport");
+//    }
+//
+//    public boolean getSpecialPreventGrowth() {
+//        return this.configuration.getBoolean("special_protections.prevent_growth");
+//    }
+//
+//    public boolean getSpecialPreventIgnite() {
+//        return this.configuration.getBoolean("special_protections.prevent_ignite");
+//    }
+//
+//    public boolean getSpecialPreventPhysics() {
+//        return this.configuration.getBoolean("special_protections.prevent_physics");
+//    }
+//
+//    public boolean getSpecialPreventLeafDecay() {
+//        return this.configuration.getBoolean("special_protections.prevent_leaf_decay");
+//    }
+//
+//    public boolean getSpecialPreventSignChange() {
+//        return this.configuration.getBoolean("special_protections.prevent_sign_change");
+//    }
+//
+//    public boolean getSpecialPreventEntityExplode() {
+//        return this.configuration.getBoolean("special_protections.prevent_entity_explode");
+//    }
+//
+//    public boolean getSpecialPreventHangingBreak() {
+//        return this.configuration.getBoolean("special_protections.prevent_hanging_break");
+//    }
+//
+//    public boolean getSpecialPreventHangingBreakByEntity() {
+//        return this.configuration.getBoolean("special_protections.prevent_hanging_break_by_entity");
+//    }
+//
+//    public boolean getSpecialPreventHangingPlace() {
+//        return this.configuration.getBoolean("special_protections.prevent_hanging_place");
+//    }
+//
+//    public boolean getSpecialPreventLightningStrike() {
+//        return this.configuration.getBoolean("special_protections.prevent_lightning_strike");
+//    }
+//
+//    public boolean getSpecialPreventBucketEmpty() {
+//        return this.configuration.getBoolean("special_protections.prevent_player_bucket_empty");
+//    }
+//
+//    public boolean getSpecialPreventBucketFill() {
+//        return this.configuration.getBoolean("special_protections.prevent_player_bucket_fill");
+//    }
+//
+//    public boolean getSpecialPreventVehicleCreate() {
+//        return this.configuration.getBoolean("special_protections.prevent_vehicle_create");
+//    }
 }

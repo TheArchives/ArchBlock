@@ -36,5 +36,62 @@ db_config:
 # if you haven't done so already.
 migrate: false
 
+protect_interact:
+# This is a list of blocks to prevent players from interacting with
+# if they aren't allowed to edit them (For example, right-clicking note blocks)
+- ANVIL
+- BEACON
+- BED
+- BED_BLOCK
+- BREWING_STAND
+- BURNING_FURNACE
+- CAKE
+- CAKE_BLOCK
+- CAULDRON
+- CHEST
+- COMMAND
+- CROPS
+- DAYLIGHT_DETECTOR
+- DIODE
+- DIODE_BLOCK_OFF
+- DIODE_BLOCK_ON
+- DISPENSER
+- DRAGON_EGG
+- DROPPER
+- ENCHANTMENT_TABLE
+- ENDER_CHEST
+- FENCE_GATE
+- FLOWER_POT
+- FURNACE
+- GLOWING_REDSTONE_ORE
+- GOLD_PLATE
+- HOPPER
+- IRON_DOOR
+- IRON_DOOR_BLOCK
+- IRON_PLATE
+- JUKEBOX
+- MOB_SPAWNER
+- NETHER_STALK
+- NETHER_WARTS
+- NOTE_BLOCK
+- REDSTONE_COMPARATOR
+- REDSTONE_COMPARATOR_OFF
+- REDSTONE_COMPARATOR_ON
+- REDSTONE_ORE
+- SIGN
+- SIGN_POST
+- SKULL
+- STONE_BUTTON
+- STONE_PLATE
+- TNT
+- TRAP_DOOR
+- TRAPPED_CHEST
+- WALL_SIGN
+- WOOD_BUTTON
+- WOOD_DOOR
+- WOOD_PLATE
+- WOODEN_DOOR
+- WORKBENCH
+
 # Don't edit this - you'll break your configuration.
-version: "0.0.3"
+version: "0.1.0b"
