@@ -20,6 +20,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -129,6 +130,8 @@ public class Plugin extends JavaPlugin {
 
         this.getWGCustomFlagsPlugin().addCustomFlag(Plugin.bypassProtectionFlag);
         this.worldGuardIntegration = new WorldGuard(this);
+
+
     }
 
     @Override
@@ -248,10 +251,12 @@ public class Plugin extends JavaPlugin {
     }
 
     public String getLocalisedString(String key, Object ... args) {
-        String value = this.localisedStrings.getString(key);
+        String value;
 
-        if (value == null) {
-            return value;
+        try {
+            value = this.localisedStrings.getString(key);
+        } catch (MissingResourceException e) {
+            return null;
         }
 
         return ChatColor.translateAlternateColorCodes('&', String.format(value, args));
