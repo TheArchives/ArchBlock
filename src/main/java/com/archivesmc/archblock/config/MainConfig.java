@@ -15,6 +15,7 @@ public class MainConfig {
 
     public MainConfig(Plugin plugin) {
         this.plugin = plugin;
+        this.configuration = this.plugin.getConfig();
     }
 
     /**
@@ -22,7 +23,6 @@ public class MainConfig {
      */
     public void reload() {
         this.plugin.reloadConfig();
-        this.configuration = this.plugin.getConfig();
 
         switch(this.getVersion()) {
             case "0.0.1":
