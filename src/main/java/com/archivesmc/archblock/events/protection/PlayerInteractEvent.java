@@ -43,17 +43,10 @@ public class PlayerInteractEvent implements Listener {
                 UUID owner = this.plugin.getApi().getOwnerUUID(block);
 
                 if (owner == null) {
-                    event.getPlayer().sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s This block is not owned by anyone.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.AQUA
-                    ));
+                    event.getPlayer().sendMessage(this.plugin.getPrefixedLocalisedString("event_interact_sword_not_owned"));
                 } else {
-                    event.getPlayer().sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s This block is owned by %s%s%s.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.AQUA, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
-                            ChatColor.RED
+                    event.getPlayer().sendMessage(this.plugin.getPrefixedLocalisedString(
+                            "event_interact_sword_owned_by", this.plugin.getApi().getUsernameForUuid(owner)
                     ));
                 }
 
@@ -62,13 +55,9 @@ public class PlayerInteractEvent implements Listener {
         } else {
             if (this.plugin.getInteractProtected().contains(event.getClickedBlock().getType().toString())) {
                 if (!this.plugin.getApi().canEditBlock(event.getClickedBlock(), event.getPlayer())) {
-                    event.getPlayer().sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s You may not interact with any %s%s%s owned by %s%s%s.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, event.getClickedBlock().getType().toString(),
-                            ChatColor.RED, ChatColor.AQUA,
-                            this.plugin.getApi().getUsernameForUuid(this.plugin.getApi().getOwnerUUID(event.getClickedBlock())),
-                            ChatColor.RED
+                    event.getPlayer().sendMessage(this.plugin.getPrefixedLocalisedString(
+                            "event_interact_denied", event.getClickedBlock().getType().toString(),
+                            this.plugin.getApi().getUsernameForUuid(this.plugin.getApi().getOwnerUUID(event.getClickedBlock()))
                     ));
 
                     event.setCancelled(true);

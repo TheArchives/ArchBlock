@@ -34,13 +34,7 @@ public class FriendsCommand implements CommandExecutor {
             toCheck = sender.getName();
         } else {
             if (args.length < 1) {
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                        ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                        label, ChatColor.DARK_GREEN
-                ));
-
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("friends_command_console_usage", label));
                 return true;
             } else {
                 toCheck = args[0];
@@ -50,21 +44,12 @@ public class FriendsCommand implements CommandExecutor {
         UUID uuid = this.plugin.getApi().getUuidForUsername(toCheck);
 
         if (uuid == null) {
-            sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                    ChatColor.RED, ChatColor.AQUA, args[0]
-            ));
+            sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
         } else {
             List friends = this.plugin.getApi().getFriendships(uuid);
 
             if (friends.size() < 1) {
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s No friends found :(",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                        ChatColor.RED
-                ));
-
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("friends_command_no_friends"));
                 return true;
             }
 
@@ -89,19 +74,16 @@ public class FriendsCommand implements CommandExecutor {
                 lines.add(currentLine);
             }
 
-            sender.sendMessage(String.format(
-                    "== %s[%sFriends%s]%s ==",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                    ChatColor.WHITE
-            ));
+            sender.sendMessage(this.plugin.getLocalisedString("friends_command_list_header"));
 
             for (List<String> line : lines) {
-                sender.sendMessage(String.format(
-                        "%s%s", ChatColor.AQUA,
-                        StringUtils.join(line, String.format(
-                                "%s, %s", ChatColor.DARK_AQUA, ChatColor.AQUA
-                        ))
-                ));
+                sender.sendMessage(
+                        this.plugin.getLocalisedString("friends_command_list_row",
+                                StringUtils.join(
+                                        line, this.plugin.getLocalisedString("friends_command_list_separator")
+                                )
+                        )
+                );
             }
         }
 

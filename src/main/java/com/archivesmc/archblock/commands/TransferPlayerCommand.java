@@ -23,25 +23,13 @@ public class TransferPlayerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("archblock.admin")) {
-            sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
-            ));
+            sender.sendMessage(this.plugin.getPrefixedLocalisedString("command_no_permission"));
         } else {
             if (args.length < 2) {
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <target>",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                        ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                        label, ChatColor.DARK_GREEN
-                ));
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("transferplayer_command_usage", label));
             } else {
                 if (this.plugin.isTaskRunning()) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("task_already_running"));
                     return true;
                 }
 
@@ -49,17 +37,9 @@ public class TransferPlayerCommand implements CommandExecutor {
                 UUID toUuid = this.plugin.getApi().getUuidForUsername(args[1]);
 
                 if (fromUuid == null) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, args[0]
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
                 } else if (toUuid == null) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, args[1]
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[1]));
                 } else {
                     RelayRunnable callback;
 
@@ -68,19 +48,15 @@ public class TransferPlayerCommand implements CommandExecutor {
                     } else if (sender instanceof ConsoleCommandSender) {
                         callback = new ConsoleRelayRunnable(this.plugin);
                     } else {
-                        sender.sendMessage("This command may only be run by a player or the console.");
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("player_or_console_only"));
                         return true;
                     }
 
                     new TransferBlocksThread(this.plugin, fromUuid, toUuid, callback).start();
 
                     sender.sendMessage(
-                            String.format(
-                                    "%s[%sArchBlock%s]%s Transferring blocks from %s%s%s to %s%s%s. "
-                                  + "This may take a while.",
-                                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                    ChatColor.BLUE, ChatColor.AQUA, args[0], ChatColor.BLUE,
-                                    ChatColor.AQUA, args[1], ChatColor.BLUE
+                            this.plugin.getPrefixedLocalisedString(
+                                    "transferplayer_command_transferring_blocks", args[0], args[1]
                             )
                     );
                 }

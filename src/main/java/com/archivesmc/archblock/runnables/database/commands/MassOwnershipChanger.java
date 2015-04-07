@@ -94,8 +94,8 @@ public class MassOwnershipChanger extends Thread {
                         s.save(newBlock);
                     }
                 } catch (Exception e) {
-                    this.plugin.getLogger().warning(String.format(
-                            "Unable to update block owner at %s(%s, %s, %s): %s",
+                    this.plugin.getLogger().warning(this.plugin.getLocalisedString(
+                            "unable_to_update_block_owner",
                             world, x, y, z, e.getMessage()
                     ));
                 }

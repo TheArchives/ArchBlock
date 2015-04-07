@@ -21,55 +21,33 @@ public class TransferBlocksCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("archblock.transfer")) {
-            sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
-            ));
+            sender.sendMessage(this.plugin.getPrefixedLocalisedString("command_no_permission"));
         } else {
             if (args.length < 1) {
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                        ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                        label, ChatColor.DARK_GREEN
-                ));
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("transferblocks_command_usage", label));
             } else {
                 UUID uuid = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (uuid == null) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, args[0]
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
                 } else {
                     RelayRunnable callback;
 
                     if (sender instanceof Player) {
                         callback = new RelayRunnable(this.plugin, sender.getName());
                     } else {
-                        sender.sendMessage("This command may only be run by a player.");
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("player_only"));
+                        return true;
+                    }
+
+                    if (this.plugin.isTaskRunning()) {
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("task_already_running"));
                         return true;
                     }
 
                     new TransferBlocksThread(this.plugin, ((Player) sender).getUniqueId(), uuid, callback).start();
 
-                    sender.sendMessage(
-                            String.format(
-                                    "%s[%sArchBlock%s]%s Transferring your blocks to %s%s%s. This may take a while.",
-                                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                    ChatColor.BLUE, ChatColor.AQUA, args[0], ChatColor.BLUE
-                            )
-                    );
-                }
-
-                if (this.plugin.isTaskRunning()) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED
-                    ));
-                    return true;
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("transferblocks_command_transferring_blocks", args[0]));
                 }
             }
         }

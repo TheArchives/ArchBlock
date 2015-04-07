@@ -23,12 +23,7 @@ public class FriendCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 1) {
-            sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                    ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                    label, ChatColor.DARK_GREEN
-            ));
+            sender.sendMessage(this.plugin.getPrefixedLocalisedString("friend_command_usage", label));
         } else {
             UUID player;
             UUID friend;
@@ -38,66 +33,41 @@ public class FriendCommand implements CommandExecutor {
                 friend = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (friend == null) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, args[0]
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
                 } else {
                     if (this.plugin.getApi().hasFriendship(player, friend)) {
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are already friends with %s%s",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                ChatColor.RED, ChatColor.AQUA, args[0]
-                        ));
+                        sender.sendMessage(
+                                this.plugin.getPrefixedLocalisedString("friend_command_already_friends", args[0])
+                        );
                     } else {
                         this.plugin.getApi().createFriendship(player, friend);
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s You are now friends with %s%s",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                ChatColor.GREEN, ChatColor.AQUA, args[0]
-                        ));
+                        sender.sendMessage(
+                                this.plugin.getPrefixedLocalisedString("friend_command_now_friends", args[0])
+                        );
                     }
                 }
             } else {
                 if (args.length < 2) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user> <friend>",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                            label, ChatColor.DARK_GREEN
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("friend_command_console_usage", label));
                 } else {
                     player = this.plugin.getApi().getUuidForUsername(args[0]);
                     friend = this.plugin.getApi().getUuidForUsername(args[1]);
 
                     if (player == null) {
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                ChatColor.RED, ChatColor.AQUA, args[0]
-                        ));
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
                     } else if (friend == null) {
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                ChatColor.RED, ChatColor.AQUA, args[1]
-                        ));
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[1]));
                     } else {
                         if (this.plugin.getApi().hasFriendship(player, friend)) {
-                            sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is already friends with %s%s",
-                                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                    ChatColor.AQUA, args[0], ChatColor.RED, ChatColor.AQUA, args[1]
-                            ));
+                            sender.sendMessage(
+                                    this.plugin.getPrefixedLocalisedString("friend_command_console_already_friends", args[0], args[1])
+                            );
                         } else {
                             this.plugin.getApi().createFriendship(player, friend);
 
-                            sender.sendMessage(String.format(
-                                    "%s[%sArchBlock%s]%s %s%s is now friends with %s%s",
-                                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                    ChatColor.AQUA, args[0], ChatColor.GREEN, ChatColor.AQUA, args[1]
-                            ));
+                            sender.sendMessage(
+                                    this.plugin.getPrefixedLocalisedString("friend_command_console_now_friends", args[0], args[1])
+                            );
                         }
                     }
                 }

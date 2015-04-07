@@ -42,13 +42,7 @@ public class TransferBlocksThread extends Thread {
 
         this.plugin.setTaskRunning(false);
 
-        this.callback.setMessage(
-                String.format(
-                        "%s[%sArchBlock%s]%s Ownership of %s%s blocks%s has been changed.",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE,
-                        ChatColor.RED, rows, ChatColor.BLUE
-                )
-        );
+        this.callback.setMessage(this.plugin.getPrefixedLocalisedString("transferblocks_thread_complete", rows));
 
         this.runCallback();
     }

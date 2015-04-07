@@ -35,7 +35,7 @@ public class WatchBlockImporter implements Importer {
 
     @Override
     public boolean doImport() {
-        this.info("Beginning WatchBlock import..");
+        this.info(this.plugin.getLocalisedString("watchblock_import_starting"));
 
         boolean result;
 
@@ -56,17 +56,14 @@ public class WatchBlockImporter implements Importer {
         }
 
         if (!allWorldsDone) {
-            this.warning("Not all worlds were converted. Please check for errors!");
+            this.info(this.plugin.getLocalisedString("watchblock_import_not_all_worlds_converted"));
         }
 
-        this.info(
-                "Disabling WatchBlock now. Please remember to remove it before you " +
-                "restart next, or you'll have problems!"
-        );
+        this.info(this.plugin.getLocalisedString("watchblock_import_disabling_watchblock"));
 
         this.plugin.getServer().getPluginManager().disablePlugin(this.watchBlockPlugin);
 
-        this.info("Import complete!");
+        this.info(this.plugin.getLocalisedString("watchblock_import_complete"));
 
         return true;
     }
@@ -75,7 +72,7 @@ public class WatchBlockImporter implements Importer {
      * Load up the list of worlds, which will be used later
      */
     private void getWorlds() {
-        this.info("Looking for worlds to import..");
+        this.info(this.plugin.getLocalisedString("watchblock_import_looking_for_worlds"));
 
         List<File> dirs = Utils.listDirectories(this.watchBlockConfigDir);
 
@@ -83,8 +80,8 @@ public class WatchBlockImporter implements Importer {
             this.worlds.add(f.getName());
         }
 
-        this.info(String.format(
-                "Found worlds (%s): %s", this.worlds.size(), StringUtils.join(this.worlds, ", ")
+        this.info(this.plugin.getLocalisedString(
+                "watchblock_import_found_worlds", this.worlds.size(), StringUtils.join(this.worlds, ", ")
         ));
     }
 
@@ -93,7 +90,7 @@ public class WatchBlockImporter implements Importer {
      * @return true if successful, false otherwise
      */
     private boolean convertFriends() {
-        this.info("Converting friendships..");
+        this.info(this.plugin.getLocalisedString("watchblock_import_converting_friendships"));
 
         File friendsFile = new File(this.watchBlockConfigDir, "allow.yml");
 
@@ -129,8 +126,8 @@ public class WatchBlockImporter implements Importer {
                         if (rightUuid != null) {
                             if (! this.plugin.getApi().hasFriendship(leftUuid, rightUuid)) {
                                 this.plugin.getApi().createFriendship(leftUuid, rightUuid);
-                                this.info(String.format(
-                                        "Created friendship: %s -> %s",
+                                this.info(this.plugin.getLocalisedString(
+                                        "watchblock_import_created_friendship",
                                         player, friend
                                 ));
                             }
@@ -151,7 +148,7 @@ public class WatchBlockImporter implements Importer {
             }
         }
 
-        this.info("Friendships converted.");
+        this.info(this.plugin.getLocalisedString("watchblock_import_friendships_converted"));
         return true;
     }
 
@@ -161,15 +158,15 @@ public class WatchBlockImporter implements Importer {
      * @return true if successful, false otherwise
      */
     private boolean convertWorld(String world) {
-        this.info(String.format(
-                "Loading blocks for world: %s", world
+        this.info(this.plugin.getLocalisedString(
+                "watchblock_import_loading_blocks_for_world", world
         ));
 
         List<Map<Point3D, String>> points = new ArrayList<>();
         File worldDir = new File(this.watchBlockConfigDir, "/" + world);
 
         if (! (worldDir.exists() || worldDir.isDirectory())) {
-            this.warning("Unable to find data files!");
+            this.warning(this.plugin.getLocalisedString("watchblock_import_unable_to_find_data_files"));
             return false;
         }
 
@@ -180,8 +177,8 @@ public class WatchBlockImporter implements Importer {
             chunkPoint = this.pointFromFilename(file.getName());
 
             if (chunkPoint == null) {
-                this.warning(String.format(
-                        "Unable to get chunk for file: %s", file.getName()
+                this.warning(this.plugin.getLocalisedString(
+                        "watchblock_import_unable_to_get_chunk_for_file", file.getName()
                 ));
 
                 continue;
@@ -199,8 +196,8 @@ public class WatchBlockImporter implements Importer {
         int doneChunks = 0;
         int totalChunks = points.size();
 
-        this.info(String.format(
-                "Importing %s chunks. This may take a while.", totalChunks
+        this.info(this.plugin.getLocalisedString(
+                "watchblock_import_importing_chunks", totalChunks
         ));
 
         List<ImportThread> threads = new ArrayList<>();
@@ -233,7 +230,7 @@ public class WatchBlockImporter implements Importer {
             }
 
             th = new ImportThread(world, chunks, this.plugin);
-            this.info(String.format("Setting up thread: %s", th));
+            this.info(this.plugin.getLocalisedString("watchblock_import_setting_up_thread", th));
             threads.add(th);
         }
         
@@ -261,13 +258,13 @@ public class WatchBlockImporter implements Importer {
                 }
 
                 if (th.getDone()) {
-                    this.info(String.format("Thread completed: %s", th));
+                    this.info(this.plugin.getLocalisedString("watchblock_import_thread_completed", th));
                     doneThreads.add(th);
                     operatingThreads.remove(th);
                     doneChunks += th.getNumberOfChunks();
 
-                    this.info(String.format(
-                            "Chunks done: %s/%s", doneChunks, totalChunks
+                    this.info(this.plugin.getLocalisedString(
+                            "watchblock_import_chunks_done", doneChunks, totalChunks
                     ));
                 }
             }
@@ -279,8 +276,8 @@ public class WatchBlockImporter implements Importer {
             }
         }
 
-        this.info(String.format(
-                "World imported: %s", world
+        this.info(this.plugin.getLocalisedString(
+                "watchblock_import_world_imported", world
         ));
 
         return true;
@@ -301,12 +298,12 @@ public class WatchBlockImporter implements Importer {
             uuid = Utils.fetchUuid(player);
 
             if (uuid == null) {
-                this.warning(String.format("Unable to fetch UUID for player: %s", player));
+                this.warning(this.plugin.getLocalisedString("watchblock_import_unable_to_fetch_uuid", player));
                 Thread.sleep(1500);  // Mojang rate-limiting..
                 return false;
             } else {
                 this.plugin.getApi().storePlayer(uuid, player);
-                this.info(String.format("Fetched UUID for player: %s", player));
+                this.info(this.plugin.getLocalisedString("watchblock_import_fetched_uuid", player));
             }
 
             Thread.sleep(1500);  // Mojang rate-limiting..
@@ -433,7 +430,7 @@ public class WatchBlockImporter implements Importer {
      */
     private void info(String message) {
         this.plugin.getLogger().info(
-                String.format("IMPORT | %s", message)
+                this.plugin.getLocalisedString("import_logging_prefix", message)
         );
     }
 
@@ -443,7 +440,7 @@ public class WatchBlockImporter implements Importer {
      */
     private void warning(String message) {
         this.plugin.getLogger().warning(
-                String.format("IMPORT | %s", message)
+                this.plugin.getLocalisedString("import_logging_prefix", message)
         );
     }
 }

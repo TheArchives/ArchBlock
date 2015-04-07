@@ -30,14 +30,9 @@ public class BlockPlaceEvent implements Listener {
 
         if (owner != null && !owner.equals(ourUuid)) {
             if (! event.getPlayer().hasPermission("archblock.bypass") && ! this.plugin.getApi().hasFriendship(owner, ourUuid)) {
-                event.getPlayer().sendMessage(
-                        String.format(
-                                "%s[%sArchBlock%s]%s You may not place blocks against those owned by %s%s%s.",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                                ChatColor.RED, ChatColor.AQUA, this.plugin.getApi().getUsernameForUuid(owner),
-                                ChatColor.RED
-                        )
-                );
+                event.getPlayer().sendMessage(this.plugin.getPrefixedLocalisedString(
+                        "event_block_place_denied", this.plugin.getApi().getUsernameForUuid(owner)
+                ));
 
                 event.setCancelled(true);
                 return;

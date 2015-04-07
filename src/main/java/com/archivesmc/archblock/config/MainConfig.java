@@ -15,7 +15,6 @@ public class MainConfig {
 
     public MainConfig(Plugin plugin) {
         this.plugin = plugin;
-        this.reload();
     }
 
     /**
@@ -29,13 +28,17 @@ public class MainConfig {
             case "0.0.1":
                 this.configuration.set("version", "0.0.2");
                 this.plugin.saveConfig();
-                this.plugin.getLogger().info("Updated config to version 0.0.2");
+
+                this.plugin.getLogger().info(this.plugin.getLocalisedString("plugin_config_updated", "0.0.2"));
+
                 this.reload();
                 break;
             case "0.0.2":
                 this.configuration.set("version", "0.0.3");
                 this.plugin.saveConfig();
-                this.plugin.getLogger().info("Updated config to version 0.0.3");
+
+                this.plugin.getLogger().info(this.plugin.getLocalisedString("plugin_config_updated", "0.0.3"));
+
                 this.reload();
                 break;
             case "0.0.3":  // Don't do the update for now, since these are non-functional
@@ -73,17 +76,25 @@ public class MainConfig {
 //                this.configuration.set("special_permissions.prevent_vehicle_create",            true);
                 this.configuration.set("version", "0.1.0b1");
                 this.plugin.saveConfig();
-                this.plugin.getLogger().info("Updated config to version 0.1.0b1");
+
+                this.plugin.getLogger().info(this.plugin.getLocalisedString("plugin_config_updated", "0.1.0b1"));
+
                 this.reload();
                 break;
             case "0.1.0b1": // Latest version
+                this.configuration.set("version", "0.1.0b2");
+                this.configuration.set("language", "system");
+                this.plugin.saveConfig();
+
+                this.plugin.getLogger().info(this.plugin.getLocalisedString("plugin_config_updated", "0.1.0b2"));
+
+                this.reload();
+                break;
+            case "0.1.0b2": // Latest version
                 break;
             default:
                 this.plugin.getLogger().warning(
-                        String.format(
-                                "Unknown version \"%s\", please make sure your config.yml is correct.",
-                                this.getVersion()
-                        )
+                        this.plugin.getLocalisedString("plugin_config_unknown_version", this.getVersion())
                 );
                 break;
         }
@@ -94,6 +105,10 @@ public class MainConfig {
      */
     public String getVersion() {
         return this.configuration.getString("version");
+    }
+
+    public String getLanguage() {
+        return this.configuration.getString("language", "system");
     }
 
     /**

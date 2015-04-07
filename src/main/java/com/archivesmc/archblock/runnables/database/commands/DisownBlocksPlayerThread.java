@@ -40,13 +40,7 @@ public class DisownBlocksPlayerThread extends Thread {
 
         this.plugin.setTaskRunning(false);
 
-        this.callback.setMessage(
-                String.format(
-                        "%s[%sArchBlock%s]%s %s blocks%s have been disowned.",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED,
-                        rows, ChatColor.BLUE
-                )
-        );
+        this.callback.setMessage(this.plugin.getPrefixedLocalisedString("disown_thread_complete", rows));
 
         this.runCallback();
     }

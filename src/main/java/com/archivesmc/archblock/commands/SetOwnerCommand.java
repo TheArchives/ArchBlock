@@ -31,40 +31,21 @@ public class SetOwnerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("archblock.admin")) {
-            sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s You do not have permission to access this command.",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
-            ));
+            sender.sendMessage(this.plugin.getPrefixedLocalisedString("command_no_permission"));
         } else {
             if (args.length < 1) {
-                sender.sendMessage(String.format(
-                    "%s[%sArchBlock%s]%s Usage: %s/%s%s %s<user>",
-                    ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                    ChatColor.BLUE, ChatColor.AQUA, ChatColor.DARK_AQUA,
-                        label, ChatColor.DARK_GREEN
-                ));
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s Supply an exclamation point %s(\"!\")%s instead of a username to disown the selected blocks instead.",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE, ChatColor.AQUA, ChatColor.BLUE
-                ));
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("setowner_command_usage", label));
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("setowner_command_usage_exclamation_point"));
             } else if (sender instanceof Player) {
                 if (this.plugin.isTaskRunning()) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s There is already a task running. Please wait for it to finish.",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("task_already_running"));
                     return true;
                 }
 
                 UUID target = this.plugin.getApi().getUuidForUsername(args[0]);
 
                 if (target == null && !("!".equals(args[0]))) {
-                    sender.sendMessage(String.format(
-                            "%s[%sArchBlock%s]%s Unknown player: %s%s",
-                            ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE,
-                            ChatColor.RED, ChatColor.AQUA, args[0]
-                    ));
+                    sender.sendMessage(this.plugin.getPrefixedLocalisedString("unknown_player", args[0]));
                 } else {
                     Selection selection = this.plugin.getWorldEdit().getSelection((Player) sender);
 
@@ -97,10 +78,8 @@ public class SetOwnerCommand implements CommandExecutor {
                             }
                         }
 
-                        RelayRunnable finishRunnable = new RelayRunnable(this.plugin, sender.getName(), String.format(
-                                "%s[%sArchBlock%s]%s Ownership of %s%s%s blocks has been changed.",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE,
-                                ChatColor.RED, blocks.size(), ChatColor.BLUE
+                        RelayRunnable finishRunnable = new RelayRunnable(this.plugin, sender.getName(), this.plugin.getPrefixedLocalisedString(
+                                "ownership_blocks_changed", blocks.size()
                         ));
 
                         MassOwnershipChanger changer = new MassOwnershipChanger(
@@ -109,23 +88,13 @@ public class SetOwnerCommand implements CommandExecutor {
 
                         changer.start();
 
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Changing ownership of %s%s%s blocks. This may take a while.",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.BLUE,
-                                ChatColor.RED, blocks.size(), ChatColor.BLUE
-                        ));
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("setowner_command_changing_ownership", blocks.size()));
                     } else {
-                        sender.sendMessage(String.format(
-                                "%s[%sArchBlock%s]%s Please make a valid WorldEdit cuboid selection.",
-                                ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
-                        ));
+                        sender.sendMessage(this.plugin.getPrefixedLocalisedString("setowner_command_make_worldedit_selection"));
                     }
                 }
             } else {
-                sender.sendMessage(String.format(
-                        "%s[%sArchBlock%s]%s This command may only be run by a player.",
-                        ChatColor.LIGHT_PURPLE, ChatColor.GOLD, ChatColor.LIGHT_PURPLE, ChatColor.RED
-                ));
+                sender.sendMessage(this.plugin.getPrefixedLocalisedString("player_only"));
             }
         }
 

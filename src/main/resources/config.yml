@@ -4,6 +4,11 @@
 # Make sure your database details are 100% correct BEFORE enabling this plugin.
 enabled: false
 
+# The translation the plugin should use. Set this to "system" to try to use your
+# system's language.
+# Supported languages: en
+language: system
+
 # Database configuration.
 db_config:
     # Remember, when specifying class names for anything bundled with this

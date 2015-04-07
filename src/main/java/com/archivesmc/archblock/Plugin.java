@@ -11,6 +11,7 @@ import com.mewin.WGCustomFlags.WGCustomFlagsPlugin;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.BooleanFlag;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.hibernate.Session;
@@ -18,6 +19,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * The main plugin class for ArchBlock.
@@ -33,6 +36,8 @@ public class Plugin extends JavaPlugin {
      * TODO: VEHICLES
      *
      * TODO: REMOVE FROM CONFIG: GROW, PHYSICS
+     *
+     * TODO: LOCALISATION
      */
 
     private ArchBlock api;
@@ -40,6 +45,8 @@ public class Plugin extends JavaPlugin {
     private SessionFactory sessionFactory;
     private WorldGuard worldGuardIntegration;
     private boolean taskRunning;
+
+    private ResourceBundle localisedStrings;
 
     public static final BooleanFlag bypassProtectionFlag = new BooleanFlag("bypass-protection");
 
@@ -52,11 +59,13 @@ public class Plugin extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.mainConfig = new MainConfig(this);
+        this.setUpLocalisation();
+        this.mainConfig.reload();
 
         this.setTaskRunning(false);
 
         if (!this.mainConfig.getEnabled()) {
-            this.getLogger().warning("Plugin is disabled in the config. Set it up or it will do nothing!");
+            this.getLogger().warning(this.getLocalisedString("plugin_disabled_config"));
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -73,35 +82,43 @@ public class Plugin extends JavaPlugin {
 
         if (this.mainConfig.getMigrate()) {
             if (!this.hasWatchBlockPlugin()) {
-                this.getLogger().warning("Migration is enabled, but WatchBlock was not found!");
+                this.getLogger().warning(this.getLocalisedString("plugin_migration_no_watchblock"));
             } else {
                 boolean result = new WatchBlockImporter(this).doImport();
 
                 if (!result) {
-                    this.getLogger().warning("Import seems to have failed - please check for errors!");
+                    this.getLogger().warning(this.getLocalisedString("plugin_migration_failed"));
                 }
             }
         }
 
         Session session = this.getSession();
 
-        this.getLogger().info(String.format(
-                "Loaded! Found %s players.", session.createQuery("select count(*) from Player").uniqueResult()
+        this.getLogger().info(this.getLocalisedString(
+                "plugin_loaded_players", session.createQuery("select count(*) from Player").uniqueResult()
         ));
 
         session.close();
 
         // User commands
         this.getCommand("friend").setExecutor(new FriendCommand(this));
+        this.addCommandAliases("friend");
         this.getCommand("friends").setExecutor(new FriendsCommand(this));
+        this.addCommandAliases("friends");
         this.getCommand("transferblocks").setExecutor(new TransferBlocksCommand(this));
+        this.addCommandAliases("transferblocks");
         this.getCommand("unfriend").setExecutor(new UnfriendCommand(this));
+        this.addCommandAliases("unfriend");
 
         // Staff commands
         this.getCommand("disownplayer").setExecutor(new DisownPlayerCommand(this));
+        this.addCommandAliases("disownplayer");
         this.getCommand("disownworld").setExecutor(new DisownWorldCommand(this));
+        this.addCommandAliases("disownworld");
         this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
+        this.addCommandAliases("setowner");
         this.getCommand("transferplayer").setExecutor(new TransferPlayerCommand(this));
+        this.addCommandAliases("transferplayer");
 
         this.getServer().getPluginManager().registerEvents(new BlockBreakEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceEvent(this), this);
@@ -207,5 +224,54 @@ public class Plugin extends JavaPlugin {
 
     public List<String> getInteractProtected() {
         return this.mainConfig.getInteractProtected();
+    }
+
+    public void setUpLocalisation() {
+        String lang = this.mainConfig.getLanguage();
+        Locale l;
+
+        if (lang.equalsIgnoreCase("system")) {
+            l = Locale.getDefault();
+        } else {
+            l = Locale.forLanguageTag(lang);
+        }
+
+        this.localisedStrings = ResourceBundle.getBundle("translations.Messages", l);
+    }
+
+    public String getPrefixedLocalisedString(String key, Object ... args) {
+        return String.format(
+                "%s %s",
+                this.getLocalisedString("message_prefix"),
+                this.getLocalisedString(key, args)
+        );
+    }
+
+    public String getLocalisedString(String key, Object ... args) {
+        String value = this.localisedStrings.getString(key);
+
+        if (value == null) {
+            return value;
+        }
+
+        return ChatColor.translateAlternateColorCodes('&', String.format(value, args));
+    }
+
+    public void addCommandAliases(String command) {
+        String localisedAliases = this.getLocalisedString(String.format("alias_%s", command));
+
+        if (localisedAliases == null) {
+            return;
+        }
+
+        List<String> aliases = this.getCommand(command).getAliases();
+
+        for (String s : localisedAliases.split(";")) {
+            if (! aliases.contains(s)) {
+                aliases.add(s);
+            }
+        }
+
+        this.getCommand(command).setAliases(aliases);
     }
 }
