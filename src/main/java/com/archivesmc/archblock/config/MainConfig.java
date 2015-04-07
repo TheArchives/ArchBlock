@@ -81,7 +81,16 @@ public class MainConfig {
 
                 this.reload();
                 break;
-            case "0.1.0b1": // Latest version
+            case "0.1.0b":
+                this.configuration.set("version", "0.1.0b1");
+                this.configuration.set("language", "system");
+                this.plugin.saveConfig();
+
+                this.plugin.getLogger().info(this.plugin.getLocalisedString("plugin_config_updated", "0.1.0b1"));
+
+                this.reload();
+                break;
+            case "0.1.0b1":
                 this.configuration.set("version", "0.1.0b2");
                 this.configuration.set("language", "system");
                 this.plugin.saveConfig();

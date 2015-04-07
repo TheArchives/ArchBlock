@@ -99,4 +99,4 @@ protect_interact:
 - WORKBENCH
 
 # Don't edit this - you'll break your configuration.
-version: "0.1.0b"
+version: "0.1.0b2"
