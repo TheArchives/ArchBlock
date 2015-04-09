@@ -1,5 +1,6 @@
 ArchBlock
 =========
+This is a second fork of the plugin, this is for the dutch translation of the plugin.
 
 Builds are available! You can get them at [the Bamboo server](http://bamboo.gserv.me/browse/PLUG-BLOCK/latest).
 
