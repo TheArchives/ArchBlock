@@ -13,42 +13,42 @@ commands:
     friend:
         description: Add another player as a friend, and allow them to edit your blocks
         usage: /<command> [player]
-        aliases: [fr, f, wallow]
+        aliases: [wallow]
     friends:
         description: List everyone you've added as a friend
         usage: /<command>
-        aliases: [fs, wlist]
+        aliases: [wlist]
     transferblocks:
         description: Transfer all your blocks to another player
         usage: /<command> [player]
-        aliases: [tb, transfer, transferb]
+        aliases: []
         permission: archblock.transfer
     unfriend:
         description: Remove another player from your friends list, preventing them from editing your blocks
         usage: /<command> [player]
-        aliases: [ufr, uf, wremove, unwallow]
+        aliases: [wremove, unwallow]
 
     # Staff commands
 
     disownplayer:
         description: Disown all blocks owned by a specific player
         usage: /<command> [player]
-        aliases: [dp, disownp]
+        aliases: [disown]
         permission: archblock.admin
     disownworld:
         description: Disown all blocks on a specific world
         usage: /<command> [world]
-        aliases: [dw, disownw]
+        aliases: [disownw]
         permission: archblock.admin
     setowner:
         description: Set a player as the owner of a (WorldEdit) selecion of blocks
         usage: /setowner [player]
-        aliases: [so, wtransfer]
+        aliases: [wtransfer]
         permission: archblock.admin
     transferplayer:
         description: Transfer all owned blocks from one player to another
         usage: /<command> [player] [target player]
-        aliases: [transferp]
+        aliases: []
         permission: archblock.admin
 
 permissions:
