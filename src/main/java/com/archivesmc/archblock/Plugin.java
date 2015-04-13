@@ -12,12 +12,19 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.BooleanFlag;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -113,7 +120,7 @@ public class Plugin extends JavaPlugin {
 
         // Staff commands
         this.getCommand("disownplayer").setExecutor(new DisownPlayerCommand(this));
-        this.addCommandAliases("disownplayer");
+        this.addCommandAliases("disown");
         this.getCommand("disownworld").setExecutor(new DisownWorldCommand(this));
         this.addCommandAliases("disownworld");
         this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
@@ -263,20 +270,54 @@ public class Plugin extends JavaPlugin {
     }
 
     public void addCommandAliases(String command) {
-        String localisedAliases = this.getLocalisedString(String.format("alias_%s", command));
+        // We have to use reflection to register aliases programmatically
+        Field commandMap;
+        SimpleCommandMap simplecommandMap;
 
-        if (localisedAliases == null) {
+        try {
+            // Start with the plugin manager
+            PluginManager manager = this.getServer().getPluginManager();
+
+            // Check that it's an instance we can use
+            if (! (manager instanceof SimplePluginManager)) {
+                // If not, return, we can't register aliases
+                return;
+            }
+
+            // If so, store that instance
+            SimplePluginManager simplePluginManager = (SimplePluginManager) manager;
+
+            // Get the command map that needs to be modified
+            commandMap = simplePluginManager.getClass().getDeclaredField("commandMap");
+            commandMap.setAccessible(true);
+
+            // And get the instance
+            simplecommandMap = (SimpleCommandMap) commandMap.get(simplePluginManager);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
             return;
         }
 
+        // Now, get our localised aliases
+        String commandKey = String.format("alias_%s", command);
+        String localisedAliases = this.getLocalisedString(commandKey);
+
+        if (localisedAliases == null) {
+            // No aliases
+            return;
+        }
+
+        // Get a pointer to the command's aliases
         List<String> aliases = this.getCommand(command).getAliases();
 
         for (String s : localisedAliases.split(";")) {
+            // Loop over and add aliases
             if (! aliases.contains(s)) {
                 aliases.add(s);
+
+                // Now, register them using reflection!
+                simplecommandMap.register(s, this.getDescription().getName(), this.getCommand(command));
             }
         }
-
-        this.getCommand(command).setAliases(aliases);
     }
 }
