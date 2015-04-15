@@ -6,7 +6,7 @@ enabled: false
 
 # The translation the plugin should use. Set this to "system" to try to use your
 # system's language.
-# Supported languages: en, nl
+# Supported languages: en, nl, fr
 language: system
 
 # Database configuration.

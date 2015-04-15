@@ -37,12 +37,9 @@ public class Plugin extends JavaPlugin {
      *
      * TODO: HANGING ENTITIES
      * TODO: LIGHTNING STRIKE
-     * TODO: BUCKETS
      * TODO: VEHICLES
      *
      * TODO: REMOVE FROM CONFIG: GROW, PHYSICS
-     *
-     * TODO: LOCALISATION
      */
 
     private ArchBlock api;
@@ -117,7 +114,7 @@ public class Plugin extends JavaPlugin {
 
         // Staff commands
         this.getCommand("disownplayer").setExecutor(new DisownPlayerCommand(this));
-        this.addCommandAliases("disown");
+        this.addCommandAliases("disownplayer");
         this.getCommand("disownworld").setExecutor(new DisownWorldCommand(this));
         this.addCommandAliases("disownworld");
         this.getCommand("setowner").setExecutor(new SetOwnerCommand(this));
