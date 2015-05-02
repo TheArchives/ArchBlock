@@ -23,7 +23,7 @@ public class StorePlayerThread extends Thread {
         Object uuid, username;
         Query q;
 
-        q = s.createQuery("SELECT p.username FROM Player p WHERE uuid=:uuid");
+        q = s.createQuery("SELECT p.username FROM Player p WHERE p.uuid=:uuid");
         q.setString("uuid", this.player.getUuid());
         username = q.uniqueResult();
 
@@ -50,7 +50,7 @@ public class StorePlayerThread extends Thread {
             return;
         }
 
-        q = s.createQuery("SELECT p.uuid FROM Player p WHERE username=:username");
+        q = s.createQuery("SELECT p.uuid FROM Player p WHERE p.username=:username");
         q.setString("username", this.player.getUsername().toLowerCase());
         uuid = q.uniqueResult();
 
