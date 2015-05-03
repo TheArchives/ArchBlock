@@ -27,6 +27,53 @@ public class StorePlayerThread extends Thread {
         q.setString("uuid", this.player.getUuid());
         username = q.uniqueResult();
 
+        q = s.createQuery("SELECT p.uuid FROM Player p WHERE p.username=:username");
+        q.setString("username", this.player.getUsername());
+        uuid = q.uniqueResult();
+
+        if (
+                username != null && uuid != null // Username and UUID in the DB aren't null
+             && (! this.player.getUsername().equalsIgnoreCase((String) username))  // Username found isn't this player's
+             && (! this.player.getUuid().equalsIgnoreCase((String) uuid))) {  // UUID isn't this player's either
+            // The UUID and username don't match
+            // Two players have swapped their usernames. This is a really sucky thing to do, but we have to deal with it
+
+            /**
+             * Variable pairs:
+             * this.player.getUsername() -> uuid
+             * username -> this.player.getUuid()
+             *
+             * What we want:
+             *
+             * this.player.getUsername() -> this.player.getUuid()
+             * username -> uuid
+             */
+
+            this.plugin.getLogger().warning(String.format(
+                    "It looks like the players %s and %s have swapped their usernames.",
+                    this.player.getUsername(), (String) username
+            ));
+            this.plugin.getLogger().warning("The database is being updated - let's hope they aren't up to anything shady!");
+
+            // Firstly, delete both players from the database.
+            q = s.createQuery("DELETE Player WHERE uuid=:uuid");
+            q.setString("uuid", (String) uuid);
+            q.executeUpdate();
+
+            q = s.createQuery("DELETE Player WHERE uuid=:uuid");
+            q.setString("uuid", this.player.getUuid());
+            q.executeUpdate();
+
+            // Now, re-insert both players.
+            s.save(this.player);
+            s.save(new Player((String) uuid, (String) username));
+
+            // Hopefully, this should have solved all of our problems.
+            s.flush();
+            s.close();
+            return;
+        }
+
         if (username == null) {
             // Their UUID isn't in the database, let's check for their username.
 
@@ -49,10 +96,6 @@ public class StorePlayerThread extends Thread {
             s.close();
             return;
         }
-
-        q = s.createQuery("SELECT p.uuid FROM Player p WHERE p.username=:username");
-        q.setString("username", this.player.getUsername().toLowerCase());
-        uuid = q.uniqueResult();
 
         if (uuid == null) {
             // Their username isn't in the database either. Store them.
