@@ -127,3 +127,8 @@ jar {
 shadowJar {
     from sourceSets.main.java
 }
+
+javadoc {
+    // Apparently this fixes things
+    options.addStringOption("sourcepath", "")
+}
