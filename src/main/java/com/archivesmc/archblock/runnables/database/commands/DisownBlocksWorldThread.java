@@ -1,8 +1,7 @@
 package com.archivesmc.archblock.runnables.database.commands;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
 import com.archivesmc.archblock.runnables.RelayRunnable;
-import org.bukkit.ChatColor;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -43,6 +42,6 @@ public class DisownBlocksWorldThread extends Thread {
     }
 
     public void runCallback() {
-        this.plugin.getServer().getScheduler().runTask(this.plugin, this.callback);
+        this.plugin.runTask(this.callback);
     }
 }

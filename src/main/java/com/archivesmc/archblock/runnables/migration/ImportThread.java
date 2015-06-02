@@ -1,6 +1,6 @@
 package com.archivesmc.archblock.runnables.migration;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
 import com.archivesmc.archblock.storage.entities.Block;
 import com.archivesmc.archblock.utils.Point3D;
 import org.hibernate.Query;

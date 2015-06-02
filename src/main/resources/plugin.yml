@@ -1,6 +1,6 @@
 name: ArchBlock
-main: com.archivesmc.archblock.Plugin
-version: 0.1.0b
+main: com.archivesmc.archblock.wrappers.bukkit.BukkitPlugin
+version: 0.1.1
 author: Gareth Coles
 website: https://github.com/TheArchives/ArchBlock
 

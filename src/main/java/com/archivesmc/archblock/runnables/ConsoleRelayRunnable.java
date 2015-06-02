@@ -1,6 +1,6 @@
 package com.archivesmc.archblock.runnables;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
 
 public class ConsoleRelayRunnable extends RelayRunnable implements Runnable {
     private final Plugin plugin;
@@ -22,7 +22,7 @@ public class ConsoleRelayRunnable extends RelayRunnable implements Runnable {
 
     @Override
     public void run() {
-        this.plugin.getServer().getConsoleSender().sendMessage(this.message);
+        this.plugin.getWrappedLogger().info(this.message);
     }
 
     public void setMessage(String message) {

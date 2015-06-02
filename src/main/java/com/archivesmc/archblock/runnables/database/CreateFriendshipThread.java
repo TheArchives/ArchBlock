@@ -1,6 +1,6 @@
 package com.archivesmc.archblock.runnables.database;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
 import com.archivesmc.archblock.storage.entities.Friendship;
 import org.hibernate.Query;
 import org.hibernate.Session;

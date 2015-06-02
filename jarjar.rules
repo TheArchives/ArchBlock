@@ -5,6 +5,7 @@ zap org.bukkit.**
 zap org.yaml.**
 zap java.tk.minecraftopia.**
 zap com.intellij.**
+org.spongepowered.**
 
 
 rule com.archivesmc.** com.archivesmc.@1

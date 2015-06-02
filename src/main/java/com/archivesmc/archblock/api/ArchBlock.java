@@ -1,11 +1,11 @@
 package com.archivesmc.archblock.api;
 
-import com.archivesmc.archblock.Plugin;
 import com.archivesmc.archblock.runnables.database.*;
 import com.archivesmc.archblock.storage.entities.Friendship;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+import com.archivesmc.archblock.wrappers.Block;
+import com.archivesmc.archblock.wrappers.Player;
+import com.archivesmc.archblock.wrappers.Plugin;
+import com.archivesmc.archblock.wrappers.World;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -223,12 +223,7 @@ public class ArchBlock {
 
         UUID owner = this.getOwnerUUID(block);
 
-        if (owner == null) {
-            return true;
-        }
-
-        return owner.equals(player.getUniqueId()) || this.hasFriendship(owner, player.getUniqueId());
-
+        return owner == null || owner.equals(player.getUniqueId()) || this.hasFriendship(owner, player.getUniqueId());
     }
 
     /**

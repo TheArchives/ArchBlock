@@ -1,6 +1,6 @@
 package com.archivesmc.archblock.runnables.database;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
 import com.archivesmc.archblock.storage.entities.Player;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -49,11 +49,11 @@ public class StorePlayerThread extends Thread {
              * username -> uuid
              */
 
-            this.plugin.getLogger().warning(String.format(
+            this.plugin.getWrappedLogger().warning(String.format(
                     "It looks like the players %s and %s have swapped their usernames.",
-                    this.player.getUsername(), (String) username
+                    this.player.getUsername(), username
             ));
-            this.plugin.getLogger().warning("The database is being updated - let's hope they aren't up to anything shady!");
+            this.plugin.getWrappedLogger().warning("The database is being updated - let's hope they aren't up to anything shady!");
 
             // Firstly, delete both players from the database.
             q = s.createQuery("DELETE Player WHERE uuid=:uuid");

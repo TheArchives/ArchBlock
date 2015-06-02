@@ -1,7 +1,7 @@
 package com.archivesmc.archblock.runnables;
 
-import com.archivesmc.archblock.Plugin;
-import org.bukkit.entity.Player;
+import com.archivesmc.archblock.wrappers.Plugin;
+import com.archivesmc.archblock.wrappers.Player;
 
 public class RelayRunnable implements Runnable {
     private final Plugin plugin;
@@ -22,7 +22,7 @@ public class RelayRunnable implements Runnable {
 
     @Override
     public void run() {
-        Player p = this.plugin.getServer().getPlayer(this.target);
+        Player p = this.plugin.getWrappedServer().getPlayer(this.target);
 
         if (p != null) {
             p.sendMessage(this.message);

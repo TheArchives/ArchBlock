@@ -104,7 +104,7 @@ for ArchBlock, this may be the route you want to take.
 
   ```java
   // ...
-  import com.archivesmc.archblock.Plugin;
+  import com.archivesmc.archblock.bukkit.Plugin;
 
   public class ArchBlockIntegration {
       private MyPlugin plugin;
@@ -171,7 +171,7 @@ If your plugin requires ArchBlock to function, this may be the route for you.
 
   ```java
   // ...
-  import com.archivesmc.archblock.Plugin;
+  import com.archivesmc.archblock.bukkit.Plugin;
 
   public class MyPlugin extends JavaPlugin {
       // ...

@@ -1,7 +1,7 @@
 package com.archivesmc.archblock.runnables.database.commands;
 
-import com.archivesmc.archblock.Plugin;
-import org.bukkit.block.Block;
+import com.archivesmc.archblock.wrappers.Block;
+import com.archivesmc.archblock.wrappers.Plugin;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -94,7 +94,7 @@ public class MassOwnershipChanger extends Thread {
                         s.save(newBlock);
                     }
                 } catch (Exception e) {
-                    this.plugin.getLogger().warning(this.plugin.getLocalisedString(
+                    this.plugin.getWrappedLogger().warning(this.plugin.getLocalisedString(
                             "unable_to_update_block_owner",
                             world, x, y, z, e.getMessage()
                     ));
@@ -108,6 +108,6 @@ public class MassOwnershipChanger extends Thread {
         }
 
         this.plugin.setTaskRunning(false);
-        this.plugin.getServer().getScheduler().runTask(this.plugin, this.finishRunnable);
+        this.plugin.runTask(this.finishRunnable);
     }
 }

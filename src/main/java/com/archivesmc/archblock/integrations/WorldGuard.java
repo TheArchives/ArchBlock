@@ -1,10 +1,12 @@
 package com.archivesmc.archblock.integrations;
 
-import com.archivesmc.archblock.Plugin;
+import com.archivesmc.archblock.wrappers.Plugin;
+import com.archivesmc.archblock.wrappers.Block;
+import com.archivesmc.archblock.wrappers.bukkit.BukkitPlugin;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import org.bukkit.block.Block;
+import org.bukkit.World;
 
 import static com.sk89q.worldguard.bukkit.BukkitUtil.toVector;
 
@@ -25,16 +27,20 @@ public class WorldGuard {
      * @return true if the region exists and has protection disabled, false otherwise
      */
     public boolean isInIgnoredRegion(Block block) {
-        Vector point = toVector(block);
-        RegionManager regionManager = this.plugin.getWorldGuard().getRegionManager(block.getWorld());
-        ApplicableRegionSet set = regionManager.getApplicableRegions(point);
+        if (this.plugin instanceof BukkitPlugin) {
+            Vector point = toVector((org.bukkit.block.Block) block.getWrapped());
+            RegionManager regionManager = ((BukkitPlugin) this.plugin).getWorldGuard().getRegionManager((World) block.getWorld().getWrapped());
+            ApplicableRegionSet set = regionManager.getApplicableRegions(point);
 
-        Boolean result = set.getFlag(Plugin.bypassProtectionFlag);
+            Boolean result = set.getFlag(BukkitPlugin.bypassProtectionFlag);
 
-        if (result == null) {
-            return false;
+            if (result == null) {
+                return false;
+            }
+
+            return result;
         }
 
-        return result;
+        return false;
     }
 }

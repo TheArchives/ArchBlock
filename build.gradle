@@ -18,7 +18,7 @@ plugins {
     id 'ivy-publish'
 }
 
-version = "0.1.0b"
+version = "0.1.1"
 sourceCompatibility = 1.7
 group = "com.archivesmc.archblock"
 
@@ -96,6 +96,11 @@ repositories {
         url "http://maven.mewin.de/"
         name "mewin"
     }
+
+    maven {
+        url "http://repo.spongepowered.org/maven"
+        name "sponge"
+    }
 }
 
 dependencies {
@@ -110,6 +115,7 @@ dependencies {
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
     compile "commons-io:commons-io:2.4"
     compile "com.intellij:annotations:12.0"
+    compile "org.spongepowered:spongeapi:2.1-SNAPSHOT"
 
     compile files('lib/WatchBlock.jar')
 }
