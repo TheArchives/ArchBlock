@@ -21,8 +21,8 @@ import java.util.ResourceBundle;
 @org.spongepowered.api.plugin.Plugin(id = "archblock", name = "ArchBlock", version = "0.1.1")
 public class SpongePlugin implements Plugin {
     // TODO: Finish this
-    @Inject
     private Logger logger;
+
     private ResourceBundle localisedStrings;
     private Config mainConfig;
 
@@ -42,7 +42,7 @@ public class SpongePlugin implements Plugin {
             }
         }
 
-        this.mainConfig = new SpongeConfig(new File(this.configDir, "config.yml"));
+        this.mainConfig = new SpongeConfig(new File(this.configDir, "config.yml"), this.logger);
     }
 
     @Subscribe
