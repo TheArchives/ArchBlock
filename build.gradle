@@ -116,6 +116,7 @@ dependencies {
     compile "commons-io:commons-io:2.4"
     compile "com.intellij:annotations:12.0"
     compile "org.spongepowered:spongeapi:2.1-SNAPSHOT"
+    compile "org.yaml:snakeyaml:1.15-SNAPSHOT"
 
     compile files('lib/WatchBlock.jar')
 }
