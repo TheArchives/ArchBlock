@@ -38,18 +38,21 @@ public class SpongeConfig implements Config {
         try {
             if (!this.file.exists()) {
                 // Copy default config
-                try (InputStream input = getClass().getResourceAsStream("/config.yml");) {
+                try (InputStream input = getClass().getResourceAsStream("/config.yml")) {
                     String fileData = Utils.convertStreamToString(input);
                     input.close();
 
-                    FileWriter writer = new FileWriter(this.file);
-                    writer.write(fileData);
-                    writer.flush();
-                    writer.close();
+                    try (FileWriter writer = new FileWriter(this.file)) {
+                        writer.write(fileData);
+                        writer.flush();
+                        writer.close();
+                    }
                 }
             }
 
-            this.data = (Map) this.yaml.load(new FileReader(this.file));
+            try (FileReader reader = new FileReader(this.file)) {
+                this.data = (Map) this.yaml.load(reader);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
