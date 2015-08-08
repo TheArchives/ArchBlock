@@ -24,10 +24,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
 public class BukkitPlugin extends JavaPlugin implements Plugin {
     private ArchBlock api;
@@ -64,6 +64,35 @@ public class BukkitPlugin extends JavaPlugin implements Plugin {
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        // Test the database connection
+        this.getLogger().info("Testing database connection..");
+
+        try {
+            Connection conn;
+            Properties connectionProps = new Properties();
+
+            connectionProps.put("user", this.mainConfig.getDatabaseUsername());
+            connectionProps.put("password", this.mainConfig.getDatabasePassword());
+
+            Class.forName(this.mainConfig.getDatabaseDriver());
+
+            conn = DriverManager.getConnection(this.mainConfig.getDatabaseURL(), connectionProps);
+            conn.getMetaData();
+            conn.close();
+        } catch (ClassNotFoundException e) {
+            this.getLogger().severe("Unable to find database driver! Please check your settings.");
+            e.printStackTrace();
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        } catch (SQLException e) {
+            this.getLogger().severe("Unable to connect to database! Please check your settings.");
+            e.printStackTrace();
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        this.getLogger().info("Looks good, continuing..");
 
         Configuration hibernateConfiguration = new Configuration().configure()
                 .setProperty("hibernate.dialect", this.mainConfig.getDatabaseDialect())                // org.hibernate.dialect.MySQL5Dialect
