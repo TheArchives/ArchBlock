@@ -52,7 +52,7 @@ publishing {
 task runJarJar(type: Exec) {
     workingDir '.'
 
-    commandLine 'java', '-jar', 'lib/jarjar-1.4.jar',
+    commandLine 'java', '-Xmx1G', '-jar', 'lib/jarjar-1.4.jar',
             'process', 'jarjar.rules',
             "build/libs/ArchBlock-${version}-all.jar",
             "build/ArchBlock-${version}.jar"
@@ -64,9 +64,16 @@ download {
     src 'https://jarjar.googlecode.com/files/jarjar-1.4.jar'
     dest 'lib/jarjar-1.4.jar'
 }
+
 download {
     src 'http://dev.bukkit.org/media/files/716/564/WatchBlock.jar'
     dest 'lib/WatchBlock.jar'
+}
+
+download {
+    // For some reason I can't get Gradle to download this from Maven Central
+    src 'https://repo1.maven.org/maven2/org/jadira/usertype/usertype.core/4.0.0.GA/usertype.core-4.0.0.GA.jar'
+    dest 'lib/usertype.core-4.0.0.GA.jar'
 }
 
 repositories {
@@ -115,10 +122,14 @@ dependencies {
     compile "org.hibernate:hibernate-c3p0:4.2.5.Final"
     compile "commons-io:commons-io:2.4"
     compile "com.intellij:annotations:12.0"
-    compile "org.spongepowered:spongeapi:2.1-SNAPSHOT"
+//    compile "org.spongepowered:spongeapi:2.1-SNAPSHOT"  (Being rewritten)
     compile "org.yaml:snakeyaml:1.15-SNAPSHOT"
+    compile "joda-time:joda-time:2.8.1"
 
     compile files('lib/WatchBlock.jar')
+
+    // For some reason I can't get Gradle to download this from Maven Central
+    compile files('lib/usertype.core-4.0.0.GA.jar')
 }
 
 jar {

@@ -5,8 +5,10 @@
 
 <hibernate-mapping package="com.archivesmc.archblock.storage.entities">
     <class name="Player" table="PLAYER">
-        <id name="username" column="username"/>
+        <id name="username" column="username" />
 
-        <property name="uuid" column="uuid" unique="true"/>
+        <property name="uuid" column="uuid" unique="true" />
+        <property type="org.jadira.usertype.dateandtime.joda.PersistentDateTime" name="lastOnline"
+                  column="last_online" unique="false" not-null="true" />
     </class>
 </hibernate-mapping>
