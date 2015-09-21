@@ -1,7 +1,5 @@
 package com.archivesmc.archblock.storage.entities;
 
-import org.joda.time.DateTime;
-
 import java.util.UUID;
 
 /**
@@ -10,7 +8,6 @@ import java.util.UUID;
 public class Player {
     private String uuid;
     private String username;
-    private DateTime lastOnline = new DateTime();
 
     public Player() {}
 
