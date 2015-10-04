@@ -1,3 +1,12 @@
+This project has been abandoned
+===============================
+
+This is because I am no longer involved with Minecraft and my community has been shut down.
+
+Feel free to fork and update the project for your own purposes, but I will no longer be maintaining it.
+
+---
+
 ArchBlock
 =========
 
